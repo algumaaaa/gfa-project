@@ -1,0 +1,874 @@
+[gd_scene load_steps=44 format=2]
+
+[ext_resource path="res://player.gd" type="Script" id=1]
+[ext_resource path="res://finalframe 60x105.png" type="Texture" id=2]
+[ext_resource path="res://Sprite3D.gd" type="Script" id=3]
+[ext_resource path="res://finalframe 120x105.png" type="Texture" id=4]
+[ext_resource path="res://effects.png" type="Texture" id=5]
+[ext_resource path="res://muzzleflash.gd" type="Script" id=6]
+[ext_resource path="res://grenade launcher final.png" type="Texture" id=7]
+[ext_resource path="res://lever action final.png" type="Texture" id=8]
+[ext_resource path="res://mac10 final.png" type="Texture" id=9]
+
+[sub_resource type="CapsuleMesh" id=1]
+mid_height = 3.0
+
+[sub_resource type="CapsuleShape" id=2]
+height = 3.0
+
+[sub_resource type="CylinderShape" id=3]
+
+[sub_resource type="Animation" id=32]
+resource_name = "bandaidequip"
+length = 0.33
+tracks/0/type = "value"
+tracks/0/path = NodePath("bandaid:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.33 ),
+"transitions": PoolRealArray( 0.170755, 1 ),
+"update": 0,
+"values": [ Vector2( 100, -100 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=31]
+resource_name = "bandaidunequip"
+length = 0.33
+tracks/0/type = "value"
+tracks/0/path = NodePath("bandaid:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.33 ),
+"transitions": PoolRealArray( 3.86374, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 100, -100 ) ]
+}
+
+[sub_resource type="Animation" id=34]
+resource_name = "bandaiduse"
+length = 2.0
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("bandaid:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.201, 0.28, 0.36, 0.439, 0.51, 0.59, 0.63, 0.669, 0.709, 0.749, 0.78, 1, 1.24 ),
+"transitions": PoolRealArray( 0.196146, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3.4822, 1 ),
+"update": 0,
+"values": [ Vector2( 7.62939e-05, -7.62939e-05 ), Vector2( -15, 20 ), Vector2( -15, 20 ), Vector2( -10, 15 ), Vector2( -15, 20 ), Vector2( -10, 15 ), Vector2( -15, 20 ), Vector2( -10, 15 ), Vector2( -15, 20 ), Vector2( -10, 15 ), Vector2( -15, 20 ), Vector2( -10, 15 ), Vector2( -15, 25 ), Vector2( -15, 25 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("band:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.78 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("band:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.78, 1, 1.24, 1.49, 1.99 ),
+"transitions": PoolRealArray( 0.183011, 1, 0.287175, 5.46417, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -10, 60 ), Vector2( -15, 60 ), Vector2( -15, 65 ), Vector2( -15, -100 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "doublebequip"
+length = 0.33
+tracks/0/type = "value"
+tracks/0/path = NodePath("doubleb:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.33 ),
+"transitions": PoolRealArray( 0.170755, 1 ),
+"update": 0,
+"values": [ Vector2( 75, -75 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "doublebreload"
+tracks/0/type = "value"
+tracks/0/path = NodePath("doubleb:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.386701, 0.508866, 0.79 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("doubleb:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.0556706, 0.0803107, 0.254673, 0.39, 0.508866, 0.617732, 0.789657, 0.998523 ),
+"transitions": PoolRealArray( 0.0625, 1, 1, 1, 1, 1, 3.4822, 0.277392, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 10, -15 ), Vector2( 15, -15 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -5 ), Vector2( 75, -100 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("doubleb:shellsrelease")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.513383 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "doublebshoot"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("doubleb:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.0601036, 0.0817884, 0.248282 ),
+"transitions": PoolRealArray( 0.0583146, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 10, -15 ), Vector2( 15, -15 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "doublebunequip"
+length = 0.33
+tracks/0/type = "value"
+tracks/0/path = NodePath("doubleb:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.329553 ),
+"transitions": PoolRealArray( 3.86374, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 100, -100 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "glauncherequip"
+length = 0.33
+tracks/0/type = "value"
+tracks/0/path = NodePath("glauncher:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.33 ),
+"transitions": PoolRealArray( 0.170755, 1 ),
+"update": 0,
+"values": [ Vector2( 75, -75 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "glaunchershoot"
+tracks/0/type = "value"
+tracks/0/path = NodePath("glauncher:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.39, 0.51, 0.79 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("glauncher:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.06, 0.08, 0.25, 0.39, 0.51, 0.62, 0.79, 1 ),
+"transitions": PoolRealArray( 0.0583146, 1, 1, 1, 1, 1, 3.4822, 0.203063, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 10, -15 ), Vector2( 15, -15 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -5 ), Vector2( 75, -100 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("glauncher:shellsrelease")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.51 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "glauncherunequip"
+length = 0.33
+tracks/0/type = "value"
+tracks/0/path = NodePath("glauncher:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.33 ),
+"transitions": PoolRealArray( 3.4822, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 75, -75 ) ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "lactionequip"
+length = 0.33
+tracks/0/type = "value"
+tracks/0/path = NodePath("laction:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.33 ),
+"transitions": PoolRealArray( 0.170755, 1 ),
+"update": 0,
+"values": [ Vector2( 75, -75 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "lactionshoot"
+length = 0.86
+tracks/0/type = "value"
+tracks/0/path = NodePath("laction:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.45228, 0.654189, 0.854189 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 1, 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("laction:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.06, 0.08, 0.25, 0.3, 0.45228, 0.508378, 0.656098, 0.70456, 0.85 ),
+"transitions": PoolRealArray( 0.297302, 1, 1, 3.73213, 1, 3.03143, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 6.10352e-05, -6.10352e-05 ), Vector2( 20, 10 ), Vector2( 25, 8 ), Vector2( 6.10352e-05, -6.10352e-05 ), Vector2( -20, 20 ), Vector2( -20, 20 ), Vector2( 0, 10 ), Vector2( 0, 10 ), Vector2( -10, 10 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("laction:shellsrelease")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.45 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=13]
+length = 0.33
+tracks/0/type = "value"
+tracks/0/path = NodePath("laction:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.33 ),
+"transitions": PoolRealArray( 3.13834, 1 ),
+"update": 0,
+"values": [ Vector2( 6.10352e-05, -6.10352e-05 ), Vector2( 75, -75 ) ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "mac10equip"
+length = 0.33
+tracks/0/type = "value"
+tracks/0/path = NodePath("mac10:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.33 ),
+"transitions": PoolRealArray( 0.170755, 1 ),
+"update": 0,
+"values": [ Vector2( 75, -100 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "mac10shoot"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("mac10:shellsrelease")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "mac10unequip"
+length = 0.33
+tracks/0/type = "value"
+tracks/0/path = NodePath("mac10:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.33 ),
+"transitions": PoolRealArray( 3.73213, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 75, -100 ) ]
+}
+
+[sub_resource type="Animation" id=17]
+length = 0.33
+tracks/0/type = "value"
+tracks/0/path = NodePath("neleven:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.33 ),
+"transitions": PoolRealArray( 0.0743255, 1 ),
+"update": 0,
+"values": [ Vector2( 100, -100 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=18]
+length = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("neleven:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.08, 0.16, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("neleven:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.08, 0.25 ),
+"transitions": PoolRealArray( 8.33763e-05, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 15, 15 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("neleven:shellsrelease")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.0805228 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=19]
+length = 0.33
+tracks/0/type = "value"
+tracks/0/path = NodePath("neleven:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.33 ),
+"transitions": PoolRealArray( 3.86374, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 100, -100 ) ]
+}
+
+[sub_resource type="SpatialMaterial" id=25]
+flags_transparent = true
+albedo_texture = ExtResource( 4 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="SpatialMaterial" id=26]
+flags_transparent = true
+albedo_texture = ExtResource( 2 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="SpatialMaterial" id=27]
+flags_transparent = true
+albedo_texture = ExtResource( 8 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="SpatialMaterial" id=28]
+flags_transparent = true
+albedo_texture = ExtResource( 7 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="SpatialMaterial" id=29]
+flags_transparent = true
+albedo_texture = ExtResource( 9 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="SpatialMaterial" id=30]
+flags_transparent = true
+albedo_texture = ExtResource( 5 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="SpatialMaterial" id=33]
+flags_transparent = true
+albedo_texture = ExtResource( 5 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="Animation" id=20]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.00341965, 0.1 ),
+"transitions": PoolRealArray( 1, 7.46426, 1 ),
+"update": 0,
+"values": [ 0.0, 0.95, 0.0 ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "smgshoot"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 6 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:opacity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.0957105, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.0 ]
+}
+
+[sub_resource type="Animation" id=22]
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:v_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.00196764, 0.37, 0.75, 1.2, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -0.1, 0.0, -0.1, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:h_offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.37, 0.75, 1.2, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -0.1, 0.0, 0.1, 0.0 ]
+}
+
+[sub_resource type="Animation" id=23]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.000977437, 0.02, 0.1 ),
+"transitions": PoolRealArray( 0.285263, 0.92119, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.1, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=24]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.02, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.25, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[node name="player" type="KinematicBody" groups=["player"]]
+collision_layer = 9
+collision_mask = 9
+script = ExtResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+cast_shadow = 0
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 2 )
+
+[node name="foot" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.53462, 0 )
+shape = SubResource( 3 )
+disabled = true
+
+[node name="head" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25264, 0 )
+
+[node name="Camera" type="Camera" parent="head"]
+cull_mask = 1048061
+fov = 90.0
+far = 1000.0
+
+[node name="aim" type="RayCast" parent="head/Camera"]
+enabled = true
+cast_to = Vector3( 0, 0, -1000 )
+collision_mask = 2
+collide_with_areas = true
+
+[node name="doublebcontainer" type="Spatial" parent="head/Camera"]
+
+[node name="RayCast" type="RayCast" parent="head/Camera/doublebcontainer"]
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
+collision_mask = 2
+
+[node name="RayCast2" type="RayCast" parent="head/Camera/doublebcontainer"]
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
+collision_mask = 2
+
+[node name="RayCast3" type="RayCast" parent="head/Camera/doublebcontainer"]
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
+collision_mask = 2
+
+[node name="RayCast4" type="RayCast" parent="head/Camera/doublebcontainer"]
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
+collision_mask = 2
+
+[node name="RayCast5" type="RayCast" parent="head/Camera/doublebcontainer"]
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
+collision_mask = 2
+
+[node name="RayCast6" type="RayCast" parent="head/Camera/doublebcontainer"]
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
+collision_mask = 2
+
+[node name="RayCast7" type="RayCast" parent="head/Camera/doublebcontainer"]
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
+collision_mask = 2
+
+[node name="RayCast8" type="RayCast" parent="head/Camera/doublebcontainer"]
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
+collision_mask = 2
+
+[node name="RayCast9" type="RayCast" parent="head/Camera/doublebcontainer"]
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
+collision_mask = 2
+
+[node name="RayCast10" type="RayCast" parent="head/Camera/doublebcontainer"]
+enabled = true
+cast_to = Vector3( 0, 0, -100 )
+collision_mask = 2
+
+[node name="gunanim" type="AnimationPlayer" parent="head/Camera"]
+anims/bandaidequip = SubResource( 32 )
+anims/bandaidunequip = SubResource( 31 )
+anims/bandaiduse = SubResource( 34 )
+anims/doublebequip = SubResource( 4 )
+anims/doublebreload = SubResource( 5 )
+anims/doublebshoot = SubResource( 6 )
+anims/doublebunequip = SubResource( 7 )
+anims/glauncherequip = SubResource( 8 )
+anims/glaunchershoot = SubResource( 9 )
+anims/glauncherunequip = SubResource( 10 )
+anims/lactionequip = SubResource( 11 )
+anims/lactionshoot = SubResource( 12 )
+anims/lactionunequip = SubResource( 13 )
+anims/mac10equip = SubResource( 14 )
+anims/mac10shoot = SubResource( 15 )
+anims/mac10unequip = SubResource( 16 )
+anims/nelevenequip = SubResource( 17 )
+anims/nelevenshoot = SubResource( 18 )
+anims/nelevenunequip = SubResource( 19 )
+
+[node name="doubleb" type="Sprite3D" parent="head/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.469, -0.9, -1.36 )
+layers = 2
+material_override = SubResource( 25 )
+offset = Vector2( 6.10352e-05, -6.10352e-05 )
+pixel_size = 0.012
+double_sided = false
+alpha_cut = 1
+texture = ExtResource( 4 )
+hframes = 3
+script = ExtResource( 3 )
+shellsrelease = true
+
+[node name="neleven" type="Sprite3D" parent="head/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.27444, -1.00531, -1.36 )
+layers = 2
+material_override = SubResource( 26 )
+pixel_size = 0.012
+double_sided = false
+alpha_cut = 1
+texture = ExtResource( 2 )
+hframes = 4
+script = ExtResource( 3 )
+shellsrelease = true
+
+[node name="laction" type="Sprite3D" parent="head/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35794, -0.9, -1.29621 )
+layers = 2
+material_override = SubResource( 27 )
+offset = Vector2( 6.10352e-05, -6.10352e-05 )
+pixel_size = 0.014
+double_sided = false
+texture = ExtResource( 8 )
+hframes = 3
+script = ExtResource( 3 )
+
+[node name="glauncher" type="Sprite3D" parent="head/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.48674, -0.9, -1.34683 )
+layers = 2
+material_override = SubResource( 28 )
+offset = Vector2( 75, -75 )
+pixel_size = 0.014
+double_sided = false
+texture = ExtResource( 7 )
+hframes = 3
+script = ExtResource( 3 )
+shellsrelease = true
+
+[node name="mac10" type="Sprite3D" parent="head/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.37718, -0.9, -1.33142 )
+layers = 2
+material_override = SubResource( 29 )
+pixel_size = 0.012
+double_sided = false
+texture = ExtResource( 9 )
+script = ExtResource( 3 )
+
+[node name="bandaid" type="Sprite3D" parent="head/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33698, -1.04436, -1.18353 )
+layers = 2
+material_override = SubResource( 30 )
+pixel_size = 0.012
+shaded = true
+texture = ExtResource( 5 )
+hframes = 6
+vframes = 3
+frame = 13
+script = ExtResource( 3 )
+
+[node name="band" type="Sprite3D" parent="head/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16438, -0.707134, -1.2339 )
+layers = 2
+material_override = SubResource( 33 )
+offset = Vector2( -15, -100 )
+shaded = true
+texture = ExtResource( 5 )
+hframes = 6
+vframes = 3
+frame = 12
+script = ExtResource( 3 )
+
+[node name="muzzleflash" type="Sprite3D" parent="head/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.853551, -0.9, -1.4435 )
+layers = 2
+opacity = 0.0
+pixel_size = 0.015
+texture = ExtResource( 5 )
+hframes = 6
+vframes = 3
+frame = 6
+script = ExtResource( 6 )
+
+[node name="muzzleshoot" type="AnimationPlayer" parent="head/Camera/muzzleflash"]
+anims/shoot = SubResource( 20 )
+anims/smgshoot = SubResource( 21 )
+
+[node name="ViewportContainer" type="ViewportContainer" parent="head/Camera"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="head/Camera/ViewportContainer"]
+size = Vector2( 1280, 720 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="guncam" type="Camera" parent="head/Camera/ViewportContainer/Viewport"]
+cull_mask = 2
+fov = 90.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="head/Camera/ViewportContainer/Viewport/guncam"]
+anims/gunbob = SubResource( 22 )
+
+[node name="camerashake" type="AnimationPlayer" parent="head/Camera"]
+anims/shoot = SubResource( 23 )
+anims/shootheavy = SubResource( 24 )
+
+[node name="shellsrelease" type="Spatial" parent="head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.61765, -0.250606, -1.12824 )
+
+[node name="shellsrelease2" type="Spatial" parent="head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.480996, -0.250606, -1.12824 )
+
+[node name="muzzle" type="Spatial" parent="head"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.699623, -0.492442, -1.44992 )
+
+[node name="groundcheck" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
+enabled = true
+cast_to = Vector3( 0, -1.5, 0 )
+
+[node name="bump" type="Spatial" parent="."]
+
+[node name="ftop" type="RayCast" parent="bump"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50393, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, -1.5 )
+
+[node name="fbottom" type="RayCast" parent="bump"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.45577, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, -1.5 )
+
+[node name="btop" type="RayCast" parent="bump"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50393, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, 1.5 )
+
+[node name="bbottom" type="RayCast" parent="bump"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.45577, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, 1.5 )
+
+[node name="rtop" type="RayCast" parent="bump"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50393, 0 )
+enabled = true
+cast_to = Vector3( 1.5, 0, 0 )
+
+[node name="rbottom" type="RayCast" parent="bump"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.45577, 0 )
+enabled = true
+cast_to = Vector3( 1.5, 0, 0 )
+
+[node name="ltop" type="RayCast" parent="bump"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50393, 0 )
+enabled = true
+cast_to = Vector3( -1.5, 0, 0 )
+
+[node name="lbottom" type="RayCast" parent="bump"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.45577, 0 )
+enabled = true
+cast_to = Vector3( -1.5, 0, 0 )
+
+[connection signal="animation_finished" from="head/Camera/gunanim" to="." method="_on_gunanim_animation_finished"]
+[connection signal="animation_started" from="head/Camera/gunanim" to="head/Camera/muzzleflash" method="_on_gunanim_animation_started"]

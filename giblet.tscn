@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://effects.png" type="Texture" id=1]
+[ext_resource path="res://giblet.gd" type="Script" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+params_billboard_mode = 1
+params_billboard_keep_scale = true
+albedo_texture = ExtResource( 1 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+material_override = SubResource( 1 )
+billboard = 1
+texture = ExtResource( 1 )
+hframes = 6
+vframes = 3
+frame = 9
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://effects.png" type="Texture" id=1]
+[ext_resource path="res://bloodimpact.gd" type="Script" id=2]
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+params_billboard_mode = 1
+params_billboard_keep_scale = true
+albedo_texture = ExtResource( 1 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="Animation" id=1]
+resource_name = "drip"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.225313, 0.120742 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ), Vector3( 1, 2, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite3D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 0.225313, 1 ),
+"update": 0,
+"values": [ Vector2( -4, 3 ), Vector2( -4, -6 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite3D:opacity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.140025, 0.3 ),
+"transitions": PoolRealArray( 3.36359, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+
+[sub_resource type="ParticlesMaterial" id=2]
+emission_shape = 1
+emission_sphere_radius = 0.2
+gravity = Vector3( 0, 0, 0 )
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_transparent = true
+flags_unshaded = true
+params_blend_mode = 3
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="QuadMesh" id=4]
+material = SubResource( 3 )
+size = Vector2( 0.1, 0.1 )
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1.83463, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 5 )
+offset = Vector2( -4, -4.51167 )
+billboard = 1
+shaded = true
+double_sided = false
+texture = ExtResource( 1 )
+hframes = 6
+vframes = 3
+frame = 11
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/drip = SubResource( 1 )
+
+[node name="Particles" type="Particles" parent="."]
+amount = 3
+explosiveness = 0.78
+randomness = 0.56
+visibility_aabb = AABB( -0.326221, -0.313383, -0.288486, 0.652442, 0.626766, 0.576972 )
+process_material = SubResource( 2 )
+draw_pass_1 = SubResource( 4 )
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

@@ -1,0 +1,99 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://pause.gd" type="Script" id=1]
+
+[node name="Control" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="pause" type="Popup" parent="."]
+visible = true
+anchor_right = 0.999
+anchor_bottom = 1.0
+margin_right = 0.279907
+
+[node name="Popup" type="Popup" parent="pause"]
+visible = true
+anchor_left = 0.099
+anchor_top = 0.353
+anchor_right = 0.41
+anchor_bottom = 0.733
+margin_left = -13.621
+margin_top = -2.16
+margin_right = 3.60999
+margin_bottom = -1.76001
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="pause/Popup"]
+anchor_left = 0.019
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 0.114999
+
+[node name="MarginContainer" type="MarginContainer" parent="pause/Popup"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = 71.0
+margin_right = -331.0
+margin_bottom = -169.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="pause/Popup/MarginContainer"]
+margin_right = 71.0
+margin_bottom = 34.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="pause/Popup/MarginContainer/GridContainer"]
+margin_right = 66.0
+margin_bottom = 14.0
+text = "Sensitivity"
+
+[node name="Label2" type="Label" parent="pause/Popup/MarginContainer/GridContainer"]
+margin_top = 18.0
+margin_right = 66.0
+margin_bottom = 32.0
+text = "FOV"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 323.0
+margin_right = -1219.0
+margin_bottom = -328.0
+rect_scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="start" type="Button" parent="pause/VBoxContainer"]
+margin_right = 60.0
+margin_bottom = 20.0
+text = "start"
+
+[node name="options" type="Button" parent="pause/VBoxContainer"]
+margin_top = 24.0
+margin_right = 60.0
+margin_bottom = 44.0
+text = "options"
+
+[node name="exit" type="Button" parent="pause/VBoxContainer"]
+margin_top = 48.0
+margin_right = 60.0
+margin_bottom = 68.0
+text = "exit"
+
+[connection signal="pressed" from="pause/VBoxContainer/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="pause/VBoxContainer/options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="pause/VBoxContainer/exit" to="." method="_on_exit_pressed"]
