@@ -99,6 +99,7 @@ func _physics_process(delta):
 			alert = true
 			ispathing = false
 			damagequeue = 0
+
 		AI.ATTACK:
 			ispathing = false
 			if ready == true:
