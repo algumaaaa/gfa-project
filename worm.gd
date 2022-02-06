@@ -21,8 +21,6 @@ onready var lookat = $lookat
 onready var detect = $detect
 
 onready var damagezone = $damagezone
-onready var tick = $Timer
-onready var area = $Area
 onready var hitbox = $CollisionShape
 onready var despawn = $despawn
 onready var animplay = $sprite/AnimationPlayer
@@ -90,7 +88,7 @@ func _physics_process(delta):
 			navnode.navstate = navnode.PATHING
 			if !animplay.is_playing():
 				animplay.play("walk")
-			lookat.look_at(randompath, Vector3.UP)
+			lookat.look_at(navnode.navdir, Vector3.UP)
 			rotate_y(deg2rad(lookat.rotation.y * 10))
 
 		AI.PAIN:

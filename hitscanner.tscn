@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://hitscanner.gd" type="Script" id=1]
 [ext_resource path="res://hitscanner final.png" type="Texture" id=2]
@@ -117,15 +117,24 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 0, 5 ), Vector2( 0, 0 ) ]
 }
-
-[sub_resource type="SphereShape" id=7]
-radius = 10.0
+tracks/1/type = "value"
+tracks/1/path = NodePath("..:animframe")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
 
 [node name="hitscanner" type="KinematicBody" groups=["enemies"]]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 0
 script = ExtResource( 1 )
-animframe = 5
+animframe = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
@@ -148,22 +157,10 @@ anims/sheathe = SubResource( 8 )
 anims/unsheathe = SubResource( 9 )
 anims/walk = SubResource( 6 )
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.4
-autostart = true
-
-[node name="Area" type="Area" parent="."]
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape" type="CollisionShape" parent="Area"]
-shape = SubResource( 7 )
-disabled = true
-
 [node name="RayCast" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.347307, 0 )
 enabled = true
-cast_to = Vector3( 0, 0, -30 )
+cast_to = Vector3( 0, 0, -20 )
 collision_mask = 3
 
 [node name="lookat" type="Spatial" parent="."]
@@ -173,6 +170,4 @@ wait_time = 20.0
 one_shot = true
 
 [connection signal="animation_finished" from="sprite/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
-[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
 [connection signal="timeout" from="despawn" to="." method="_on_despawn_timeout"]

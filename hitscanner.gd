@@ -13,13 +13,12 @@ var currentpathindex = 0
 var randompath = Vector3()
 var ispathing = false
 
+onready var navnode = get_parent()
 onready var nav = get_parent()
 onready var player = get_tree().get_root().get_node("/root/Spatial/player/")
 onready var ray = $RayCast
 onready var lookat = $lookat
 
-onready var tick = $Timer
-onready var area = $Area
 onready var hitbox = $CollisionShape
 onready var despawn = $despawn
 onready var animplay = $sprite/AnimationPlayer
@@ -70,52 +69,58 @@ func _physics_process(delta):
 		aistate = AI.GIB
 
 	match aistate:
+
 		AI.IDLE:
+			navnode.navstate = navnode.STOPPED
 			animframe = 0
 			animplay.stop()
+
 		AI.ALERT:
-			lookat.look_at(player.global_transform.origin, Vector3.UP)
-			rotate_y(deg2rad(lookat.rotation.y * 50))
-			if ray.is_colliding():
-				var collider = ray.get_collider()
-				if collider.is_in_group("player"):
-					aistate = AI.ATTACK
-			else:
-				aistate = AI.PATHING
-		AI.PATHING:
-			ispathing = true
+			navnode.navstate = navnode.ALERT
 			if !animplay.is_playing():
 				animplay.play("walk")
-			lookat.look_at(randompath, Vector3.UP)
+			lookat.look_at(navnode.navdir, Vector3.UP)
 			rotate_y(deg2rad(lookat.rotation.y * 10))
-			if currentpathindex < path.size():
-				var direction = (path[currentpathindex] - global_transform.origin)
-				if direction.length() < 1:
-					currentpathindex += 1
-				else:
-					move_and_slide(direction.normalized() * speed, Vector3.UP)
+
+		AI.PATHING:
+			navnode.navstate = navnode.PATHING
+			if !animplay.is_playing():
+				animplay.play("walk")
+			lookat.look_at(navnode.navdir, Vector3.UP)
+			rotate_y(deg2rad(lookat.rotation.y * 10))
+
 		AI.PAIN:
+			navnode.navstate = navnode.STOPPED
 			animplay.play("pain")
 			alert = true
-			ispathing = false
 			damagequeue = 0
 
 		AI.ATTACK:
-			ispathing = false
+			navnode.navstate = navnode.STOPPED
 			if ready == true:
 				if tookdamage == false:
 					animplay.play("attack")
 			else:
 				animplay.play("unsheathe")
+			var tt = ray.get_collider()
+			if tt == null:
+				return
+			lookat.look_at(tt.global_transform.origin, Vector3.UP)
+			rotate_y(deg2rad(lookat.rotation.y * 10))
+
 		AI.DIE:
+			navnode.navstate = navnode.STOPPED
 			if despawn.is_stopped():
 				animplay.play("death")
 				despawn.start()
 			ray.enabled = false
 			hitbox.disabled = true
 			ispathing = false
-			tick.stop()
+			navnode.hitbox.disabled = true
+			navnode.tick.stop()
+
 		AI.GORE:
+			navnode.navstate = navnode.STOPPED
 			if despawn.is_stopped():
 				animplay.play("deathgore")
 				var g = gore.instance()
@@ -127,8 +132,11 @@ func _physics_process(delta):
 			ray.enabled = false
 			hitbox.disabled = true
 			ispathing = false
-			tick.stop()
+			navnode.hitbox.disabled = true
+			navnode.tick.stop()
+
 		AI.GIB:
+			navnode.navstate = navnode.STOPPED
 			if despawn.is_stopped():
 				for i in 5:
 					var g = gore.instance()
@@ -136,6 +144,8 @@ func _physics_process(delta):
 					self.get_parent().add_child(g)
 					g.global_transform.origin = self.global_transform.origin
 					g.gibbed = true
+				navnode.hitbox.disabled = true
+				navnode.tick.stop()
 				queue_free()
 
 	if tookdamage == true:
@@ -161,40 +171,9 @@ func _physics_process(delta):
 		if collider.is_in_group("player"):
 			ispathing = false
 			aistate = AI.ATTACK
-
-func get_target_path(target_pos):
-
-	if aistate == AI.PATHING:
-		path = nav.get_simple_path(global_transform.origin, target_pos)
-		currentpathindex = 0
-
-func get_random_pos_in_sphere (radius : float) -> Vector3:
-	var x1 = rand_range (-1, 1)
-	var x2 = rand_range (-1, 1)
-
-	while x1*x1 + x2*x2 >= 1:
-		x1 = rand_range(-1, 1)
-		x2 = rand_range(-1, 1)
-
-	var random_pos_on_unit_sphere = Vector3 (
-	2 * x1 * sqrt(1 - x1*x1 - x2*x2),
-	2 * x2 * sqrt(1 - x1*x1 - x2*x2),
-	1 - 2 * (x1*x1 + x2*x2))
-
-	return random_pos_on_unit_sphere * rand_range (0, radius)
-
-func _on_Timer_timeout():
-	if aistate == AI.PATHING:
-		if ispathing:
-			randompath = Vector3(player.global_transform.origin.x + get_random_pos_in_sphere(200).x,0,player.global_transform.origin.z + get_random_pos_in_sphere(200).z) + get_parent().global_transform.origin
-			get_target_path(randompath)
-			ispathing = false
-	if !ispathing and aistate != AI.IDLE:
-		aistate = AI.ALERT
-
-func _on_Area_body_entered(body):
-	if body.is_in_group("player") and aistate != AI.DIE and aistate != AI.GORE and aistate != AI.GIB:
-		aistate = AI.ALERT
+		elif collider.is_in_group("enemies"):
+			aistate = AI.PATHING
+			ispathing = true
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "unsheathe":

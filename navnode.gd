@@ -24,7 +24,7 @@ func _physics_process(delta):
 	match navstate:
 
 		STOPPED:
-			pass
+			currentpathindex = path.size()
 
 		IDLE:
 			enemy.ispathing = true

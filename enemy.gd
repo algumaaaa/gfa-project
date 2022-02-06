@@ -100,7 +100,7 @@ func _physics_process(delta):
 			navnode.navstate = navnode.PATHING
 			if !animplay.is_playing():
 				animplay.play("walk")
-			lookat.look_at(randompath, Vector3.UP)
+			lookat.look_at(navnode.navdir, Vector3.UP)
 			rotate_y(deg2rad(lookat.rotation.y * 10))
 
 		AI.PAIN:
