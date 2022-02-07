@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://brawler.gd" type="Script" id=1]
 [ext_resource path="res://brawler final.png" type="Texture" id=2]
@@ -139,15 +139,12 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6 ]
 }
 
-[sub_resource type="SphereShape" id=7]
-radius = 10.0
-
 [sub_resource type="BoxShape" id=10]
 extents = Vector3( 1.8, 2.8, 1 )
 
 [node name="brawler" type="KinematicBody" groups=["enemies"]]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 0
 script = ExtResource( 1 )
 damageray = true
 animframe = 12
@@ -175,18 +172,6 @@ anims/prep = SubResource( 9 )
 anims/run = SubResource( 8 )
 anims/walk = SubResource( 6 )
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.2
-autostart = true
-
-[node name="Area" type="Area" parent="."]
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape" type="CollisionShape" parent="Area"]
-shape = SubResource( 7 )
-disabled = true
-
 [node name="RayCast" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.347307, 0 )
 enabled = true
@@ -195,12 +180,17 @@ collision_mask = 3
 
 [node name="lookat" type="Spatial" parent="."]
 
+[node name="tick" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
 [node name="despawn" type="Timer" parent="."]
 wait_time = 20.0
 one_shot = true
 
 [node name="hitbox" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.333418 )
+collision_layer = 0
 
 [node name="CollisionShape" type="CollisionShape" parent="hitbox"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0515101, -2.86508 )
@@ -212,6 +202,5 @@ enabled = true
 cast_to = Vector3( 0, 0, -30 )
 
 [connection signal="animation_finished" from="sprite/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
-[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
+[connection signal="timeout" from="tick" to="." method="_on_tick_timeout"]
 [connection signal="timeout" from="despawn" to="." method="_on_despawn_timeout"]

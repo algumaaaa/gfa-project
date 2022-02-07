@@ -67,6 +67,8 @@ func _on_Timer_timeout():
 			randompath = Vector3(self.global_transform.origin.x + get_random_pos_in_sphere(20).x, 0, self.global_transform.origin.z + get_random_pos_in_sphere(20).z) + get_parent().global_transform.origin
 			get_target_path(randompath)
 			enemy.ispathing = false
+	if enemy.speed == 50:
+		get_target_path(player.global_transform.origin)
 	if enemy.aistate == enemy.AI.ALERT:
 		get_target_path(player.global_transform.origin)
 	if enemy.aistate == enemy.AI.PATHING:

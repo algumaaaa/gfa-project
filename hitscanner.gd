@@ -14,7 +14,6 @@ var randompath = Vector3()
 var ispathing = false
 
 onready var navnode = get_parent()
-onready var nav = get_parent()
 onready var player = get_tree().get_root().get_node("/root/Spatial/player/")
 onready var ray = $RayCast
 onready var lookat = $lookat

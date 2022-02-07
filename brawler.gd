@@ -7,13 +7,13 @@ var aistate = AI.IDLE
 var patience = 50
 var charging = false
 
-var wspeed = 10
-var rspeed = 50
+var speed = 10
+var ispathing = false
 var path = []
 var currentpathindex = 0
 var randompath = Vector3()
 
-onready var nav = get_parent()
+onready var navnode = get_parent()
 onready var player = get_tree().get_root().get_node("/root/Spatial/player/")
 onready var ray = $RayCast
 onready var lookat = $lookat
@@ -21,7 +21,6 @@ onready var detect = $detect
 
 export var damageray = false
 onready var damagezone = $hitbox
-onready var tick = $Timer
 onready var area = $Area
 onready var hitbox = $CollisionShape
 onready var despawn = $despawn
@@ -40,7 +39,8 @@ enum AI{
 	PAIN,
 	DIE,
 	GORE,
-	GIB
+	GIB,
+	PATHING
 }
 
 func _ready():
@@ -77,41 +77,54 @@ func _physics_process(delta):
 		aistate = AI.GIB
 
 	match aistate:
+
 		AI.IDLE:
+			navnode.navstate = navnode.STOPPED
 			animframe = 0
 			animplay.stop()
-		AI.ALERT:	
+
+		AI.ALERT:
+			navnode.navstate = navnode.ALERT
+			speed = 10
 			if !animplay.is_playing():
 				animplay.play("walk")
-			if currentpathindex < path.size():
-				var direction = (path[currentpathindex] - global_transform.origin)
-				if direction.length() < 1:
-					currentpathindex += 1
-				else:
-					move_and_slide(direction.normalized() * wspeed, Vector3.UP)
-					lookat.look_at(path[currentpathindex], Vector3.UP)
-					rotate_y(deg2rad(lookat.rotation.y * 5))
+			lookat.look_at(navnode.navdir, Vector3.UP)
+			rotate_y(deg2rad(lookat.rotation.y * 5))
+#			if currentpathindex < path.size():
+#				var direction = (path[currentpathindex] - global_transform.origin)
+#				if direction.length() < 1:
+#					currentpathindex += 1
+#				else:
+#					move_and_slide(direction.normalized() * wspeed, Vector3.UP)
+
 		AI.PREP:
+			navnode.navstate = navnode.STOPPED
 			animplay.play("prep")
+
 		AI.CHARGE:
+			navnode.navstate = navnode.ALERT
+			speed = 50
 			if !animplay.is_playing():
 				animplay.play("run")
-			lookat.look_at(player.global_transform.origin, Vector3.UP)
+			lookat.look_at(navnode.navdir, Vector3.UP)
 			rotate_y(deg2rad(lookat.rotation.y * 10))
-			if currentpathindex < path.size():
-				var direction = (path[currentpathindex] - global_transform.origin)
-				if direction.length() < 1:
-					currentpathindex += 1
-				else:
-					move_and_slide(direction.normalized() * rspeed, Vector3.UP)
+			
+#			if currentpathindex < path.size():
+#				var direction = (path[currentpathindex] - global_transform.origin)
+#				if direction.length() < 1:
+#					currentpathindex += 1
+#				else:
+#					move_and_slide(direction.normalized() * rspeed, Vector3.UP)
 			for body in damagezone.get_overlapping_bodies():
 				if body.is_in_group("player"):
 					body.damagequeue += 20
-					var direction = self.transform.origin - player.transform.origin
-					player.global_transform.origin = lerp(player.transform.origin, player.transform.origin - direction * 3, 0.5)
+					var direction = navnode.transform.origin - body.transform.origin
+					body.global_transform.origin = lerp(body.transform.origin, body.transform.origin - direction * 3, 0.5)
 					aistate = AI.PREP
+
 		AI.PAIN:
 			if damagequeue > 50:
+				navnode.navstate = navnode.STOPPED
 				tookdamage = false
 				animplay.play("pain")
 			if damagequeue <= 50:
@@ -119,18 +132,25 @@ func _physics_process(delta):
 				if health > 0:
 					aistate = AI.ALERT
 					damagequeue = 0
+
 		AI.ATTACK:
+			navnode.navstate = navnode.STOPPED
 			if tookdamage == false and (aistate != AI.CHARGE and aistate != AI.PREP):
 				animplay.play("attack")
+
 		AI.DIE:
+			navnode.navstate = navnode.STOPPED
 			if despawn.is_stopped():
 				animplay.play("death")
 				despawn.start()
 			ray.enabled = false
 			damageray = false
 			hitbox.disabled = true
-			tick.stop()
+			navnode.hitbox.disabled = true
+			navnode.tick.stop()
+
 		AI.GORE:
+			navnode.navstate = navnode.STOPPED
 			if despawn.is_stopped():
 				animplay.play("deathgore")
 				var g = gore.instance()
@@ -141,8 +161,11 @@ func _physics_process(delta):
 				despawn.start()
 			ray.enabled = false
 			hitbox.disabled = true
-			tick.stop()
+			navnode.hitbox.disabled = true
+			navnode.tick.stop()
+
 		AI.GIB:
+			navnode.navstate = navnode.STOPPED
 			if despawn.is_stopped():
 				for i in 5:
 					var g = gore.instance()
@@ -151,6 +174,8 @@ func _physics_process(delta):
 					self.get_parent().add_child(g)
 					g.global_transform.origin = self.global_transform.origin
 					g.gibbed = true
+				navnode.hitbox.disabled = true
+				navnode.tick.stop()
 				queue_free()
 
 	if tookdamage == true:
@@ -198,43 +223,43 @@ func _physics_process(delta):
 				animplay.stop()
 				aistate = AI.ALERT
 
-func get_target_path(target_pos):
-	if aistate == AI.ALERT or aistate == AI.CHARGE:
-		path = nav.get_simple_path(global_transform.origin, target_pos)
-		currentpathindex = 0
+#func get_target_path(target_pos):
+#	if aistate == AI.ALERT or aistate == AI.CHARGE:
+#		path = nav.get_simple_path(global_transform.origin, target_pos)
+#		currentpathindex = 0
 
-func get_random_pos_in_sphere (radius : float) -> Vector3:
-	var x1 = rand_range (-1, 1)
-	var x2 = rand_range (-1, 1)
-
-	while x1*x1 + x2*x2 >= 1:
-		x1 = rand_range(-1, 1)
-		x2 = rand_range(-1, 1)
-
-	var random_pos_on_unit_sphere = Vector3 (
-	2 * x1 * sqrt(1 - x1*x1 - x2*x2),
-	2 * x2 * sqrt(1 - x1*x1 - x2*x2),
-	1 - 2 * (x1*x1 + x2*x2))
-
-	return random_pos_on_unit_sphere * rand_range (0, radius)
-
-func _on_Timer_timeout():
-	if aistate == AI.ALERT:
-		get_target_path(player.global_transform.origin)
-		if patience > 0:
-			patience -= 1
-		else:
-			aistate = AI.PREP
-	if aistate == AI.CHARGE:
-		get_target_path(player.global_transform.origin)
-		if patience < 50:
-			patience += 10
-		else:
-			aistate = AI.ALERT
-
-func _on_Area_body_entered(body):
-	if body.is_in_group("player") and (aistate == AI.IDLE or aistate == AI.ALERT):
-		aistate = AI.ALERT
+#func get_random_pos_in_sphere (radius : float) -> Vector3:
+#	var x1 = rand_range (-1, 1)
+#	var x2 = rand_range (-1, 1)
+#
+#	while x1*x1 + x2*x2 >= 1:
+#		x1 = rand_range(-1, 1)
+#		x2 = rand_range(-1, 1)
+#
+#	var random_pos_on_unit_sphere = Vector3 (
+#	2 * x1 * sqrt(1 - x1*x1 - x2*x2),
+#	2 * x2 * sqrt(1 - x1*x1 - x2*x2),
+#	1 - 2 * (x1*x1 + x2*x2))
+#
+#	return random_pos_on_unit_sphere * rand_range (0, radius)
+#
+#func _on_Timer_timeout():
+#	if aistate == AI.ALERT:
+#		get_target_path(player.global_transform.origin)
+#		if patience > 0:
+#			patience -= 1
+#		else:
+#			aistate = AI.PREP
+#	if aistate == AI.CHARGE:
+#		get_target_path(player.global_transform.origin)
+#		if patience < 50:
+#			patience += 10
+#		else:
+#			aistate = AI.ALERT
+#
+#func _on_Area_body_entered(body):
+#	if body.is_in_group("player") and (aistate == AI.IDLE or aistate == AI.ALERT):
+#		aistate = AI.ALERT
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "attack":
@@ -246,7 +271,20 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		if health > 0:
 			aistate = AI.ALERT
 	if anim_name == "prep":
+		patience = 10
 		aistate = AI.CHARGE
 
 func _on_despawn_timeout():
 	queue_free()
+
+func _on_tick_timeout():
+	if aistate == AI.ALERT:
+		if patience > 0:
+			patience -= 1
+		else:
+			aistate = AI.PREP
+	if aistate == AI.CHARGE:
+		if patience < 50:
+			patience += 10
+		else:
+			aistate = AI.ALERT

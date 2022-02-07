@@ -176,44 +176,6 @@ func _physics_process(delta):
 				animplay.stop()
 				aistate = AI.ALERT
 
-#func get_target_path(target_pos):
-#	if aistate == AI.ALERT:
-#		path = nav.get_simple_path(global_transform.origin, target_pos)
-#		currentpathindex = 0
-#	if aistate == AI.PATHING:
-#		path = nav.get_simple_path(global_transform.origin, target_pos)
-#		currentpathindex = 0
-
-func get_random_pos_in_sphere (radius : float) -> Vector3:
-	var x1 = rand_range (-1, 1)
-	var x2 = rand_range (-1, 1)
-
-	while x1*x1 + x2*x2 >= 1:
-		x1 = rand_range(-1, 1)
-		x2 = rand_range(-1, 1)
-
-	var random_pos_on_unit_sphere = Vector3 (
-	2 * x1 * sqrt(1 - x1*x1 - x2*x2),
-	2 * x2 * sqrt(1 - x1*x1 - x2*x2),
-	1 - 2 * (x1*x1 + x2*x2))
-
-	return random_pos_on_unit_sphere * rand_range (radius * 0.5, radius)
-
-#func _on_Timer_timeout():
-#	if aistate == AI.ALERT:
-#		get_target_path(player.global_transform.origin)
-#	if aistate == AI.PATHING:
-#		if ispathing:
-#			randompath = Vector3(player.global_transform.origin.x + get_random_pos_in_sphere(100).x,0,player.global_transform.origin.z + get_random_pos_in_sphere(100).z) + get_parent().global_transform.origin
-#			get_target_path(randompath)
-#			ispathing = false
-#	if !ispathing and aistate != AI.IDLE:
-#		aistate = AI.ALERT
-
-func _on_Area_body_entered(body):
-	if body.is_in_group("player") and aistate != AI.DIE and aistate != AI.GIB:
-		aistate = AI.ALERT
-
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "attack":
 		if damageframe:

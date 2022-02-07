@@ -403,7 +403,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00438309, 1.88874, 0 )
 idlepathing = true
 
 [node name="navnode33" parent="Navigation" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -101.954, 2.51449, -0.0570092 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -101.954, 2.51449, -80.4208 )
 
 [node name="worm" parent="Navigation/navnode33" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00955963, 1.90371, -0.0361084 )
@@ -414,7 +414,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -102.154, 2.61205, 92.0701 )
 [node name="hitscanner" parent="Navigation/navnode34" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02583, 0 )
 
-[node name="brawler" parent="Navigation" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -85.6422, 5.83227, 0 )
+[node name="navnode35" parent="Navigation" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -85.6422, 2.65198, 0 )
+
+[node name="brawler" parent="Navigation/navnode35" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.09738, 0 )
 
 [node name="Control2" parent="." instance=ExtResource( 10 )]
