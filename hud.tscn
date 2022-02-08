@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://hud.tres" type="DynamicFont" id=1]
 [ext_resource path="res://hud.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://textures/ui/mac10Bland.png" type="Texture" id=7]
 [ext_resource path="res://textures/ui/glauncherBland.png" type="Texture" id=8]
 [ext_resource path="res://textures/ui/nelevenBland.png" type="Texture" id=9]
+[ext_resource path="res://textures/ui/crosshairDot.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "dmg"
@@ -68,32 +69,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="health" type="Label" parent="hud"]
-anchor_top = 0.873
-anchor_right = 0.212
-anchor_bottom = 0.945
-margin_left = 0.765564
-margin_top = 0.231201
-margin_right = -0.594452
-margin_bottom = -0.320862
-custom_fonts/font = ExtResource( 1 )
-text = "Health: 0"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ammo" type="Label" parent="hud"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -33.0
-margin_bottom = 18.0
-custom_fonts/font = ExtResource( 1 )
-text = "1911: 0"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="fps" type="Label" parent="hud"]
 margin_right = 40.0
 margin_bottom = 14.0
@@ -131,11 +106,51 @@ anims/dmgheavy = SubResource( 2 )
 anims/heal = SubResource( 3 )
 
 [node name="Panel" type="Panel" parent="hud"]
-modulate = Color( 1, 1, 1, 0.784314 )
+modulate = Color( 1, 1, 1, 0.588235 )
 show_behind_parent = true
 margin_top = 620.0
 margin_right = 257.0
 margin_bottom = 721.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="hud"]
+anchor_top = 0.869
+anchor_right = 0.176
+anchor_bottom = 0.947
+margin_top = -0.204041
+margin_right = -0.280014
+margin_bottom = -0.052002
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="health" type="Label" parent="hud/VBoxContainer2"]
+margin_right = 225.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 1 )
+text = "Health: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ammo" type="Label" parent="hud/VBoxContainer2"]
+margin_top = 30.0
+margin_right = 225.0
+margin_bottom = 56.0
+custom_fonts/font = ExtResource( 1 )
+text = "lever action: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bands" type="Label" parent="hud/VBoxContainer2"]
+margin_top = 60.0
+margin_right = 225.0
+margin_bottom = 86.0
+custom_fonts/font = ExtResource( 1 )
+text = "bands: 0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -183,7 +198,7 @@ margin_bottom = 411.0
 texture = ExtResource( 8 )
 
 [node name="Panel2" type="Panel" parent="hud"]
-modulate = Color( 1, 1, 1, 0.784314 )
+modulate = Color( 1, 1, 1, 0.588235 )
 show_behind_parent = true
 anchor_top = 0.468
 anchor_right = 0.062
@@ -194,3 +209,19 @@ margin_bottom = -0.0560303
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CenterContainer" type="CenterContainer" parent="hud"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="hud/CenterContainer"]
+margin_left = 640.0
+margin_top = 358.0
+margin_right = 640.0
+margin_bottom = 358.0
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 4

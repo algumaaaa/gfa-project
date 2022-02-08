@@ -220,7 +220,6 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		if health > 0:
 			aistate = AI.ALERT
 	if anim_name == "prep":
-		patience = 10
 		aistate = AI.CHARGE
 
 func _on_despawn_timeout():

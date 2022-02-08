@@ -4,9 +4,10 @@ onready var GLOBAL = get_node("/root/GLOBAL/")
 onready var player = get_tree().get_root().get_node("/root/Spatial/player")
 #onready var spawner = get_tree().get_root().get_node("/root/Spatial/Navigation/spawner")
 
-onready var ammo = $ammo
+onready var health = $VBoxContainer2/health
+onready var ammo = $VBoxContainer2/ammo
+onready var bands = $VBoxContainer2/bands
 onready var fps = $fps
-onready var health = $health
 onready var dmgs = $damagesplash
 onready var heals = $healedsplash
 onready var animplayer = $AnimationPlayer
@@ -52,8 +53,11 @@ func _process(delta):
 		textrect3.modulate = Color(1, 1, 1, 1)
 
 	if player.gunstate == player.GUN_USE.HEAL:
-		ammo.text = "heals: " + str(player.heals)
+		bands.modulate = Color(1, 0, 0, 1)
+	else:
+		bands.modulate = Color(1, 1, 1, 1)
 
+	bands.text = "bandages " + str(player.heals)
 	fps.text = "fps: " + str(Engine.get_frames_per_second()) + " r: " + str(GLOBAL.r)  + " a: " + str(GLOBAL.a) + " m: " + str(GLOBAL.m) + " tick: " + str(GLOBAL.tick) 
 	health.text = "health: " + str(player.health)
 

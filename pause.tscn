@@ -15,7 +15,11 @@ __meta__ = {
 visible = true
 anchor_right = 0.999
 anchor_bottom = 1.0
-margin_right = 0.279907
+margin_left = 565.0
+margin_right = 565.28
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Popup" type="Popup" parent="pause"]
 visible = true
