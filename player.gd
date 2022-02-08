@@ -118,13 +118,13 @@ func _physics_process(delta):
 	if Input.is_action_pressed("weap2"):
 		if gunstate != GUN_USE.UNEQUIP:
 			nextgun = GUN_USE.GUN2
-	if Input.is_action_pressed("weap3"):
-		if gunstate != GUN_USE.UNEQUIP:
-			nextgun = GUN_USE.GUN3
 	if Input.is_action_pressed("weap4"):
 		if gunstate != GUN_USE.UNEQUIP:
-			nextgun = GUN_USE.GUN4
+			nextgun = GUN_USE.GUN3
 	if Input.is_action_pressed("weap5"):
+		if gunstate != GUN_USE.UNEQUIP:
+			nextgun = GUN_USE.GUN4
+	if Input.is_action_pressed("weap3"):
 		if gunstate != GUN_USE.UNEQUIP:
 			nextgun = GUN_USE.GUN5
 

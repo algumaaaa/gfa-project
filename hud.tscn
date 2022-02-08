@@ -1,9 +1,14 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://hud.tres" type="DynamicFont" id=1]
 [ext_resource path="res://hud.gd" type="Script" id=2]
 [ext_resource path="res://damagesplash.png" type="Texture" id=3]
 [ext_resource path="res://healedsplash.png" type="Texture" id=4]
+[ext_resource path="res://textures/ui/lactionBland.png" type="Texture" id=5]
+[ext_resource path="res://textures/ui/doublebBland.png" type="Texture" id=6]
+[ext_resource path="res://textures/ui/mac10Bland.png" type="Texture" id=7]
+[ext_resource path="res://textures/ui/glauncherBland.png" type="Texture" id=8]
+[ext_resource path="res://textures/ui/nelevenBland.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=1]
 resource_name = "dmg"
@@ -63,24 +68,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ammo" type="Label" parent="hud"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -51.0
-custom_fonts/font = ExtResource( 1 )
-text = "1911: 0"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="fps" type="Label" parent="hud"]
-margin_right = 40.0
-margin_bottom = 14.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="health" type="Label" parent="hud"]
 anchor_top = 0.873
 anchor_right = 0.212
@@ -91,6 +78,25 @@ margin_right = -0.594452
 margin_bottom = -0.320862
 custom_fonts/font = ExtResource( 1 )
 text = "Health: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ammo" type="Label" parent="hud"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -33.0
+margin_bottom = 18.0
+custom_fonts/font = ExtResource( 1 )
+text = "1911: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fps" type="Label" parent="hud"]
+margin_right = 40.0
+margin_bottom = 14.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -123,3 +129,68 @@ __meta__ = {
 anims/dmg = SubResource( 1 )
 anims/dmgheavy = SubResource( 2 )
 anims/heal = SubResource( 3 )
+
+[node name="Panel" type="Panel" parent="hud"]
+modulate = Color( 1, 1, 1, 0.784314 )
+show_behind_parent = true
+margin_top = 620.0
+margin_right = 257.0
+margin_bottom = 721.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="hud"]
+anchor_top = 0.468
+anchor_right = 0.05
+anchor_bottom = 0.866
+margin_top = -0.0880127
+margin_right = 44.0
+margin_bottom = -0.0560303
+rect_scale = Vector2( 0.7, 0.7 )
+custom_constants/separation = -41
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="hud/VBoxContainer"]
+margin_right = 115.0
+margin_bottom = 115.0
+texture = ExtResource( 9 )
+
+[node name="TextureRect2" type="TextureRect" parent="hud/VBoxContainer"]
+margin_top = 74.0
+margin_right = 115.0
+margin_bottom = 189.0
+texture = ExtResource( 6 )
+
+[node name="TextureRect3" type="TextureRect" parent="hud/VBoxContainer"]
+margin_top = 148.0
+margin_right = 115.0
+margin_bottom = 263.0
+texture = ExtResource( 7 )
+
+[node name="TextureRect4" type="TextureRect" parent="hud/VBoxContainer"]
+margin_top = 222.0
+margin_right = 115.0
+margin_bottom = 337.0
+texture = ExtResource( 5 )
+
+[node name="TextureRect5" type="TextureRect" parent="hud/VBoxContainer"]
+margin_top = 296.0
+margin_right = 115.0
+margin_bottom = 411.0
+texture = ExtResource( 8 )
+
+[node name="Panel2" type="Panel" parent="hud"]
+modulate = Color( 1, 1, 1, 0.784314 )
+show_behind_parent = true
+anchor_top = 0.468
+anchor_right = 0.062
+anchor_bottom = 0.866
+margin_top = -0.0880127
+margin_right = 0.639999
+margin_bottom = -0.0560303
+__meta__ = {
+"_edit_use_anchors_": false
+}

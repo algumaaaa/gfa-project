@@ -84,37 +84,24 @@ func _physics_process(delta):
 			animplay.stop()
 
 		AI.ALERT:
-			navnode.navstate = navnode.ALERT
 			speed = 10
+			navnode.navstate = navnode.ALERT
 			if !animplay.is_playing():
 				animplay.play("walk")
 			lookat.look_at(navnode.navdir, Vector3.UP)
 			rotate_y(deg2rad(lookat.rotation.y * 5))
-#			if currentpathindex < path.size():
-#				var direction = (path[currentpathindex] - global_transform.origin)
-#				if direction.length() < 1:
-#					currentpathindex += 1
-#				else:
-#					move_and_slide(direction.normalized() * wspeed, Vector3.UP)
 
 		AI.PREP:
 			navnode.navstate = navnode.STOPPED
 			animplay.play("prep")
 
 		AI.CHARGE:
-			navnode.navstate = navnode.ALERT
 			speed = 50
+			navnode.navstate = navnode.ALERT
 			if !animplay.is_playing():
 				animplay.play("run")
 			lookat.look_at(navnode.navdir, Vector3.UP)
 			rotate_y(deg2rad(lookat.rotation.y * 10))
-			
-#			if currentpathindex < path.size():
-#				var direction = (path[currentpathindex] - global_transform.origin)
-#				if direction.length() < 1:
-#					currentpathindex += 1
-#				else:
-#					move_and_slide(direction.normalized() * rspeed, Vector3.UP)
 			for body in damagezone.get_overlapping_bodies():
 				if body.is_in_group("player"):
 					body.damagequeue += 20
@@ -222,44 +209,6 @@ func _physics_process(delta):
 			if p.is_in_group("player"):
 				animplay.stop()
 				aistate = AI.ALERT
-
-#func get_target_path(target_pos):
-#	if aistate == AI.ALERT or aistate == AI.CHARGE:
-#		path = nav.get_simple_path(global_transform.origin, target_pos)
-#		currentpathindex = 0
-
-#func get_random_pos_in_sphere (radius : float) -> Vector3:
-#	var x1 = rand_range (-1, 1)
-#	var x2 = rand_range (-1, 1)
-#
-#	while x1*x1 + x2*x2 >= 1:
-#		x1 = rand_range(-1, 1)
-#		x2 = rand_range(-1, 1)
-#
-#	var random_pos_on_unit_sphere = Vector3 (
-#	2 * x1 * sqrt(1 - x1*x1 - x2*x2),
-#	2 * x2 * sqrt(1 - x1*x1 - x2*x2),
-#	1 - 2 * (x1*x1 + x2*x2))
-#
-#	return random_pos_on_unit_sphere * rand_range (0, radius)
-#
-#func _on_Timer_timeout():
-#	if aistate == AI.ALERT:
-#		get_target_path(player.global_transform.origin)
-#		if patience > 0:
-#			patience -= 1
-#		else:
-#			aistate = AI.PREP
-#	if aistate == AI.CHARGE:
-#		get_target_path(player.global_transform.origin)
-#		if patience < 50:
-#			patience += 10
-#		else:
-#			aistate = AI.ALERT
-#
-#func _on_Area_body_entered(body):
-#	if body.is_in_group("player") and (aistate == AI.IDLE or aistate == AI.ALERT):
-#		aistate = AI.ALERT
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "attack":

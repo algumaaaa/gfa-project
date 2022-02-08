@@ -10,18 +10,47 @@ onready var health = $health
 onready var dmgs = $damagesplash
 onready var heals = $healedsplash
 onready var animplayer = $AnimationPlayer
+onready var textrect1 = $VBoxContainer/TextureRect
+onready var textrect2 = $VBoxContainer/TextureRect2
+onready var textrect3 = $VBoxContainer/TextureRect3
+onready var textrect4 = $VBoxContainer/TextureRect4
+onready var textrect5 = $VBoxContainer/TextureRect5
+
+func _draw():
+	if player.gunstate == player.GUN_USE.GUN1:
+		textrect1.BLEND_MODE_SUB
 
 func _process(delta):
 	if player.gunstate == player.GUN_USE.GUN1:
 		ammo.text = "pistol: " + str(player.nelevenammo)
+		textrect1.modulate = Color(1, 0, 0, 1)
+	else:
+		textrect1.modulate = Color(1, 1, 1, 1)
+
 	if player.gunstate == player.GUN_USE.GUN2:
 		ammo.text = "sawed off: " + str(player.doublebammo)
+		textrect2.modulate = Color(1, 0, 0, 1)
+	else:
+		textrect2.modulate = Color(1, 1, 1, 1)
+
 	if player.gunstate == player.GUN_USE.GUN3:
 		ammo.text = "lever action: " + str(player.lactionammo)
+		textrect4.modulate = Color(1, 0, 0, 1)
+	else:
+		textrect4.modulate = Color(1, 1, 1, 1)
+
 	if player.gunstate == player.GUN_USE.GUN4:
 		ammo.text = "grenades: " + str(player.glauncherammo)
+		textrect5.modulate = Color(1, 0, 0, 1)
+	else:
+		textrect5.modulate = Color(1, 1, 1, 1)
+
 	if player.gunstate == player.GUN_USE.GUN5:
 		ammo.text = "mac10: " + str(player.mac10ammo)
+		textrect3.modulate = Color(1, 0, 0, 1)
+	else:
+		textrect3.modulate = Color(1, 1, 1, 1)
+
 	if player.gunstate == player.GUN_USE.HEAL:
 		ammo.text = "heals: " + str(player.heals)
 
