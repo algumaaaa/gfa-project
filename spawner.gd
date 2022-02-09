@@ -1,7 +1,12 @@
 extends Spatial
 
+var spawnQueue = 0
+
 export var enabled = true
 
+onready var timer = $Timer
+
+var navnode = preload("res://navnode.tscn")
 var zombie = preload("res://enemy.tscn")
 var worm = preload("res://worm.tscn")
 var brawler = preload("res://brawler.tscn")
@@ -23,12 +28,19 @@ func _on_button_toggled(value):
 func _spawn_zombie(value):
 	if !enabled:
 		return
-	while value != 0:
-		value -= 1
+	if value == 1:
+#	while value != 0:
+#		value -= 1
+		var n = navnode.instance()
+		n.global_transform.origin = self.global_transform.origin - Vector3(0, 1.8, 0)
+		get_parent().get_parent().add_child(n)
 		var e = zombie.instance()
-		e.global_transform.origin = self.global_transform.origin
-		get_parent().get_parent().add_child(e)
+		e.transform.origin += Vector3(0, 2, 0)
+		n.add_child(e)
 		e.aistate = e.AI.ALERT
+	else:
+		spawnQueue = value
+		timer.start()
 
 func _spawn_worm(value):
 	if !enabled:
@@ -51,3 +63,19 @@ func _spawn_brawler():
 	b.global_transform.origin = self.global_transform.origin
 	get_parent().get_parent().add_child(b)
 	b.aistate = b.AI.ALERT
+
+func _on_street_body_entered(body):
+	if body.is_in_group("player"):
+		enabled = false
+
+func _on_Timer_timeout():
+	if spawnQueue > 0:
+		var n = navnode.instance()
+		n.global_transform.origin = self.global_transform.origin - Vector3(0, 1.8, 0)
+		get_parent().get_parent().add_child(n)
+		var e = zombie.instance()
+		e.transform.origin += Vector3(0, 2, 0)
+		n.add_child(e)
+		e.aistate = e.AI.ALERT
+		spawnQueue -= 1
+		timer.start()

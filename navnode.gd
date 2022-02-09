@@ -21,6 +21,11 @@ enum {
 }
 
 func _physics_process(delta):
+
+	if enemy == null:
+		enemy = get_child(3)
+		return
+
 	match navstate:
 
 		STOPPED:
@@ -57,8 +62,10 @@ func get_target_path(target_pos):
 	currentpathindex = 0
 
 func _on_Timer_timeout():
+
 	if enemy == null:
 		return
+
 	timerdelay += 1
 	var targetrange = rand_range(10, 15)
 	if enemy.aistate == enemy.AI.IDLE and timerdelay > targetrange:

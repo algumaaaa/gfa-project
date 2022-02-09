@@ -20,6 +20,7 @@ onready var lookat = $lookat
 onready var detect = $detect
 
 export var damageray = false
+onready var tick = $tick
 onready var damagezone = $hitbox
 onready var area = $Area
 onready var hitbox = $CollisionShape
@@ -133,6 +134,7 @@ func _physics_process(delta):
 			ray.enabled = false
 			damageray = false
 			hitbox.disabled = true
+			tick.stop()
 			navnode.hitbox.disabled = true
 			navnode.tick.stop()
 
@@ -148,6 +150,7 @@ func _physics_process(delta):
 				despawn.start()
 			ray.enabled = false
 			hitbox.disabled = true
+			tick.stop()
 			navnode.hitbox.disabled = true
 			navnode.tick.stop()
 
@@ -161,6 +164,7 @@ func _physics_process(delta):
 					self.get_parent().add_child(g)
 					g.global_transform.origin = self.global_transform.origin
 					g.gibbed = true
+				tick.stop()
 				navnode.hitbox.disabled = true
 				navnode.tick.stop()
 				queue_free()
@@ -226,10 +230,12 @@ func _on_despawn_timeout():
 	queue_free()
 
 func _on_tick_timeout():
+	print(patience)
 	if aistate == AI.ALERT:
 		if patience > 0:
 			patience -= 1
 		else:
+			patience = 1
 			aistate = AI.PREP
 	if aistate == AI.CHARGE:
 		if patience < 50:
