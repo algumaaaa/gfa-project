@@ -22,7 +22,6 @@ onready var detect = $detect
 export var damageray = false
 onready var tick = $tick
 onready var damagezone = $hitbox
-onready var area = $Area
 onready var hitbox = $CollisionShape
 onready var despawn = $despawn
 onready var animplay = $sprite/AnimationPlayer
@@ -89,7 +88,8 @@ func _physics_process(delta):
 			navnode.navstate = navnode.ALERT
 			if !animplay.is_playing():
 				animplay.play("walk")
-			lookat.look_at(navnode.navdir, Vector3.UP)
+			if !Vector3.UP.cross(navnode.navdir - global_transform.origin) == Vector3():
+				lookat.look_at(navnode.navdir, Vector3.UP)
 			rotate_y(deg2rad(lookat.rotation.y * 5))
 
 		AI.PREP:
@@ -101,7 +101,8 @@ func _physics_process(delta):
 			navnode.navstate = navnode.ALERT
 			if !animplay.is_playing():
 				animplay.play("run")
-			lookat.look_at(navnode.navdir, Vector3.UP)
+			if !Vector3.UP.cross(navnode.navdir - global_transform.origin) == Vector3():
+				lookat.look_at(navnode.navdir, Vector3.UP)
 			rotate_y(deg2rad(lookat.rotation.y * 10))
 			for body in damagezone.get_overlapping_bodies():
 				if body.is_in_group("player"):

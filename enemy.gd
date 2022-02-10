@@ -93,14 +93,16 @@ func _physics_process(delta):
 			navnode.navstate = navnode.ALERT
 			if !animplay.is_playing():
 				animplay.play("walk")
-			lookat.look_at(navnode.navdir, Vector3.UP)
+			if !Vector3.UP.cross(navnode.navdir - global_transform.origin) == Vector3():
+				lookat.look_at(navnode.navdir, Vector3.UP)
 			rotate_y(deg2rad(lookat.rotation.y * 10))
 
 		AI.PATHING:
 			navnode.navstate = navnode.PATHING
 			if !animplay.is_playing():
 				animplay.play("walk")
-			lookat.look_at(navnode.navdir, Vector3.UP)
+			if !Vector3.UP.cross(navnode.navdir - global_transform.origin) == Vector3():
+				lookat.look_at(navnode.navdir, Vector3.UP)
 			rotate_y(deg2rad(lookat.rotation.y * 10))
 
 		AI.PAIN:

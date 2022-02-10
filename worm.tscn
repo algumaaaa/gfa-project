@@ -154,7 +154,7 @@ radius = 4.43386
 
 [node name="worm" type="KinematicBody" groups=["enemies"]]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 0
 script = ExtResource( 1 )
 animframe = 8
 
