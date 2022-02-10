@@ -61,13 +61,13 @@ func _on_Timer_timeout():
 func _spawn_horde(value):
 	var n = spawner.get_parent()
 	for s in n.get_children():
-		if s.enabled:
+		if s.enabled and !s.event:
 			var disto = s.global_transform.origin.distance_to(player.global_transform.origin)
 			if shortestDistance == null:
 				shortestDistance = s
 			elif disto < shortestDistance.global_transform.origin.distance_to(player.global_transform.origin):
 				shortestDistance = s
-	print(shortestDistance)
+#	print(shortestDistance)
 	var w = shortestDistance.get_world().direct_space_state
 	var r = w.intersect_ray(shortestDistance.global_transform.origin, player.global_transform.origin, [player])
 	if r:

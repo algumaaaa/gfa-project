@@ -3,6 +3,7 @@ extends Spatial
 var spawnQueue = 0
 
 export var enabled = true
+export var event = false
 
 onready var timer = $Timer
 
@@ -29,8 +30,6 @@ func _spawn_zombie(value):
 	if !enabled:
 		return
 	if value == 1:
-#	while value != 0:
-#		value -= 1
 		var n = navnode.instance()
 		n.global_transform.origin = self.global_transform.origin - Vector3(0, 1.8, 0)
 		get_parent().get_parent().add_child(n)
@@ -64,10 +63,6 @@ func _spawn_brawler():
 	get_parent().get_parent().add_child(b)
 	b.aistate = b.AI.ALERT
 
-func _on_street_body_entered(body):
-	if body.is_in_group("player"):
-		enabled = false
-
 func _on_Timer_timeout():
 	if spawnQueue > 0:
 		var n = navnode.instance()
@@ -79,3 +74,11 @@ func _on_Timer_timeout():
 		e.aistate = e.AI.ALERT
 		spawnQueue -= 1
 		timer.start()
+
+func _on_street_body_entered(body):
+	if body.is_in_group("player"):
+		enabled = false
+
+func _on_doubleDoor_body_entered(body):
+	if body.is_in_group("player"):
+		enabled = false

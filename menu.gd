@@ -28,7 +28,7 @@ func _on_e0m1_pressed():
 	get_tree().change_scene("res://level.tscn")
 
 func _on_e1m1_pressed():
-	get_tree().change_scene("res://e1m1.tscn")
+	get_tree().change_scene("res://e1m1.scn")
 
 func _on_e0m2_pressed():
 	get_tree().change_scene("res://e0m2.tscn")
