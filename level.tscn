@@ -5,7 +5,7 @@
 [ext_resource path="res://level.tres" type="Material" id=3]
 [ext_resource path="res://level2.tres" type="Material" id=4]
 [ext_resource path="res://hud.tscn" type="PackedScene" id=5]
-[ext_resource path="res://ammo.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ammoSpawn.tscn" type="PackedScene" id=6]
 [ext_resource path="res://brawler.tscn" type="PackedScene" id=7]
 [ext_resource path="res://worm.tscn" type="PackedScene" id=8]
 [ext_resource path="res://hitscanner.tscn" type="PackedScene" id=9]
@@ -424,6 +424,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.09738, 0 )
 [node name="Control" parent="." instance=ExtResource( 5 )]
 
 [node name="signalTouch" parent="." instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -125.971, 5.33009, -5.99957 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -114.367, 5.45469, -5.99957 )
+door = true
+
+[node name="door" parent="signalTouch" index="0"]
+visible = true
+monitoring = true
+
+[connection signal="body_entered" from="signalTouch/door" to="Spatial8/Spatial2" method="_on_door_body_entered"]
 
 [editable path="signalTouch"]

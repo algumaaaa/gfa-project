@@ -618,8 +618,7 @@ far = 1000.0
 [node name="aim" type="RayCast" parent="head/Camera"]
 enabled = true
 cast_to = Vector3( 0, 0, -1000 )
-collision_mask = 2
-collide_with_areas = true
+collision_mask = 3
 
 [node name="doublebcontainer" type="Spatial" parent="head/Camera"]
 
