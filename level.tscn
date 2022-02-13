@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://enemy.tscn" type="PackedScene" id=2]
@@ -10,7 +10,6 @@
 [ext_resource path="res://worm.tscn" type="PackedScene" id=8]
 [ext_resource path="res://hitscanner.tscn" type="PackedScene" id=9]
 [ext_resource path="res://pause.tscn" type="PackedScene" id=10]
-[ext_resource path="res://button.tscn" type="PackedScene" id=11]
 [ext_resource path="res://navnode.tscn" type="PackedScene" id=12]
 [ext_resource path="res://signalTouch.tscn" type="PackedScene" id=13]
 
@@ -80,9 +79,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.184067, -1.19754, -7.55621 )
 
 [node name="Spatial7" parent="Spatial8" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.184067, -1.19754, -10.9094 )
-
-[node name="button" parent="Spatial8" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -101.556, 5.03451, -88.0667 )
 
 [node name="Navigation" type="Navigation" parent="."]
 
@@ -428,6 +424,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -114.367, 5.45469, -5.99957 )
 door = true
 
 [node name="door" parent="signalTouch" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4024, -0.0396519, 0 )
 visible = true
 monitoring = true
 

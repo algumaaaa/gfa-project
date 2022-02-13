@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://finalframe 60x105.png" type="Texture" id=2]
@@ -9,6 +9,11 @@
 [ext_resource path="res://grenade launcher final.png" type="Texture" id=7]
 [ext_resource path="res://lever action final.png" type="Texture" id=8]
 [ext_resource path="res://mac10 final.png" type="Texture" id=9]
+[ext_resource path="res://Audio/Guns/neleven/Shot.wav" type="AudioStream" id=10]
+[ext_resource path="res://Audio/Guns/glauncher/Shot.wav" type="AudioStream" id=11]
+[ext_resource path="res://Audio/Guns/doubleb/Cock.wav" type="AudioStream" id=12]
+[ext_resource path="res://Audio/Guns/laction/Shot.wav" type="AudioStream" id=13]
+[ext_resource path="res://Audio/Guns/doubleb/Shot.wav" type="AudioStream" id=14]
 
 [sub_resource type="CapsuleMesh" id=1]
 mid_height = 3.0
@@ -145,6 +150,36 @@ tracks/2/keys = {
 "update": 1,
 "values": [ true ]
 }
+tracks/3/type = "audio"
+tracks/3/path = NodePath("../../gunAudio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.395964,
+"start_offset": 0.0,
+"stream": ExtResource( 14 )
+}, {
+"end_offset": 0.32854,
+"start_offset": 0.01,
+"stream": ExtResource( 12 )
+} ],
+"times": PoolRealArray( 0, 0.5 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../../gunAudio:volume_db")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5, 0.51 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ -6.0, -6.0, -12.0 ]
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "doublebshoot"
@@ -160,6 +195,32 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 0.0583146, 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 10, -15 ), Vector2( 15, -15 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("../../gunAudio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 14 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../../gunAudio:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -6.0 ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -231,6 +292,36 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("../../gunAudio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 11 )
+}, {
+"end_offset": 0.346928,
+"start_offset": 0.0,
+"stream": ExtResource( 12 )
+} ],
+"times": PoolRealArray( 0, 0.475482 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../../gunAudio:volume_db")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.4, 0.47303 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, -12.0 ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -304,6 +395,40 @@ tracks/2/keys = {
 "update": 1,
 "values": [ false, true ]
 }
+tracks/3/type = "audio"
+tracks/3/path = NodePath("../../gunAudio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.139752,
+"start_offset": 0.04,
+"stream": ExtResource( 13 )
+}, {
+"end_offset": 0.361639,
+"start_offset": 0.03,
+"stream": ExtResource( 12 )
+}, {
+"end_offset": 0.0,
+"start_offset": 0.3,
+"stream": ExtResource( 12 )
+} ],
+"times": PoolRealArray( 0, 0.45832, 0.660771 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../../gunAudio:volume_db")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.44781, 0.461997 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -6.0, -12.0 ]
+}
 
 [sub_resource type="Animation" id=13]
 length = 0.33
@@ -350,6 +475,32 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("../../gunAudio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 10 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../../gunAudio:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
 }
 
 [sub_resource type="Animation" id=16]
@@ -420,6 +571,32 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ true ]
+}
+tracks/3/type = "audio"
+tracks/3/path = NodePath("../../gunAudio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"clips": [ {
+"end_offset": 0.0674242,
+"start_offset": 0.0,
+"stream": ExtResource( 10 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../../gunAudio:volume_db")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
 }
 
 [sub_resource type="Animation" id=19]
@@ -697,7 +874,6 @@ anims/nelevenunequip = SubResource( 19 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.469, -0.9, -1.36 )
 layers = 2
 material_override = SubResource( 25 )
-offset = Vector2( 6.10352e-05, -6.10352e-05 )
 pixel_size = 0.012
 double_sided = false
 alpha_cut = 1
@@ -722,18 +898,17 @@ shellsrelease = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35794, -0.9, -1.29621 )
 layers = 2
 material_override = SubResource( 27 )
-offset = Vector2( 6.10352e-05, -6.10352e-05 )
 pixel_size = 0.014
 double_sided = false
 texture = ExtResource( 8 )
 hframes = 3
 script = ExtResource( 3 )
+shellsrelease = true
 
 [node name="glauncher" type="Sprite3D" parent="head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.48674, -0.9, -1.34683 )
 layers = 2
 material_override = SubResource( 28 )
-offset = Vector2( 75, -75 )
 pixel_size = 0.014
 double_sided = false
 texture = ExtResource( 7 )
@@ -749,11 +924,13 @@ pixel_size = 0.012
 double_sided = false
 texture = ExtResource( 9 )
 script = ExtResource( 3 )
+shellsrelease = true
 
 [node name="bandaid" type="Sprite3D" parent="head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33698, -1.04436, -1.18353 )
 layers = 2
 material_override = SubResource( 30 )
+offset = Vector2( 7.62939e-05, -7.62939e-05 )
 pixel_size = 0.012
 shaded = true
 texture = ExtResource( 5 )
@@ -868,6 +1045,11 @@ cast_to = Vector3( -1.5, 0, 0 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.45577, 0 )
 enabled = true
 cast_to = Vector3( -1.5, 0, 0 )
+
+[node name="gunAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+mix_target = 2
+bus = "GUNS"
 
 [connection signal="animation_finished" from="head/Camera/gunanim" to="." method="_on_gunanim_animation_finished"]
 [connection signal="animation_started" from="head/Camera/gunanim" to="head/Camera/muzzleflash" method="_on_gunanim_animation_started"]

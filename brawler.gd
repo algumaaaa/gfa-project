@@ -231,7 +231,6 @@ func _on_despawn_timeout():
 	queue_free()
 
 func _on_tick_timeout():
-	print(patience)
 	if aistate == AI.ALERT:
 		if patience > 0:
 			patience -= 1

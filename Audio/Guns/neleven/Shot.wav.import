@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Shot.wav-b90ce30a15cfaf890ff0ab6177b9be7c.sample"
+
+[deps]
+
+source_file="res://Audio/Guns/neleven/Shot.wav"
+dest_files=[ "res://.import/Shot.wav-b90ce30a15cfaf890ff0ab6177b9be7c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

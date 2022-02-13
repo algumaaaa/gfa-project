@@ -35,6 +35,8 @@ var gunstate = GUN_USE.GUN1
 var gunequip = neleven
 var nextgun = GUN_USE.GUN1
 
+var gunSounds = []
+
 enum GUN_USE {
 	HEAL,
 	GUN1,
@@ -438,17 +440,19 @@ func _physics_process(delta):
 func _ready():
 	GLOBAL.player = self
 	camera.fov = GLOBAL.fov
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 	randomize()
 	for r in doublebcontainer.get_children():
 		r.cast_to.x = rand_range(pelletspread, -pelletspread)
 		r.cast_to.y = rand_range(pelletspread, -pelletspread)
+
 	bandaid.visible = false
 	band.visible = false
 	doubleb.visible = false
 	laction.visible = false
 	glauncher.visible = false
 	mac10.visible = false
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func makebh(var t, var r, var bh):
 	t.add_child(bh)

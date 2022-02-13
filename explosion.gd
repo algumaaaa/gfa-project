@@ -22,9 +22,9 @@ func _physics_process(delta):
 				b.damagequeue += 150
 				b.tookdamage = true
 				exploded = false
-	var distto = self.transform.origin.distance_to(player.transform.origin)
-	if distto < 30:
-		player.shootshake.play("shootheavy", range_lerp(15, distto, 0, 0, 1))
+		var distto = self.transform.origin.distance_to(player.transform.origin)
+		if distto < 30:
+			player.shootshake.play("shootheavy", range_lerp(15, distto, 0, 0, 1))
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	queue_free()
