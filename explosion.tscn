@@ -79,7 +79,6 @@ billboard = 1
 texture = ExtResource( 1 )
 hframes = 5
 vframes = 5
-frame = 22
 
 [node name="Particles" type="Particles" parent="."]
 emitting = false

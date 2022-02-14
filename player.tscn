@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://finalframe 60x105.png" type="Texture" id=2]
@@ -10,10 +10,12 @@
 [ext_resource path="res://lever action final.png" type="Texture" id=8]
 [ext_resource path="res://mac10 final.png" type="Texture" id=9]
 [ext_resource path="res://Audio/Guns/neleven/Shot.wav" type="AudioStream" id=10]
-[ext_resource path="res://Audio/Guns/glauncher/Shot.wav" type="AudioStream" id=11]
+[ext_resource path="res://Audio/Guns/neleven/Cock.wav" type="AudioStream" id=11]
 [ext_resource path="res://Audio/Guns/doubleb/Cock.wav" type="AudioStream" id=12]
 [ext_resource path="res://Audio/Guns/laction/Shot.wav" type="AudioStream" id=13]
 [ext_resource path="res://Audio/Guns/doubleb/Shot.wav" type="AudioStream" id=14]
+[ext_resource path="res://Audio/Guns/doubleb/Cock2.wav" type="AudioStream" id=15]
+[ext_resource path="res://Audio/Guns/glauncher/Shot.wav" type="AudioStream" id=16]
 
 [sub_resource type="CapsuleMesh" id=1]
 mid_height = 3.0
@@ -162,11 +164,15 @@ tracks/3/keys = {
 "start_offset": 0.0,
 "stream": ExtResource( 14 )
 }, {
-"end_offset": 0.32854,
+"end_offset": 0.0,
+"start_offset": 1.5,
+"stream": ExtResource( 15 )
+}, {
+"end_offset": 0.391061,
 "start_offset": 0.01,
-"stream": ExtResource( 12 )
+"stream": ExtResource( 11 )
 } ],
-"times": PoolRealArray( 0, 0.5 )
+"times": PoolRealArray( 0, 0.506832, 0.798774 )
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("../../gunAudio:volume_db")
@@ -178,7 +184,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 0.5, 0.51 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ -6.0, -6.0, -12.0 ]
+"values": [ -6.0, -6.0, -6.0 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -303,7 +309,7 @@ tracks/3/keys = {
 "clips": [ {
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource( 11 )
+"stream": ExtResource( 16 )
 }, {
 "end_offset": 0.346928,
 "start_offset": 0.0,
@@ -598,6 +604,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("../../gunAudio:pitch_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.230421, 0.240455 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.75, 0.75, 1.0 ]
+}
 
 [sub_resource type="Animation" id=19]
 length = 0.33
@@ -886,11 +904,13 @@ shellsrelease = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.27444, -1.00531, -1.36 )
 layers = 2
 material_override = SubResource( 26 )
+offset = Vector2( 4.41176, 4.41176 )
 pixel_size = 0.012
 double_sided = false
 alpha_cut = 1
 texture = ExtResource( 2 )
 hframes = 4
+frame = 2
 script = ExtResource( 3 )
 shellsrelease = true
 
@@ -1047,7 +1067,8 @@ enabled = true
 cast_to = Vector3( -1.5, 0, 0 )
 
 [node name="gunAudio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 12 )
+stream = ExtResource( 10 )
+pitch_scale = 0.75
 mix_target = 2
 bus = "GUNS"
 
