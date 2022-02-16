@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/Shot.wav-b90ce30a15cfaf890ff0ab6177b9be7c.sample"
+path="res://.import/Footstep3.wav-886b9fa77bb4497ea3b4a901bada93b9.sample"
 
 [deps]
 
-source_file="res://Audio/Guns/neleven/Shot.wav"
-dest_files=[ "res://.import/Shot.wav-b90ce30a15cfaf890ff0ab6177b9be7c.sample" ]
+source_file="res://Audio/Misc/Footsteps/Footstep3.wav"
+dest_files=[ "res://.import/Footstep3.wav-886b9fa77bb4497ea3b4a901bada93b9.sample" ]
 
 [params]
 

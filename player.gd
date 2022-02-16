@@ -35,7 +35,8 @@ var gunstate = GUN_USE.GUN1
 var gunequip = neleven
 var nextgun = GUN_USE.GUN1
 
-var gunSounds = []
+export var footStep = false
+var footStepAudios = []
 
 enum GUN_USE {
 	HEAL,
@@ -79,6 +80,8 @@ onready var muzzle = $head/muzzle
 onready var shellsloc = $head/shellsrelease
 onready var shellslocleft = $head/shellsrelease2
 onready var doublebcontainer = $head/Camera/doublebcontainer
+
+onready var footAudio = $footAudio
 
 onready var bullethole = preload("res://bullethole.tscn")
 onready var bcasing = preload("res://bulletcasing.tscn")
@@ -437,6 +440,11 @@ func _physics_process(delta):
 	if health > 100:
 		health = 100
 
+	if footStep:
+		footAudio.stream = footStepAudios[rand_range(0, 4)]
+		footAudio.play()
+		footStep = false
+
 func _ready():
 	GLOBAL.player = self
 	camera.fov = GLOBAL.fov
@@ -453,6 +461,12 @@ func _ready():
 	laction.visible = false
 	glauncher.visible = false
 	mac10.visible = false
+
+	footStepAudios.append(preload("res://Audio/Misc/Footsteps/Footstep1.wav"))
+	footStepAudios.append(preload("res://Audio/Misc/Footsteps/Footstep2.wav"))
+	footStepAudios.append(preload("res://Audio/Misc/Footsteps/Footstep3.wav"))
+	footStepAudios.append(preload("res://Audio/Misc/Footsteps/Footstep4.wav"))
+	footStepAudios.append(preload("res://Audio/Misc/Footsteps/Footstep5.wav"))
 
 func makebh(var t, var r, var bh):
 	t.add_child(bh)

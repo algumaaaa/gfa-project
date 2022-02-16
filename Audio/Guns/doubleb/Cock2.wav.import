@@ -11,8 +11,8 @@ dest_files=[ "res://.import/Cock2.wav-241d9282fd1057ac19ccf6b1e6ee4997.sample" ]
 
 [params]
 
-force/8_bit=false
-force/mono=false
+force/8_bit=true
+force/mono=true
 force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false

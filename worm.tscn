@@ -172,7 +172,7 @@ collision_layer = 2
 collision_mask = 0
 script = ExtResource( 1 )
 exploded = true
-animframe = 12
+animframe = 8
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.657962, 0 )

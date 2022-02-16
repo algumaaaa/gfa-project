@@ -2,12 +2,15 @@ extends Spatial
 
 onready var GLOBAL = get_node("/root/GLOBAL/")
 export var ammotype = 0
+export var isOnExpert = true
 onready var sprite = $Sprite3D
 var ammoplus = 0
 
 func _ready():
 	sprite.frame = ammotype
-	pass 
+	if !isOnExpert:
+		if GLOBAL.d == 0.5:
+			queue_free()
 
 func _on_Area_body_entered(body):
 	if body.is_in_group("player"):
@@ -35,10 +38,10 @@ func _manage_ammo():
 		if c == null:
 			return
 		if GLOBAL.r > 150:
-			c.ammoplus = 50
+			c.ammoplus = 25
 		if GLOBAL.r >= 101 and GLOBAL.r <= 150:
-			c.ammoplus = 40
+			c.ammoplus = 15
 		if GLOBAL.r >= 34 and GLOBAL.r <= 100:
-			c.ammoplus = 30
+			c.ammoplus = 5
 		if GLOBAL.r <= 33:
-			c.ammoplus = 20
+			c.ammoplus = 0

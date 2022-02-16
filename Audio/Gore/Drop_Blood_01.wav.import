@@ -11,8 +11,8 @@ dest_files=[ "res://.import/Drop_Blood_01.wav-5e4366d9142ab3991c72d2639994afe5.s
 
 [params]
 
-force/8_bit=false
-force/mono=false
+force/8_bit=true
+force/mono=true
 force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false

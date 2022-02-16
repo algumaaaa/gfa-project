@@ -11,8 +11,8 @@ dest_files=[ "res://.import/Explosion.wav-b9eb3d44ca9b911a0cb207eead1b8483.sampl
 
 [params]
 
-force/8_bit=false
-force/mono=false
+force/8_bit=true
+force/mono=true
 force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false

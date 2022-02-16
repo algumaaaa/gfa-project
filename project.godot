@@ -244,6 +244,16 @@ texture_3d={
 texture_array={
 "flags/filter": false
 }
+wav={
+"compress/mode": 0,
+"edit/loop": false,
+"edit/normalize": false,
+"edit/trim": false,
+"force/8_bit": true,
+"force/max_rate": false,
+"force/max_rate_hz": 44100,
+"force/mono": true
+}
 
 [input]
 

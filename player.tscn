@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://finalframe 60x105.png" type="Texture" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://Audio/Guns/doubleb/Shot.wav" type="AudioStream" id=14]
 [ext_resource path="res://Audio/Guns/doubleb/Cock2.wav" type="AudioStream" id=15]
 [ext_resource path="res://Audio/Guns/glauncher/Shot.wav" type="AudioStream" id=16]
+[ext_resource path="res://Audio/Guns/mac10/Shot.wav" type="AudioStream" id=17]
 
 [sub_resource type="CapsuleMesh" id=1]
 mid_height = 3.0
@@ -491,10 +492,14 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "clips": [ {
 "end_offset": 0.0,
+"start_offset": 0.01,
+"stream": ExtResource( 17 )
+}, {
+"end_offset": 0.0,
 "start_offset": 0.0,
 "stream": ExtResource( 10 )
 } ],
-"times": PoolRealArray( 0 )
+"times": PoolRealArray( 0, 0.4 )
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("../../gunAudio:volume_db")
@@ -751,6 +756,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ 0.0, -0.1, 0.0, 0.1, 0.0 ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("../../../../..:footStep")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.371804, 0.753416, 1.2, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, true, true, true ]
+}
 
 [sub_resource type="Animation" id=23]
 length = 0.1
@@ -904,13 +921,11 @@ shellsrelease = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.27444, -1.00531, -1.36 )
 layers = 2
 material_override = SubResource( 26 )
-offset = Vector2( 4.41176, 4.41176 )
 pixel_size = 0.012
 double_sided = false
 alpha_cut = 1
 texture = ExtResource( 2 )
 hframes = 4
-frame = 2
 script = ExtResource( 3 )
 shellsrelease = true
 
@@ -918,12 +933,13 @@ shellsrelease = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35794, -0.9, -1.29621 )
 layers = 2
 material_override = SubResource( 27 )
+offset = Vector2( -20, 20 )
 pixel_size = 0.014
 double_sided = false
 texture = ExtResource( 8 )
 hframes = 3
+frame = 1
 script = ExtResource( 3 )
-shellsrelease = true
 
 [node name="glauncher" type="Sprite3D" parent="head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.48674, -0.9, -1.34683 )
@@ -1067,10 +1083,13 @@ enabled = true
 cast_to = Vector3( -1.5, 0, 0 )
 
 [node name="gunAudio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 10 )
-pitch_scale = 0.75
+stream = ExtResource( 17 )
 mix_target = 2
 bus = "GUNS"
+
+[node name="footAudio" type="AudioStreamPlayer" parent="."]
+volume_db = -12.0
+bus = "SFX"
 
 [connection signal="animation_finished" from="head/Camera/gunanim" to="." method="_on_gunanim_animation_finished"]
 [connection signal="animation_started" from="head/Camera/gunanim" to="head/Camera/muzzleflash" method="_on_gunanim_animation_started"]
