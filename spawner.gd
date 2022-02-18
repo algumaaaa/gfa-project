@@ -24,7 +24,7 @@ func _on_button_toggled(value):
 	if value == 3:
 		_spawn_spitter()
 	if value == 4:
-		_spawn_brawler()
+		_spawn_brawler(1)
 
 func _spawn_zombie(value):
 	if !enabled:
@@ -57,11 +57,17 @@ func _spawn_spitter():
 	get_parent().get_parent().add_child(s)
 	s.aistate = s.AI.ALERT
 
-func _spawn_brawler():
-	var b = brawler.instance()
-	b.global_transform.origin = self.global_transform.origin
-	get_parent().get_parent().add_child(b)
-	b.aistate = b.AI.ALERT
+func _spawn_brawler(value):
+	if !enabled:
+		return
+	if value == 1:
+		var n = navnode.instance()
+		n.global_transform.origin = self.global_transform.origin - Vector3(0, 2.6, 0)
+		get_parent().get_parent().add_child(n)
+		var b = brawler.instance()
+		b.transform.origin += Vector3(0, 2.8, 0)
+		n.add_child(b)
+		b.aistate = b.AI.ALERT
 
 func _on_Timer_timeout():
 	if spawnQueue > 0:

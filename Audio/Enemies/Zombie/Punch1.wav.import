@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Punch1.wav-70f687e464eb7362bd499798e09bc5a4.sample"
+
+[deps]
+
+source_file="res://Audio/Enemies/Zombie/Punch1.wav"
+dest_files=[ "res://.import/Punch1.wav-70f687e464eb7362bd499798e09bc5a4.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=true
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

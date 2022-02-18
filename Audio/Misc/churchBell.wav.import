@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/churchBell.wav-64c36ee748d3bf0797c7f81d916847fb.sample"
+
+[deps]
+
+source_file="res://Audio/Misc/churchBell.wav"
+dest_files=[ "res://.import/churchBell.wav-64c36ee748d3bf0797c7f81d916847fb.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=true
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

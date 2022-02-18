@@ -434,7 +434,7 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 0.44781, 0.461997 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ 0.0, -6.0, -12.0 ]
+"values": [ 1.0, -6.0, -12.0 ]
 }
 
 [sub_resource type="Animation" id=13]
@@ -933,12 +933,11 @@ shellsrelease = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35794, -0.9, -1.29621 )
 layers = 2
 material_override = SubResource( 27 )
-offset = Vector2( -20, 20 )
+offset = Vector2( 6.10352e-05, -6.10352e-05 )
 pixel_size = 0.014
 double_sided = false
 texture = ExtResource( 8 )
 hframes = 3
-frame = 1
 script = ExtResource( 3 )
 
 [node name="glauncher" type="Sprite3D" parent="head/Camera"]
@@ -966,7 +965,7 @@ shellsrelease = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33698, -1.04436, -1.18353 )
 layers = 2
 material_override = SubResource( 30 )
-offset = Vector2( 7.62939e-05, -7.62939e-05 )
+offset = Vector2( 100, -100 )
 pixel_size = 0.012
 shaded = true
 texture = ExtResource( 5 )
@@ -1083,7 +1082,8 @@ enabled = true
 cast_to = Vector3( -1.5, 0, 0 )
 
 [node name="gunAudio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 17 )
+stream = ExtResource( 12 )
+volume_db = 1.0
 mix_target = 2
 bus = "GUNS"
 

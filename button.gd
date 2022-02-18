@@ -8,7 +8,3 @@ func _physics_process(delta):
 	if interact:
 		emit_signal("toggled", value)
 		interact = false
-		
-
-func _ready():
-	pass

@@ -14,6 +14,9 @@ var currentpathindex = 0
 var randompath = Vector3()
 var ispathing = false
 
+onready var biteSound = preload("res://Audio/Enemies/Worm/Bite.wav")
+onready var enemAudio = $AudioStreamPlayer3D
+
 onready var navnode = get_parent()
 onready var player = get_tree().get_root().get_node("/root/Spatial/player/")
 onready var ray = $RayCast
@@ -150,6 +153,9 @@ func _physics_process(delta):
 		var p = ray.get_collider()
 		if p != null and p.is_in_group("player"):
 			p.damagequeue += 10
+			enemAudio.stream = biteSound
+			enemAudio.max_db = -6
+			enemAudio.play()
 		damageframe = false
 
 	if exploded:

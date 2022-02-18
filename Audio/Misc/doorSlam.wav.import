@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/doorSlam.wav-c355f2dac8d153fae7bd4f319241ef3f.sample"
+
+[deps]
+
+source_file="res://Audio/Misc/doorSlam.wav"
+dest_files=[ "res://.import/doorSlam.wav-c355f2dac8d153fae7bd4f319241ef3f.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=true
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

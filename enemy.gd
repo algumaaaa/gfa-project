@@ -15,6 +15,9 @@ var currentpathindex = 0
 var randompath = Vector3()
 var ispathing = false
 
+var punchSounds = []
+onready var enemAudio = $enemAudio
+
 onready var navnode = get_parent()
 onready var player = get_tree().get_root().get_node("/root/Spatial/player/")
 onready var ray = $RayCast
@@ -67,6 +70,10 @@ func _process(delta):
 
 func _ready():
 	randomize()
+
+	punchSounds.append(preload("res://Audio/Enemies/Zombie/Punch1.wav"))
+	punchSounds.append(preload("res://Audio/Enemies/Zombie/Punch2.wav"))
+	punchSounds.append(preload("res://Audio/Enemies/Zombie/Punch3.wav"))
 
 func _physics_process(delta):
 
@@ -183,6 +190,8 @@ func _physics_process(delta):
 		var p = ray.get_collider()
 		if p != null and p.is_in_group("player"):
 			p.damagequeue += 10
+			enemAudio.stream = punchSounds[rand_range(0, 2)]
+			enemAudio.play()
 		damageframe = false
 
 	detect.look_at(player.global_transform.origin, Vector3.UP)
