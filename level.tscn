@@ -430,4 +430,5 @@ monitoring = true
 
 [connection signal="body_entered" from="signalTouch/door" to="Spatial8/Spatial2" method="_on_door_body_entered"]
 
+[editable path="Control"]
 [editable path="signalTouch"]

@@ -23,6 +23,7 @@ func _on_Area_body_entered(body):
 			body.glauncherammo += 4 + floor((ammoplus * 0.1))
 		if ammotype == 3:
 			body.lactionammo += 7 + floor((ammoplus * 0.3))
+		body.ammoAudio.play()
 		_manage_ammo()
 		queue_free()
 	pass 

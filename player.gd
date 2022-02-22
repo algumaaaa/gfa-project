@@ -85,6 +85,7 @@ onready var shellslocleft = $head/shellsrelease2
 onready var doublebcontainer = $head/Camera/doublebcontainer
 
 onready var footAudio = $footAudio
+onready var ammoAudio = $ammoAudio
 
 onready var bullethole = preload("res://bullethole.tscn")
 onready var bcasing = preload("res://bulletcasing.tscn")
@@ -445,6 +446,7 @@ func _physics_process(delta):
 		health = 0
 		hasControl = false
 		shootshake.play("die")
+		gunbob.stop(false)
 	if health > 100:
 		health = 100
 
@@ -501,6 +503,12 @@ func makebh(var t, var r, var bh):
 func _on_slowTimer_timeout():
 	speed = 20
 	slowed = false
+
+func _toggleControl(value: bool):
+	if value:
+		hasControl = true
+	if !value:
+		hasControl = false
 
 func _on_gunanim_animation_finished(anim_name):
 	if anim_name == "bandaiduse":

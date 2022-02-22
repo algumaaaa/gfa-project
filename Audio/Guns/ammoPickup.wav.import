@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ammoPickup.wav-89570c31a3c07481142e309414734985.sample"
+
+[deps]
+
+source_file="res://Audio/Guns/ammoPickup.wav"
+dest_files=[ "res://.import/ammoPickup.wav-89570c31a3c07481142e309414734985.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=true
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

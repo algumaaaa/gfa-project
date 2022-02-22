@@ -72,3 +72,14 @@ func _spawn_horde(value):
 	var r = w.intersect_ray(shortestDistance.global_transform.origin, player.global_transform.origin, [player])
 	if r:
 		shortestDistance._spawn_zombie(floor(value))
+
+func _change_scene(path, current_scene):
+	var loader = ResourceLoader.load_interactive(path)
+
+	while true:
+		var err = loader.poll()
+		if err == ERR_FILE_EOF:
+			var resource = loader.get_resource()
+			get_tree().get_root().call_deferred('add_child', resource.instance())
+			current_scene.queue_free()
+			break

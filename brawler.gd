@@ -235,7 +235,6 @@ func _on_tick_timeout():
 		if patience > 0:
 			patience -= 1
 		else:
-			patience = 1
 			aistate = AI.PREP
 	if aistate == AI.CHARGE:
 		if patience < 50:
