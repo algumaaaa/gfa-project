@@ -11,14 +11,15 @@ func _process(delta):
 		if !pause.visible:
 			pause.visible = true
 			get_tree().paused = true
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)	
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		else:
 			pause.visible = false
 			get_tree().paused = false
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)	
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _on_start_pressed():
-	get_tree().change_scene("res://level.tscn")
+	get_parent().get_tree().change_scene("res://menu.tscn")
+#	GLOBAL._change_scene("res://menu.tscn", get_tree().get_current_scene())
 
 func _on_exit_pressed():
 	get_tree().quit()

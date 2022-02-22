@@ -17,6 +17,9 @@ var fov = 90
 
 func _physics_process(delta):
 
+	if get_tree().get_current_scene() != null and get_tree().get_current_scene().get_name() == "menu":
+		return
+
 	if Input.is_action_just_pressed("debug1"):
 		_spawn_horde(1)
 		print(shortestDistance)

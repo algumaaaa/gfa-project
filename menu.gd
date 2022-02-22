@@ -11,6 +11,9 @@ onready var fovlabel = $Popup/MarginContainer/GridContainer/fovlabel
 
 onready var nowLoading = $nowLoading
 
+func _ready():
+	get_tree().paused = false
+
 func _on_start_pressed():
 	if !levelselect.visible:
 		levelselect.visible = true
@@ -27,16 +30,18 @@ func _on_options_pressed():
 		popup.visible = false
 
 func _on_e0m1_pressed():
-#	get_tree().change_scene("res://level.tscn")
+
 	nowLoading.visible = true
 	yield(get_tree().create_timer(0.1), "timeout")
-	GLOBAL._change_scene("res://level.tscn", get_tree().get_current_scene())
+	get_tree().change_scene("res://level.tscn")
+#	GLOBAL._change_scene("res://level.tscn", get_tree().get_current_scene())
 
 func _on_e1m1_pressed():
-#	get_tree().change_scene("res://e1m1.scn")
+
 	nowLoading.visible = true
 	yield(get_tree().create_timer(0.1), "timeout")
-	GLOBAL._change_scene("res://e1m1.scn", get_tree().get_current_scene())
+	get_tree().change_scene("res://e1m1.scn")
+#	GLOBAL._change_scene("res://e1m1.scn", get_tree().get_current_scene())
 
 func _on_e0m2_pressed():
 	get_tree().change_scene("res://e0m2.tscn")

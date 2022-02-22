@@ -6,6 +6,7 @@ var navdir = Vector3()
 var timerdelay = 0
 var randompath = Vector3()
 var navstate = IDLE
+var targetrange = rand_range(10, 15)
 
 onready var hitbox = $CollisionShape
 onready var tick = $Timer
@@ -19,6 +20,10 @@ enum {
 	ALERT,
 	PATHING
 }
+
+func _ready():
+	randomize()
+	
 
 func _physics_process(delta):
 
@@ -58,7 +63,7 @@ func _physics_process(delta):
 					move_and_slide(direction.normalized() * enemy.speed, Vector3.UP)
 
 func get_target_path(target_pos):
-	path = nav.get_simple_path(global_transform.origin, nav.get_closest_point(target_pos))
+	path = nav.get_simple_path(global_transform.origin, target_pos)
 	currentpathindex = 0
 
 func _on_Timer_timeout():
@@ -67,7 +72,6 @@ func _on_Timer_timeout():
 		return
 
 	timerdelay += 1
-	var targetrange = rand_range(10, 15)
 	if enemy.aistate == enemy.AI.IDLE and timerdelay > targetrange:
 		timerdelay = 0
 		if enemy.ispathing:

@@ -19,4 +19,5 @@ func _on_doubleDoor_body_entered(body):
 		play("endCutscene")
 		endCutscene = true
 		yield(self, "animation_finished")
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		get_tree().change_scene("res://menu.tscn")
