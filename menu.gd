@@ -15,10 +15,13 @@ func _ready():
 	get_tree().paused = false
 
 func _on_start_pressed():
-	if !levelselect.visible:
-		levelselect.visible = true
-	else:
-		levelselect.visible = false
+#	if !levelselect.visible:
+#		levelselect.visible = true
+#	else:
+#		levelselect.visible = false
+	nowLoading.visible = true
+	yield(get_tree().create_timer(0.1), "timeout")
+	get_tree().change_scene("res://e1m1.scn")
 
 func _on_exit_pressed():
 	get_tree().quit()
