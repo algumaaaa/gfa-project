@@ -56,6 +56,7 @@ monitorable = false
 shape = SubResource( 5 )
 
 [node name="MeshInstance" type="MeshInstance" parent="doubleDoor"]
+layers = 512
 mesh = SubResource( 4 )
 material/0 = null
 
@@ -68,6 +69,7 @@ monitorable = false
 shape = SubResource( 6 )
 
 [node name="MeshInstance" type="MeshInstance" parent="street"]
+layers = 512
 mesh = SubResource( 7 )
 material/0 = null
 
@@ -80,5 +82,6 @@ monitorable = false
 shape = SubResource( 8 )
 
 [node name="MeshInstance" type="MeshInstance" parent="churchEvent"]
+layers = 512
 mesh = SubResource( 9 )
 material/0 = null

@@ -36,6 +36,7 @@ func _spawn_zombie(value):
 		var e = zombie.instance()
 		e.transform.origin += Vector3(0, 2, 0)
 		n.add_child(e)
+		n.navstate = n.ALERT
 		e.aistate = e.AI.ALERT
 	else:
 		spawnQueue = value
@@ -67,6 +68,7 @@ func _spawn_brawler(value):
 		var b = brawler.instance()
 		b.transform.origin += Vector3(0, 2.8, 0)
 		n.add_child(b)
+		n.navstate = n.ALERT
 		b.aistate = b.AI.ALERT
 
 func _on_Timer_timeout():
@@ -77,6 +79,7 @@ func _on_Timer_timeout():
 		var e = zombie.instance()
 		e.transform.origin += Vector3(0, 2, 0)
 		n.add_child(e)
+		n.navstate = n.ALERT
 		e.aistate = e.AI.ALERT
 		spawnQueue -= 1
 		timer.start()

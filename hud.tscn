@@ -62,8 +62,9 @@ tracks/0/keys = {
 [node name="Control" type="CanvasLayer"]
 
 [node name="hud" type="Control" parent="."]
-margin_right = 1280.0
-margin_bottom = 716.0
+anchor_right = 1.0
+anchor_bottom = 0.994
+margin_bottom = 0.320007
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -108,9 +109,11 @@ anims/heal = SubResource( 3 )
 [node name="Panel" type="Panel" parent="hud"]
 modulate = Color( 1, 1, 1, 0.588235 )
 show_behind_parent = true
-margin_top = 620.0
-margin_right = 257.0
-margin_bottom = 721.0
+anchor_top = 0.859
+anchor_right = 0.201
+anchor_bottom = 1.0
+margin_top = -0.0440063
+margin_right = -0.279999
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -202,10 +205,10 @@ modulate = Color( 1, 1, 1, 0.588235 )
 show_behind_parent = true
 anchor_top = 0.468
 anchor_right = 0.062
-anchor_bottom = 0.866
-margin_top = -0.0880127
+anchor_bottom = 0.859
+margin_top = -5.08801
 margin_right = 0.639999
-margin_bottom = -0.0560303
+margin_bottom = -0.0440674
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -18,11 +18,13 @@ var health = 100
 var damagequeue = 0
 var healqueue = 0
 var speed = 20
+var slowed = false
 
 var direction = Vector3()
 var h_acceleration = 25
 var h_velocity = Vector3()
 var movement = Vector3()
+var hasControl = true
 
 var gravity = 30
 var jump = 10
@@ -57,6 +59,7 @@ onready var camera = $head/Camera
 onready var guncam = $head/Camera/ViewportContainer/Viewport/guncam
 onready var shootshake = $head/Camera/camerashake
 onready var gunbob = $head/Camera/ViewportContainer/Viewport/guncam/AnimationPlayer
+onready var viewport = $head/Camera/ViewportContainer/Viewport
 
 onready var rftop = $bump/ftop
 onready var rfbottom = $bump/fbottom
@@ -90,6 +93,8 @@ onready var bloodimpact = preload("res://bloodimpact.tscn")
 onready var grenade = preload("res://grenade.tscn")
 
 func _input(event):
+	if !hasControl:
+		return
 	if event is InputEventMouseMotion:
 		rotate_y(deg2rad(-event.relative.x * GLOBAL.mouse_sensitivity))
 		head.rotate_x(deg2rad(-event.relative.y * GLOBAL.mouse_sensitivity))
@@ -100,7 +105,9 @@ func _process(delta):
 	pass
 
 func _physics_process(delta):
-	
+	if !hasControl:
+		return
+
 	direction = Vector3()
 	full_contact = ground_check.is_colliding()
 	
@@ -343,7 +350,6 @@ func _physics_process(delta):
 
 	if Input.is_action_pressed("jump") and (ground_check.is_colliding()):
 		gravity_vec = Vector3.UP * jump
-		#is_on_floor() or 
 	if Input.is_action_pressed("move_foward"):
 		direction -= transform.basis.z
 	elif Input.is_action_pressed("move_backward"):
@@ -437,6 +443,8 @@ func _physics_process(delta):
 		healqueue = 0
 	if health <= 0:
 		health = 0
+		hasControl = false
+		shootshake.play("die")
 	if health > 100:
 		health = 100
 
@@ -444,6 +452,15 @@ func _physics_process(delta):
 		footAudio.stream = footStepAudios[rand_range(0, 4)]
 		footAudio.play()
 		footStep = false
+
+	if slowed:
+		speed = 10
+		var slowTimer = Timer.new()
+		slowTimer.wait_time = 1
+		slowTimer.one_shot = true
+		slowTimer.connect("timeout", self, "_on_slowTimer_timeout")
+		add_child(slowTimer)
+		slowTimer.start()
 
 func _ready():
 	GLOBAL.player = self
@@ -468,6 +485,8 @@ func _ready():
 	footStepAudios.append(preload("res://Audio/Misc/Footsteps/Footstep4.wav"))
 	footStepAudios.append(preload("res://Audio/Misc/Footsteps/Footstep5.wav"))
 
+	viewport.size = get_viewport().get_visible_rect().size
+
 func makebh(var t, var r, var bh):
 	t.add_child(bh)
 	if r.get_collision_normal().normalized() == Vector3.UP:
@@ -478,6 +497,10 @@ func makebh(var t, var r, var bh):
 		bh.rotation_degrees.x = -90
 	else:
 		bh.look_at_from_position(r.get_collision_point(), r.get_collision_point() + r.get_collision_normal().normalized(), Vector3.UP)
+
+func _on_slowTimer_timeout():
+	speed = 20
+	slowed = false
 
 func _on_gunanim_animation_finished(anim_name):
 	if anim_name == "bandaiduse":

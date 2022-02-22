@@ -233,6 +233,10 @@ enabled=PoolStringArray( "res://addons/qodot/plugin.cfg" )
 
 singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
 
+[global]
+
+fullscreen=false
+
 [importer_defaults]
 
 texture={

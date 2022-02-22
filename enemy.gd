@@ -181,6 +181,7 @@ func _physics_process(delta):
 	if ray.is_colliding() and !tookdamage and aistate != AI.DIE and aistate != AI.GORE and aistate != AI.GIB and aistate != AI.IDLE:
 		var target = ray.get_collider()
 		if target.is_in_group("player"):
+			target.slowed = true
 			aistate = AI.ATTACK
 		elif target.is_in_group("enemies"):
 			aistate = AI.PATHING
