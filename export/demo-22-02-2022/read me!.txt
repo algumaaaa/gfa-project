@@ -1,0 +1,4 @@
+Movement // Movimento -> WASD
+Shoot // Atirar -> M1
+Select weapon // Selecionar arma -> 1 2 3 4 5
+Select bandages // Selecionar bandagens -> ` // ' (The button to the left of 1 // o botão a esquerda do 1)
