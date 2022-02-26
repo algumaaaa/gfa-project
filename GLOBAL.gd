@@ -14,6 +14,8 @@ var shortestDistance = null
 
 var mouse_sensitivity = 0.05
 var fov = 90
+var display = 0
+var vsync = true
 
 func _physics_process(delta):
 

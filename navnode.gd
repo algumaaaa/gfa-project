@@ -23,7 +23,6 @@ enum {
 
 func _ready():
 	randomize()
-	
 
 func _physics_process(delta):
 

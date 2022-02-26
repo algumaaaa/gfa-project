@@ -17,7 +17,7 @@ onready var sprite = $Sprite3D
 onready var raycontainer = $raycont
 onready var rayfloor = $rayfloor
 
-func _process(delta):
+func _physics_process(delta):
 	if !is_on_floor():
 		gravity_vec += Vector3.DOWN * gravity * delta
 		h_mov = h_mov.linear_interpolate(direction * speed, delta)
