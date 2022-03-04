@@ -195,7 +195,15 @@ func _physics_process(delta):
 			enemAudio.play()
 		damageframe = false
 
-	detect.look_at(player.global_transform.origin, Vector3.UP)
+	var players = get_tree().get_nodes_in_group("player")
+	var shortestDistance = null
+	for p in players:
+		var disto = self.global_transform.origin.distance_to(p.global_transform.origin)
+		if shortestDistance == null:
+			shortestDistance = p
+		elif disto < shortestDistance.global_transform.origin.distance_to(p.global_transform.origin):
+			shortestDistance = p
+	detect.look_at(shortestDistance.global_transform.origin, Vector3.UP)
 	if detect and aistate == AI.IDLE:
 		var p = detect.get_collider()
 		if p != null:

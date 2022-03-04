@@ -1,6 +1,7 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://e0m2.lmbake" type="BakedLightmapData" id=1]
+[ext_resource path="res://bot.tscn" type="PackedScene" id=2]
 [ext_resource path="res://player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://hud.tscn" type="PackedScene" id=4]
 [ext_resource path="res://pause.tscn" type="PackedScene" id=5]
@@ -351,5 +352,8 @@ transform = Transform( 1, 0, 0, 0, 0.523228, 0.852193, 0, -0.852193, 0.523228, -
 visible = false
 layers = 3
 light_energy = 0.5
+
+[node name="bot" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2999, 2.07658, -41.6433 )
 
 [connection signal="toggled" from="button" to="Navigation/Spatial/spawner" method="_on_button_toggled"]

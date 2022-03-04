@@ -1,0 +1,171 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://playerSprites/male.png" type="Texture" id=1]
+[ext_resource path="res://playerSprites/mac10igwp.png" type="Texture" id=2]
+[ext_resource path="res://playerSprites/lactionigwp.png" type="Texture" id=3]
+[ext_resource path="res://playerSprites/glauncherigwp.png" type="Texture" id=4]
+[ext_resource path="res://playerSprites/bandageigwp.png" type="Texture" id=5]
+[ext_resource path="res://playerSprites/doublebigwp.png" type="Texture" id=6]
+[ext_resource path="res://playerSprites/1911igwp.png" type="Texture" id=7]
+[ext_resource path="res://bot.gd" type="Script" id=8]
+[ext_resource path="res://label3d.gd" type="Script" id=9]
+[ext_resource path="res://hud.tres" type="DynamicFont" id=10]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+params_billboard_mode = 2
+params_billboard_keep_scale = true
+albedo_texture = ExtResource( 1 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+params_billboard_mode = 2
+params_billboard_keep_scale = true
+albedo_texture = ExtResource( 7 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_transparent = true
+params_billboard_mode = 2
+params_billboard_keep_scale = true
+albedo_texture = ExtResource( 6 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_transparent = true
+params_billboard_mode = 2
+params_billboard_keep_scale = true
+albedo_texture = ExtResource( 2 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+params_billboard_mode = 2
+params_billboard_keep_scale = true
+albedo_texture = ExtResource( 3 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="SpatialMaterial" id=6]
+flags_transparent = true
+params_billboard_mode = 2
+params_billboard_keep_scale = true
+albedo_texture = ExtResource( 4 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="SpatialMaterial" id=7]
+flags_transparent = true
+params_billboard_mode = 2
+params_billboard_keep_scale = true
+albedo_texture = ExtResource( 5 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="CapsuleShape" id=8]
+radius = 0.7
+height = 3.0
+
+[sub_resource type="ViewportTexture" id=9]
+viewport_path = NodePath("nameSprite/label3d")
+
+[node name="bot" type="KinematicBody" groups=["player"]]
+collision_layer = 9
+collision_mask = 9
+script = ExtResource( 8 )
+
+[node name="compositeSprites" type="Spatial" parent="."]
+
+[node name="maleSprite" type="Sprite3D" parent="compositeSprites"]
+transform = Transform( 3.5, 0, 0, 0, 3.5, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 1 )
+billboard = 2
+shaded = true
+texture = ExtResource( 1 )
+hframes = 15
+vframes = 5
+
+[node name="nelevenSprite" type="Sprite3D" parent="compositeSprites"]
+transform = Transform( 3.5, 0, 0, 0, 3.5, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 2 )
+billboard = 2
+shaded = true
+texture = ExtResource( 7 )
+hframes = 15
+vframes = 5
+
+[node name="doublebSprite" type="Sprite3D" parent="compositeSprites"]
+transform = Transform( 3.5, 0, 0, 0, 3.5, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 3 )
+billboard = 2
+shaded = true
+texture = ExtResource( 6 )
+hframes = 15
+vframes = 5
+
+[node name="mac10Sprite" type="Sprite3D" parent="compositeSprites"]
+transform = Transform( 3.5, 0, 0, 0, 3.5, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 4 )
+billboard = 2
+shaded = true
+texture = ExtResource( 2 )
+hframes = 15
+vframes = 5
+
+[node name="lactionSprite" type="Sprite3D" parent="compositeSprites"]
+transform = Transform( 3.5, 0, 0, 0, 3.5, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 5 )
+billboard = 2
+shaded = true
+texture = ExtResource( 3 )
+hframes = 15
+vframes = 5
+
+[node name="glauncherSprite" type="Sprite3D" parent="compositeSprites"]
+transform = Transform( 3.5, 0, 0, 0, 3.5, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 6 )
+texture = ExtResource( 4 )
+hframes = 15
+vframes = 5
+
+[node name="bandageSprite" type="Sprite3D" parent="compositeSprites"]
+transform = Transform( 3.5, 0, 0, 0, 3.5, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 7 )
+texture = ExtResource( 5 )
+hframes = 15
+vframes = 5
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="nameSprite" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.06525, 0 )
+billboard = 1
+texture = SubResource( 9 )
+
+[node name="label3d" type="Viewport" parent="nameSprite"]
+size = Vector2( 75, 26 )
+transparent_bg = true
+render_target_v_flip = true
+script = ExtResource( 9 )
+
+[node name="Label" type="Label" parent="nameSprite/label3d"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 10 )
+text = "BOT 1"
