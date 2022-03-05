@@ -84,8 +84,8 @@ func _physics_process(delta):
 
 		AI.IDLE:
 			if !idlepathing:
-				animframe = 0
 				animplay.stop()
+				animframe = 0
 				navnode.navstate = navnode.STOPPED
 			else:
 				navnode.navstate = navnode.IDLE
@@ -97,6 +97,7 @@ func _physics_process(delta):
 				rotate_y(deg2rad(lookat.rotation.y * 10))
 
 		AI.ALERT:
+			add_to_group("alertEnemies")
 			navnode.navstate = navnode.ALERT
 			if !animplay.is_playing():
 				animplay.play("walk")

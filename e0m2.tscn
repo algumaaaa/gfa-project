@@ -187,15 +187,19 @@ transform = Transform( 0.0578079, 0, -0.998328, 0, 1, 0, 0.998328, 0, 0.0578079,
 
 [node name="spawner" parent="Navigation/Spatial" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.981, 1.81342, -42.188 )
+event = true
 
 [node name="spawner2" parent="Navigation/Spatial" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98064, 1.87782, -30.3285 )
+event = true
 
 [node name="spawner3" parent="Navigation/Spatial" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98064, 1.87782, -19.4508 )
+event = true
 
 [node name="spawner4" parent="Navigation/Spatial" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.98064, 1.87782, -8.37506 )
+event = true
 
 [node name="NavigationMeshInstance" type="NavigationMeshInstance" parent="Navigation"]
 navmesh = SubResource( 1 )
@@ -354,6 +358,6 @@ layers = 3
 light_energy = 0.5
 
 [node name="bot" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2999, 2.07658, -41.6433 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2999, 2.22019, -41.6433 )
 
 [connection signal="toggled" from="button" to="Navigation/Spatial/spawner" method="_on_button_toggled"]

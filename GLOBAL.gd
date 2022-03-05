@@ -22,10 +22,6 @@ func _physics_process(delta):
 	if get_tree().get_current_scene() != null and get_tree().get_current_scene().get_name() == "menu":
 		return
 
-	if Input.is_action_just_pressed("debug1"):
-		_spawn_horde(1)
-		print(shortestDistance)
-
 	if player != null:
 		ammosum = player.lactionammo + player.doublebammo + (player.nelevenammo * 0.5) + (player.mac10ammo * 0.5)
 		if ammosum <= 10:
@@ -73,6 +69,8 @@ func _spawn_horde(value):
 			elif disto < shortestDistance.global_transform.origin.distance_to(player.global_transform.origin):
 				shortestDistance = s
 #	print(shortestDistance)
+	if shortestDistance == null:
+		return
 	var w = shortestDistance.get_world().direct_space_state
 	var r = w.intersect_ray(shortestDistance.global_transform.origin, player.global_transform.origin, [player])
 	if r:
