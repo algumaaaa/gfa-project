@@ -14,13 +14,16 @@ onready var bandageSprite = $compositeSprites/bandageSprite
 export var animframe = 0
 onready var animSprite = $animSprite
 
+var gunSounds = []
+
 var aiState = AI.IDLE
 var weaponState = WEAPON.NELEVEN
 var shortTarget = null
 
 var triggerPulled = false
 var canShoot = true
-var spread = 5
+var spread = 4
+var shootOffset = rand_range(0, 0.5)
 var nelevenAmmo = 20
 var doublebAmmo = 10
 var mac10Ammo = 30
@@ -31,6 +34,8 @@ var slowed = false
 var damagequeue = 0
 
 onready var grenade = preload("res://grenade.tscn")
+onready var bloodimpact = preload("res://bloodimpact.tscn")
+onready var blood = preload("res://blood.tscn")
 
 enum AI{
 	IDLE,
@@ -50,6 +55,11 @@ enum WEAPON{
 
 func _ready():
 	randomize()
+	gunSounds.append(preload("res://Audio/Guns/neleven/Shot.wav"))
+	gunSounds.append(preload("res://Audio/Guns/doubleb/Shot.wav"))
+	gunSounds.append(preload("res://Audio/Guns/mac10/Shot.wav"))
+	gunSounds.append(preload("res://Audio/Guns/laction/Shot.wav"))
+	gunSounds.append(preload("res://Audio/Guns/glauncher/Shot.wav"))
 
 func _physics_process(delta):
 
@@ -123,11 +133,28 @@ func _physics_process(delta):
 					if $aim.get_collider() == shortTarget:
 						shortTarget.damagequeue += player.nelevendamage
 						shortTarget.tookdamage = true
-					#noise
+						var bimp = bloodimpact.instance()
+						bimp.enTrig = true
+						shortTarget.add_child(bimp)
+						bimp.global_transform.origin = $aim.get_collision_point()
+						bimp.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
+						var chanceofgore = rand_range(1, 3)
+						if chanceofgore >= 2:
+							var bld = blood.instance()
+							shortTarget.add_child(bld)
+							bld.global_transform.origin = $aim.get_collision_point()
+							bld.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
+						if chanceofgore >= 3:
+							var bldd = blood.instance()
+							shortTarget.add_child(bldd)
+							bldd.global_transform.origin = $aim.get_collision_point()
+							bldd.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
+					$gunSound.stream = gunSounds[0]
+					$gunSound.play()
 					print("bang!")
 					canShoot = false
 					var cdTimer = Timer.new()
-					cdTimer.wait_time = 0.25
+					cdTimer.wait_time = 0.25 + shootOffset
 					cdTimer.one_shot = true
 					cdTimer.connect("timeout", self, "_on_cdTimer_timeout")
 					add_child(cdTimer)
@@ -150,11 +177,28 @@ func _physics_process(delta):
 					if $aim.get_collider() == shortTarget:
 						shortTarget.damagequeue += player.pellet * 5
 						shortTarget.tookdamage = true
-					#noise
+						var bimp = bloodimpact.instance()
+						bimp.enTrig = true
+						shortTarget.add_child(bimp)
+						bimp.global_transform.origin = $aim.get_collision_point()
+						bimp.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
+						var chanceofgore = rand_range(1, 3)
+						if chanceofgore >= 2:
+							var bld = blood.instance()
+							shortTarget.add_child(bld)
+							bld.global_transform.origin = $aim.get_collision_point()
+							bld.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
+						if chanceofgore >= 3:
+							var bldd = blood.instance()
+							shortTarget.add_child(bldd)
+							bldd.global_transform.origin = $aim.get_collision_point()
+							bldd.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
+					$gunSound.stream = gunSounds[1]
+					$gunSound.play()
 					print("boom!")
 					canShoot = false
 					var cdTimer = Timer.new()
-					cdTimer.wait_time = 0.62
+					cdTimer.wait_time = 0.62 + shootOffset
 					cdTimer.one_shot = true
 					cdTimer.connect("timeout", self, "_on_cdTimer_timeout")
 					add_child(cdTimer)
@@ -177,11 +221,28 @@ func _physics_process(delta):
 					if $aim.get_collider() == shortTarget:
 						shortTarget.damagequeue += player.mac10damage
 						shortTarget.tookdamage = true
-					#noise
+						var bimp = bloodimpact.instance()
+						bimp.enTrig = true
+						shortTarget.add_child(bimp)
+						bimp.global_transform.origin = $aim.get_collision_point()
+						bimp.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
+						var chanceofgore = rand_range(1, 3)
+						if chanceofgore >= 2:
+							var bld = blood.instance()
+							shortTarget.add_child(bld)
+							bld.global_transform.origin = $aim.get_collision_point()
+							bld.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
+						if chanceofgore >= 3:
+							var bldd = blood.instance()
+							shortTarget.add_child(bldd)
+							bldd.global_transform.origin = $aim.get_collision_point()
+							bldd.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
+					$gunSound.stream = gunSounds[2]
+					$gunSound.play()
 					print("pew!")
 					canShoot = false
 					var cdTimer = Timer.new()
-					cdTimer.wait_time = 0.1
+					cdTimer.wait_time = 0.1 + (shootOffset / 2)
 					cdTimer.one_shot = true
 					cdTimer.connect("timeout", self, "_on_cdTimer_timeout")
 					add_child(cdTimer)
@@ -204,11 +265,28 @@ func _physics_process(delta):
 					if $aim.get_collider() == shortTarget:
 						shortTarget.damagequeue += player.lactiondamage
 						shortTarget.tookdamage = true
-					#noise
+						var bimp = bloodimpact.instance()
+						bimp.enTrig = true
+						shortTarget.add_child(bimp)
+						bimp.global_transform.origin = $aim.get_collision_point()
+						bimp.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
+						var chanceofgore = rand_range(1, 3)
+						if chanceofgore >= 2:
+							var bld = blood.instance()
+							shortTarget.add_child(bld)
+							bld.global_transform.origin = $aim.get_collision_point()
+							bld.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
+						if chanceofgore >= 3:
+							var bldd = blood.instance()
+							shortTarget.add_child(bldd)
+							bldd.global_transform.origin = $aim.get_collision_point()
+							bldd.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
+					$gunSound.stream = gunSounds[3]
+					$gunSound.play()
 					print("clack!")
 					canShoot = false
 					var cdTimer = Timer.new()
-					cdTimer.wait_time = 0.86
+					cdTimer.wait_time = 0.86 + (shootOffset / 2)
 					cdTimer.one_shot = true
 					cdTimer.connect("timeout", self, "_on_cdTimer_timeout")
 					add_child(cdTimer)
@@ -230,11 +308,12 @@ func _physics_process(delta):
 					$lookAt.add_child(g)
 					g.look_at(shortTarget.global_transform.origin, Vector3.UP)
 					g.shoot = true
-					#noise
+					$gunSound.stream = gunSounds[4]
+					$gunSound.play()
 					print("tum!")
 					canShoot = false
 					var cdTimer = Timer.new()
-					cdTimer.wait_time = 1
+					cdTimer.wait_time = 1 + shootOffset
 					cdTimer.one_shot = true
 					cdTimer.connect("timeout", self, "_on_cdTimer_timeout")
 					add_child(cdTimer)
@@ -312,4 +391,3 @@ func _switchGun():
 
 func _on_cdTimer_timeout():
 	canShoot = true
-

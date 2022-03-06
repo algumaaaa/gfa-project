@@ -203,7 +203,7 @@ script = ExtResource( 9 )
 margin_right = 40.0
 margin_bottom = 14.0
 custom_fonts/font = ExtResource( 10 )
-text = "BOT 1"
+text = "junin"
 
 [node name="aim" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37601, 0 )
@@ -213,3 +213,6 @@ collision_mask = 3
 
 [node name="lookAt" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40309, 0 )
+
+[node name="gunSound" type="AudioStreamPlayer3D" parent="."]
+unit_size = 20.0
