@@ -189,7 +189,7 @@ anims/runPistol = SubResource( 10 )
 anims/runRifle = SubResource( 11 )
 
 [node name="nameSprite" type="Sprite3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.06525, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32087, 0 )
 billboard = 1
 texture = SubResource( 9 )
 
@@ -210,3 +210,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.37601, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -30 )
 collision_mask = 3
+
+[node name="lookAt" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40309, 0 )

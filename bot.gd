@@ -1,5 +1,6 @@
 extends KinematicBody
 
+onready var player = get_tree().get_root().get_node("/root/Spatial/player")
 onready var playerCamera = get_tree().get_root().get_node("/root/Spatial/player/head/Camera")
 
 onready var maleSprite = $compositeSprites/maleSprite
@@ -17,8 +18,19 @@ var aiState = AI.IDLE
 var weaponState = WEAPON.NELEVEN
 var shortTarget = null
 
+var triggerPulled = false
+var canShoot = true
+var spread = 5
+var nelevenAmmo = 20
+var doublebAmmo = 10
+var mac10Ammo = 30
+var lactionAmmo = 10
+var glauncherAmmo = 5
+
 var slowed = false
 var damagequeue = 0
+
+onready var grenade = preload("res://grenade.tscn")
 
 enum AI{
 	IDLE,
@@ -35,6 +47,9 @@ enum WEAPON{
 	GLAUNCHER,
 	BANDAGE
 }
+
+func _ready():
+	randomize()
 
 func _physics_process(delta):
 
@@ -100,6 +115,26 @@ func _physics_process(delta):
 				w.visible = false
 			$compositeSprites/maleSprite.visible = true
 			$compositeSprites/nelevenSprite.visible = true
+			if triggerPulled:
+				if nelevenAmmo > 0:
+					nelevenAmmo -= 1
+					$aim.cast_to.x = rand_range(spread, -spread)
+					$aim.cast_to.y = rand_range(spread, -spread)
+					if $aim.get_collider() == shortTarget:
+						shortTarget.damagequeue += player.nelevendamage
+						shortTarget.tookdamage = true
+					#noise
+					print("bang!")
+					canShoot = false
+					var cdTimer = Timer.new()
+					cdTimer.wait_time = 0.25
+					cdTimer.one_shot = true
+					cdTimer.connect("timeout", self, "_on_cdTimer_timeout")
+					add_child(cdTimer)
+					cdTimer.start()
+					triggerPulled = false
+				else:
+					_switchGun()
 
 		WEAPON.DOUBLEB:
 			var cc = $compositeSprites.get_children()
@@ -107,6 +142,26 @@ func _physics_process(delta):
 				w.visible = false
 			$compositeSprites/maleSprite.visible = true
 			$compositeSprites/doublebSprite.visible = true
+			if triggerPulled:
+				if doublebAmmo > 0:
+					doublebAmmo -= 1
+					$aim.cast_to.x = rand_range(spread, -spread)
+					$aim.cast_to.y = rand_range(spread, -spread)
+					if $aim.get_collider() == shortTarget:
+						shortTarget.damagequeue += player.pellet * 5
+						shortTarget.tookdamage = true
+					#noise
+					print("boom!")
+					canShoot = false
+					var cdTimer = Timer.new()
+					cdTimer.wait_time = 0.62
+					cdTimer.one_shot = true
+					cdTimer.connect("timeout", self, "_on_cdTimer_timeout")
+					add_child(cdTimer)
+					cdTimer.start()
+					triggerPulled = false
+				else:
+					_switchGun()
 
 		WEAPON.MAC10:
 			var cc = $compositeSprites.get_children()
@@ -114,6 +169,26 @@ func _physics_process(delta):
 				w.visible = false
 			$compositeSprites/maleSprite.visible = true
 			$compositeSprites/mac10Sprite.visible = true
+			if triggerPulled:
+				if mac10Ammo > 0:
+					mac10Ammo -= 1
+					$aim.cast_to.x = rand_range(spread, -spread)
+					$aim.cast_to.y = rand_range(spread, -spread)
+					if $aim.get_collider() == shortTarget:
+						shortTarget.damagequeue += player.mac10damage
+						shortTarget.tookdamage = true
+					#noise
+					print("pew!")
+					canShoot = false
+					var cdTimer = Timer.new()
+					cdTimer.wait_time = 0.1
+					cdTimer.one_shot = true
+					cdTimer.connect("timeout", self, "_on_cdTimer_timeout")
+					add_child(cdTimer)
+					cdTimer.start()
+					triggerPulled = false
+				else:
+					_switchGun()
 
 		WEAPON.LACTION:
 			var cc = $compositeSprites.get_children()
@@ -121,6 +196,26 @@ func _physics_process(delta):
 				w.visible = false
 			$compositeSprites/maleSprite.visible = true
 			$compositeSprites/lactionSprite.visible = true
+			if triggerPulled:
+				if lactionAmmo > 0:
+					lactionAmmo -= 1
+					$aim.cast_to.x = rand_range(spread, -spread)
+					$aim.cast_to.y = rand_range(spread, -spread)
+					if $aim.get_collider() == shortTarget:
+						shortTarget.damagequeue += player.lactiondamage
+						shortTarget.tookdamage = true
+					#noise
+					print("clack!")
+					canShoot = false
+					var cdTimer = Timer.new()
+					cdTimer.wait_time = 0.86
+					cdTimer.one_shot = true
+					cdTimer.connect("timeout", self, "_on_cdTimer_timeout")
+					add_child(cdTimer)
+					cdTimer.start()
+					triggerPulled = false
+				else:
+					_switchGun()
 
 		WEAPON.GLAUNCHER:
 			var cc = $compositeSprites.get_children()
@@ -128,6 +223,25 @@ func _physics_process(delta):
 				w.visible = false
 			$compositeSprites/maleSprite.visible = true
 			$compositeSprites/glauncherSprite.visible = true
+			if triggerPulled:
+				if glauncherAmmo > 0:
+					glauncherAmmo -= 1
+					var g = grenade.instance()
+					$lookAt.add_child(g)
+					g.look_at(shortTarget.global_transform.origin, Vector3.UP)
+					g.shoot = true
+					#noise
+					print("tum!")
+					canShoot = false
+					var cdTimer = Timer.new()
+					cdTimer.wait_time = 1
+					cdTimer.one_shot = true
+					cdTimer.connect("timeout", self, "_on_cdTimer_timeout")
+					add_child(cdTimer)
+					cdTimer.start()
+					triggerPulled = false
+				else:
+					_switchGun()
 
 		WEAPON.BANDAGE:
 			var cc = $compositeSprites.get_children()
@@ -156,10 +270,24 @@ func _physics_process(delta):
 
 		AI.ATTACK:
 			animSprite.stop()
-			if weaponState == WEAPON.BANDAGE or WEAPON.NELEVEN or WEAPON.MAC10:
+			if weaponState == WEAPON.BANDAGE or weaponState == WEAPON.NELEVEN or weaponState == WEAPON.MAC10:
 				animframe = 0
 			else:
 				animframe = 7
+
+			var tr = weakref(shortTarget)
+			if (!tr.get_ref()):
+				shortTarget = null
+				aiState = AI.IDLE
+			else:
+				$aim.look_at(shortTarget.global_transform.origin, Vector3.UP)
+				$lookAt.look_at(shortTarget.global_transform.origin, Vector3.UP)
+				rotate_y(deg2rad($lookAt.rotation.y * 10))
+				if canShoot:
+					triggerPulled = true
+				if shortTarget.health <= 0:
+					shortTarget = null
+					aiState = AI.IDLE
 
 		AI.DOWNED:
 			animSprite.stop()
@@ -176,4 +304,12 @@ func _findEnemies():
 	if shortTarget == null:
 		return
 	if self.global_transform.origin.distance_to(shortTarget.global_transform.origin) < 30:
-		$aim.look_at(shortTarget.global_transform.origin, Vector3.UP)
+		aiState = AI.ATTACK
+
+func _switchGun():
+	weaponState = randi()%5
+	print(weaponState)
+
+func _on_cdTimer_timeout():
+	canShoot = true
+

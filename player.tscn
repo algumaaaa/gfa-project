@@ -849,6 +849,8 @@ enabled = true
 cast_to = Vector3( 0, 0, -1000 )
 collision_mask = 3
 collide_with_areas = true
+debug_shape_custom_color = Color( 0, 0, 0, 0 )
+debug_shape_thickness = 1.0
 
 [node name="doublebcontainer" type="Spatial" parent="head/Camera"]
 
@@ -856,51 +858,71 @@ collide_with_areas = true
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
+debug_shape_custom_color = Color( 0, 0, 0, 0 )
+debug_shape_thickness = 1.0
 
 [node name="RayCast2" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
+debug_shape_custom_color = Color( 0, 0, 0, 0 )
+debug_shape_thickness = 1.0
 
 [node name="RayCast3" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
+debug_shape_custom_color = Color( 0, 0, 0, 0 )
+debug_shape_thickness = 1.0
 
 [node name="RayCast4" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
+debug_shape_custom_color = Color( 0, 0, 0, 0 )
+debug_shape_thickness = 1.0
 
 [node name="RayCast5" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
+debug_shape_custom_color = Color( 0, 0, 0, 0 )
+debug_shape_thickness = 1.0
 
 [node name="RayCast6" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
+debug_shape_custom_color = Color( 0, 0, 0, 0 )
+debug_shape_thickness = 1.0
 
 [node name="RayCast7" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
+debug_shape_custom_color = Color( 0, 0, 0, 0 )
+debug_shape_thickness = 1.0
 
 [node name="RayCast8" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
+debug_shape_custom_color = Color( 0, 0, 0, 0 )
+debug_shape_thickness = 1.0
 
 [node name="RayCast9" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
+debug_shape_custom_color = Color( 0, 0, 0, 0 )
+debug_shape_thickness = 1.0
 
 [node name="RayCast10" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
+debug_shape_custom_color = Color( 0, 0, 0, 0 )
+debug_shape_thickness = 1.0
 
 [node name="gunanim" type="AnimationPlayer" parent="head/Camera"]
 anims/bandaidequip = SubResource( 32 )
@@ -973,6 +995,7 @@ shellsrelease = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.37718, -0.9, -1.33142 )
 layers = 2
 material_override = SubResource( 29 )
+offset = Vector2( 75, -100 )
 pixel_size = 0.012
 double_sided = false
 texture = ExtResource( 9 )
@@ -1102,7 +1125,7 @@ cast_to = Vector3( -1.5, 0, 0 )
 
 [node name="gunAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 12 )
-volume_db = 1.0
+pitch_scale = 0.75
 mix_target = 2
 bus = "GUNS"
 

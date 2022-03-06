@@ -168,6 +168,8 @@ func _physics_process(delta):
 		if health > 0:
 			aistate = AI.PAIN
 		if health <= 0:
+			if self.is_in_group("alertEnemies"):
+				remove_from_group("alertEnemies")
 			if damagequeue > 100 and damagequeue < 150:
 				var roll = rand_range(1, 2)
 				if roll > 1.8:
