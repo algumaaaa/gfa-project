@@ -2,6 +2,7 @@ extends KinematicBody
 
 onready var player = get_tree().get_root().get_node("/root/Spatial/player")
 onready var playerCamera = get_tree().get_root().get_node("/root/Spatial/player/head/Camera")
+onready var navNode = get_parent()
 
 onready var maleSprite = $compositeSprites/maleSprite
 onready var nelevenSprite = $compositeSprites/nelevenSprite
@@ -19,11 +20,14 @@ var gunSounds = []
 var aiState = AI.IDLE
 var weaponState = WEAPON.NELEVEN
 var shortTarget = null
+var farPlayer= null
+var healTarget = null
 
 var triggerPulled = false
 var canShoot = true
 var spread = 4
 var shootOffset = rand_range(0, 0.5)
+var speed = 20
 var nelevenAmmo = 20
 var doublebAmmo = 10
 var mac10Ammo = 30
@@ -41,6 +45,7 @@ enum AI{
 	IDLE,
 	PATHING,
 	ATTACK,
+	HEALING,
 	DOWNED
 }
 
@@ -62,9 +67,12 @@ func _ready():
 	gunSounds.append(preload("res://Audio/Guns/glauncher/Shot.wav"))
 
 func _physics_process(delta):
+	if navNode == null:
+		print("null")
+		return
 
-	if Input.is_action_just_pressed("debug0"):
-		aiState = AI.DOWNED
+#	if Input.is_action_just_pressed("debug0"):
+#		aiState = AI.DOWNED
 	if Input.is_action_just_pressed("debug1"):
 		aiState = AI.PATHING
 	if Input.is_action_just_pressed("debug2"):
@@ -332,22 +340,38 @@ func _physics_process(delta):
 	match aiState:
 
 		AI.IDLE:
+			navNode.navstate = navNode.STOPPED
 			animSprite.stop()
 			if weaponState == WEAPON.BANDAGE or weaponState == WEAPON.NELEVEN or weaponState == WEAPON.MAC10:
 				animframe = 0
 			else:
 				animframe = 7
-			_findEnemies()
+			#if disto farthest player < so, find enemies, else, pathing to far player
+			_findFarPlayer()
+			if self.global_transform.origin.distance_to(farPlayer.global_transform.origin) > 20:
+				aiState = AI.PATHING
+			else:
+				_findEnemies()
 
 		AI.PATHING:
+			navNode.navstate = navNode.PATHING
 			if weaponState == WEAPON.BANDAGE or weaponState == WEAPON.NELEVEN or weaponState == WEAPON.MAC10:
 				if !animSprite.is_playing():
 					animSprite.play("runPistol")
 			else:
 				if !animSprite.is_playing():
 					animSprite.play("runRifle")
+			#if disto farthest player < so, idle, else, continue
+			if !Vector3.UP.cross(navNode.navdir - global_transform.origin) == Vector3():
+				$lookAt.look_at(navNode.navdir, Vector3.UP)
+			rotate_y(deg2rad($lookAt.rotation.y * 10))
+			if self.global_transform.origin.distance_to(farPlayer.global_transform.origin) > 20:
+				pass
+			elif navNode.currentpathindex >= navNode.path.size():
+				aiState = AI.IDLE
 
 		AI.ATTACK:
+			navNode.navstate = navNode.STOPPED
 			animSprite.stop()
 			if weaponState == WEAPON.BANDAGE or weaponState == WEAPON.NELEVEN or weaponState == WEAPON.MAC10:
 				animframe = 0
@@ -367,10 +391,27 @@ func _physics_process(delta):
 				if shortTarget.health <= 0:
 					shortTarget = null
 					aiState = AI.IDLE
+			if self.global_transform.origin.distance_to(farPlayer.global_transform.origin) > 20:
+				aiState = AI.PATHING
+			else:
+				pass
+
+		AI.HEALING:
+			navNode.navstate = navNode.HEALING
 
 		AI.DOWNED:
+			navNode.navstate = navNode.STOPPED
 			animSprite.stop()
 			animframe = 14
+
+func _findFarPlayer():
+	var targets = get_tree().get_nodes_in_group("player")
+	for t in targets:
+		var disto = self.global_transform.origin.distance_to(t.global_transform.origin)
+		if farPlayer == null:
+			farPlayer = t
+		elif disto > farPlayer.global_transform.origin.distance_to(t.global_transform.origin):
+			farPlayer = t
 
 func _findEnemies():
 	var targets = get_tree().get_nodes_in_group("alertEnemies")

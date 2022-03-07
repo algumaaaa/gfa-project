@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://e0m2.lmbake" type="BakedLightmapData" id=1]
 [ext_resource path="res://bot.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://spawner.tscn" type="PackedScene" id=7]
 [ext_resource path="res://addons/qodot/src/nodes/qodot_map.gd" type="Script" id=8]
 [ext_resource path="res://addons/qodot/game_definitions/fgd/qodot_fgd.tres" type="Resource" id=9]
+[ext_resource path="res://navnodeBot.tscn" type="PackedScene" id=10]
 [ext_resource path="res://textures/general/stone_path.png" type="Texture" id=11]
 [ext_resource path="res://textures/general/brick_wall.png" type="Texture" id=12]
 [ext_resource path="res://textures/general/dirt.png" type="Texture" id=13]
@@ -183,6 +184,12 @@ transform = Transform( 0.0578079, 0, -0.998328, 0, 1, 0, 0.998328, 0, 0.0578079,
 
 [node name="Navigation" type="Navigation" parent="."]
 
+[node name="navnodeBot" parent="Navigation" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2736, 0.114453, -41.698 )
+
+[node name="bot" parent="Navigation/navnodeBot" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0262051, 2.10573, 0.0547485 )
+
 [node name="Spatial" type="Spatial" parent="Navigation"]
 
 [node name="spawner" parent="Navigation/Spatial" instance=ExtResource( 7 )]
@@ -356,8 +363,5 @@ transform = Transform( 1, 0, 0, 0, 0.523228, 0.852193, 0, -0.852193, 0.523228, -
 visible = false
 layers = 3
 light_energy = 0.5
-
-[node name="bot" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2999, 2.22019, -41.6433 )
 
 [connection signal="toggled" from="button" to="Navigation/Spatial/spawner" method="_on_button_toggled"]

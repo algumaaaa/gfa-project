@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://enemy.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://worm.tscn" type="PackedScene" id=8]
 [ext_resource path="res://hitscanner.tscn" type="PackedScene" id=9]
 [ext_resource path="res://pause.tscn" type="PackedScene" id=10]
+[ext_resource path="res://bot.tscn" type="PackedScene" id=11]
 [ext_resource path="res://navnode.tscn" type="PackedScene" id=12]
 [ext_resource path="res://signalTouch.tscn" type="PackedScene" id=13]
 
@@ -410,7 +411,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -102.154, 2.61205, 92.0701 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02583, 0 )
 
 [node name="navnode35" parent="Navigation" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -85.6422, 2.65198, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -85.6422, 2.65198, -84.1882 )
 
 [node name="brawler" parent="Navigation/navnode35" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.09738, 0 )
@@ -427,6 +428,12 @@ door = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.4024, -0.0396519, 0 )
 visible = true
 monitoring = true
+
+[node name="bot" parent="." instance=ExtResource( 11 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -82.0107, 4.75113, 0 )
+
+[node name="bot2" parent="." instance=ExtResource( 11 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -82.0107, 4.75113, 6.31009 )
 
 [connection signal="body_entered" from="signalTouch/door" to="Spatial8/Spatial2" method="_on_door_body_entered"]
 

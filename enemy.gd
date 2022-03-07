@@ -78,7 +78,7 @@ func _ready():
 func _physics_process(delta):
 
 	if Input.is_action_just_pressed("debug0"):
-		aistate = AI.GIB
+		aistate = AI.ALERT
 
 	match aistate:
 
@@ -207,6 +207,7 @@ func _physics_process(delta):
 		elif disto < shortestDistance.global_transform.origin.distance_to(p.global_transform.origin):
 			shortestDistance = p
 	detect.look_at(shortestDistance.global_transform.origin, Vector3.UP)
+	get_parent().player = shortestDistance
 	if detect and aistate == AI.IDLE:
 		var p = detect.get_collider()
 		if p != null:
