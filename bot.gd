@@ -14,6 +14,7 @@ onready var bandageSprite = $compositeSprites/bandageSprite
 
 export var animframe = 0
 onready var animSprite = $animSprite
+onready var ammoAudio = $ammoAudio
 
 var gunSounds = []
 
@@ -28,11 +29,11 @@ var canShoot = true
 var spread = 4
 var shootOffset = rand_range(0, 0.5)
 var speed = 20
-var nelevenAmmo = 20
-var doublebAmmo = 10
-var mac10Ammo = 30
-var lactionAmmo = 10
-var glauncherAmmo = 5
+var nelevenammo = 20
+var doublebammo = 10
+var mac10ammo = 30
+var lactionammo = 10
+var glauncherammo = 5
 
 var slowed = false
 var damagequeue = 0
@@ -66,9 +67,14 @@ func _ready():
 	gunSounds.append(preload("res://Audio/Guns/laction/Shot.wav"))
 	gunSounds.append(preload("res://Audio/Guns/glauncher/Shot.wav"))
 
+func _process(delta):
+	var tr = weakref(shortTarget)
+	if (!tr.get_ref()):
+		shortTarget = null
+
+
 func _physics_process(delta):
 	if navNode == null:
-		print("null")
 		return
 
 #	if Input.is_action_just_pressed("debug0"):
@@ -131,11 +137,11 @@ func _physics_process(delta):
 			var cc = $compositeSprites.get_children()
 			for w in cc:
 				w.visible = false
-			$compositeSprites/maleSprite.visible = true
+#			$compositeSprites/maleSprite.visible = true
 			$compositeSprites/nelevenSprite.visible = true
 			if triggerPulled:
-				if nelevenAmmo > 0:
-					nelevenAmmo -= 1
+				if nelevenammo > 0:
+					nelevenammo -= 1
 					$aim.cast_to.x = rand_range(spread, -spread)
 					$aim.cast_to.y = rand_range(spread, -spread)
 					if $aim.get_collider() == shortTarget:
@@ -159,7 +165,6 @@ func _physics_process(delta):
 							bldd.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
 					$gunSound.stream = gunSounds[0]
 					$gunSound.play()
-					print("bang!")
 					canShoot = false
 					var cdTimer = Timer.new()
 					cdTimer.wait_time = 0.25 + shootOffset
@@ -175,15 +180,15 @@ func _physics_process(delta):
 			var cc = $compositeSprites.get_children()
 			for w in cc:
 				w.visible = false
-			$compositeSprites/maleSprite.visible = true
+#			$compositeSprites/maleSprite.visible = true
 			$compositeSprites/doublebSprite.visible = true
 			if triggerPulled:
-				if doublebAmmo > 0:
-					doublebAmmo -= 1
+				if doublebammo > 0:
+					doublebammo -= 1
 					$aim.cast_to.x = rand_range(spread, -spread)
 					$aim.cast_to.y = rand_range(spread, -spread)
 					if $aim.get_collider() == shortTarget:
-						shortTarget.damagequeue += player.pellet * 5
+						shortTarget.damagequeue += player.pellet * 9
 						shortTarget.tookdamage = true
 						var bimp = bloodimpact.instance()
 						bimp.enTrig = true
@@ -203,7 +208,6 @@ func _physics_process(delta):
 							bldd.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
 					$gunSound.stream = gunSounds[1]
 					$gunSound.play()
-					print("boom!")
 					canShoot = false
 					var cdTimer = Timer.new()
 					cdTimer.wait_time = 0.62 + shootOffset
@@ -219,11 +223,11 @@ func _physics_process(delta):
 			var cc = $compositeSprites.get_children()
 			for w in cc:
 				w.visible = false
-			$compositeSprites/maleSprite.visible = true
+			#$compositeSprites/maleSprite.visible = true
 			$compositeSprites/mac10Sprite.visible = true
 			if triggerPulled:
-				if mac10Ammo > 0:
-					mac10Ammo -= 1
+				if mac10ammo > 0:
+					mac10ammo -= 1
 					$aim.cast_to.x = rand_range(spread, -spread)
 					$aim.cast_to.y = rand_range(spread, -spread)
 					if $aim.get_collider() == shortTarget:
@@ -247,7 +251,6 @@ func _physics_process(delta):
 							bldd.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
 					$gunSound.stream = gunSounds[2]
 					$gunSound.play()
-					print("pew!")
 					canShoot = false
 					var cdTimer = Timer.new()
 					cdTimer.wait_time = 0.1 + (shootOffset / 2)
@@ -263,11 +266,11 @@ func _physics_process(delta):
 			var cc = $compositeSprites.get_children()
 			for w in cc:
 				w.visible = false
-			$compositeSprites/maleSprite.visible = true
+			#$compositeSprites/maleSprite.visible = true
 			$compositeSprites/lactionSprite.visible = true
 			if triggerPulled:
-				if lactionAmmo > 0:
-					lactionAmmo -= 1
+				if lactionammo > 0:
+					lactionammo -= 1
 					$aim.cast_to.x = rand_range(spread, -spread)
 					$aim.cast_to.y = rand_range(spread, -spread)
 					if $aim.get_collider() == shortTarget:
@@ -291,7 +294,6 @@ func _physics_process(delta):
 							bldd.look_at($aim.get_collision_point() + $aim.get_collision_normal(), Vector3.UP)
 					$gunSound.stream = gunSounds[3]
 					$gunSound.play()
-					print("clack!")
 					canShoot = false
 					var cdTimer = Timer.new()
 					cdTimer.wait_time = 0.86 + (shootOffset / 2)
@@ -307,18 +309,17 @@ func _physics_process(delta):
 			var cc = $compositeSprites.get_children()
 			for w in cc:
 				w.visible = false
-			$compositeSprites/maleSprite.visible = true
+			#$compositeSprites/maleSprite.visible = true
 			$compositeSprites/glauncherSprite.visible = true
 			if triggerPulled:
-				if glauncherAmmo > 0:
-					glauncherAmmo -= 1
+				if glauncherammo > 0:
+					glauncherammo -= 1
 					var g = grenade.instance()
 					$lookAt.add_child(g)
 					g.look_at(shortTarget.global_transform.origin, Vector3.UP)
 					g.shoot = true
 					$gunSound.stream = gunSounds[4]
 					$gunSound.play()
-					print("tum!")
 					canShoot = false
 					var cdTimer = Timer.new()
 					cdTimer.wait_time = 1 + shootOffset
@@ -334,7 +335,7 @@ func _physics_process(delta):
 			var cc = $compositeSprites.get_children()
 			for w in cc:
 				w.visible = false
-			$compositeSprites/maleSprite.visible = true
+			#$compositeSprites/maleSprite.visible = true
 			$compositeSprites/bandageSprite.visible = true
 
 	match aiState:
@@ -346,7 +347,6 @@ func _physics_process(delta):
 				animframe = 0
 			else:
 				animframe = 7
-			#if disto farthest player < so, find enemies, else, pathing to far player
 			_findFarPlayer()
 			if self.global_transform.origin.distance_to(farPlayer.global_transform.origin) > 20:
 				aiState = AI.PATHING
@@ -361,7 +361,6 @@ func _physics_process(delta):
 			else:
 				if !animSprite.is_playing():
 					animSprite.play("runRifle")
-			#if disto farthest player < so, idle, else, continue
 			if !Vector3.UP.cross(navNode.navdir - global_transform.origin) == Vector3():
 				$lookAt.look_at(navNode.navdir, Vector3.UP)
 			rotate_y(deg2rad($lookAt.rotation.y * 10))
@@ -415,6 +414,7 @@ func _findFarPlayer():
 
 func _findEnemies():
 	var targets = get_tree().get_nodes_in_group("alertEnemies")
+	#create softref to shortTargets in the loop and only apply it after its done
 	for t in targets:
 		var disto = self.global_transform.origin.distance_to(t.global_transform.origin)
 		if shortTarget == null:
@@ -428,7 +428,6 @@ func _findEnemies():
 
 func _switchGun():
 	weaponState = randi()%5
-	print(weaponState)
 
 func _on_cdTimer_timeout():
 	canShoot = true
