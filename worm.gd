@@ -81,6 +81,7 @@ func _physics_process(delta):
 			navnode.navstate = navnode.STOPPED
 
 		AI.ALERT:
+			add_to_group("alertEnemies")
 			navnode.navstate = navnode.ALERT
 			if !animplay.is_playing():
 				animplay.play("walk")
@@ -136,6 +137,8 @@ func _physics_process(delta):
 		if health > 0:
 			aistate = AI.PAIN
 		if health <= 0:
+			if self.is_in_group("alertEnemies"):
+				remove_from_group("alertEnemies")
 			if damagequeue >= 150:
 					aistate = AI.GIB
 			else:
