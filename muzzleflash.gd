@@ -24,7 +24,7 @@ func _process(delta):
 		self.pixel_size = 0.010
 	if player.gunstate == player.GUN_USE.GUN5:
 		self.offset.x = mac10.offset.x + 20
-		self.offset.y = 25
+		self.offset.y = 35
 		self.pixel_size = 0.010
 	pass
 

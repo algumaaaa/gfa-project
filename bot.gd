@@ -37,6 +37,8 @@ var glauncherammo = 5
 
 var slowed = false
 var damagequeue = 0
+var bloody = 0
+var ammoPickedUp = false
 
 onready var grenade = preload("res://grenade.tscn")
 onready var bloodimpact = preload("res://bloodimpact.tscn")
@@ -70,7 +72,7 @@ func _ready():
 func _process(delta):
 	var tr = weakref(shortTarget)
 	if (!tr.get_ref()):
-		shortTarget = null
+		_findEnemies()
 
 
 func _physics_process(delta):
@@ -348,7 +350,7 @@ func _physics_process(delta):
 			else:
 				animframe = 7
 			_findFarPlayer()
-			if self.global_transform.origin.distance_to(farPlayer.global_transform.origin) > 20:
+			if self.global_transform.origin.distance_to(farPlayer.global_transform.origin) > 30:
 				aiState = AI.PATHING
 			else:
 				_findEnemies()
@@ -364,7 +366,7 @@ func _physics_process(delta):
 			if !Vector3.UP.cross(navNode.navdir - global_transform.origin) == Vector3():
 				$lookAt.look_at(navNode.navdir, Vector3.UP)
 			rotate_y(deg2rad($lookAt.rotation.y * 10))
-			if self.global_transform.origin.distance_to(farPlayer.global_transform.origin) > 20:
+			if self.global_transform.origin.distance_to(farPlayer.global_transform.origin) > 30:
 				pass
 			elif navNode.currentpathindex >= navNode.path.size():
 				aiState = AI.IDLE
@@ -390,7 +392,7 @@ func _physics_process(delta):
 				if shortTarget.health <= 0:
 					shortTarget = null
 					aiState = AI.IDLE
-			if self.global_transform.origin.distance_to(farPlayer.global_transform.origin) > 20:
+			if self.global_transform.origin.distance_to(farPlayer.global_transform.origin) > 30:
 				aiState = AI.PATHING
 			else:
 				pass

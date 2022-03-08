@@ -18,7 +18,10 @@ var health = 100
 var damagequeue = 0
 var healqueue = 0
 var speed = 20
+var bloody = 0
 var slowed = false
+var shortTarget = null
+var ammoPickedUp = false
 
 var direction = Vector3()
 var h_acceleration = 25
@@ -92,6 +95,7 @@ onready var bcasing = preload("res://bulletcasing.tscn")
 onready var blood = preload("res://blood.tscn")
 onready var bloodimpact = preload("res://bloodimpact.tscn")
 onready var grenade = preload("res://grenade.tscn")
+onready var ammoThrown = preload("res://ammoThrown.tscn")
 
 func _input(event):
 	if !hasControl:
@@ -360,6 +364,48 @@ func _physics_process(delta):
 	elif Input.is_action_pressed("move_right"):
 		direction += transform.basis.x
 
+	if Input.is_action_just_pressed("throw_ammo"):
+		if gunstate == GUN_USE.GUN1 and nelevenammo > 10:
+			nelevenammo -= 10
+			var a = ammoThrown.instance()
+			muzzle.add_child(a)
+			a.look_at(aim.get_collision_point(), Vector3.UP)
+			a.shot = true
+			a.ammoAmount = 10
+			a.ammoType = 0
+		if gunstate == GUN_USE.GUN2 and doublebammo > 5:
+			doublebammo -= 5
+			var a = ammoThrown.instance()
+			muzzle.add_child(a)
+			a.look_at(aim.get_collision_point(), Vector3.UP)
+			a.shot = true
+			a.ammoAmount = 5
+			a.ammoType = 1
+		if gunstate == GUN_USE.GUN5 and mac10ammo > 10:
+			mac10ammo -= 10
+			var a = ammoThrown.instance()
+			muzzle.add_child(a)
+			a.look_at(aim.get_collision_point(), Vector3.UP)
+			a.shot = true
+			a.ammoAmount = 10
+			a.ammoType = 2
+		if gunstate == GUN_USE.GUN3 and lactionammo > 10:
+			lactionammo -= 10
+			var a = ammoThrown.instance()
+			muzzle.add_child(a)
+			a.look_at(aim.get_collision_point(), Vector3.UP)
+			a.shot = true
+			a.ammoAmount = 10
+			a.ammoType = 3
+		if gunstate == GUN_USE.GUN4 and glauncherammo > 5:
+			glauncherammo -= 5
+			var a = ammoThrown.instance()
+			muzzle.add_child(a)
+			a.look_at(aim.get_collision_point(), Vector3.UP)
+			a.shot = true
+			a.ammoAmount = 5
+			a.ammoType = 4
+
 	if neleven.shellsrelease:
 		var nelshells = bcasing.instance()
 		nelshells.bullettype = 1
@@ -463,6 +509,9 @@ func _physics_process(delta):
 		slowTimer.connect("timeout", self, "_on_slowTimer_timeout")
 		add_child(slowTimer)
 		slowTimer.start()
+
+	if ammoPickedUp:
+		ammoPickedUp = false
 
 func _ready():
 	GLOBAL.player = self

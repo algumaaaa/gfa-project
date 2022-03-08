@@ -146,9 +146,15 @@ func _physics_process(delta):
 					self.get_parent().add_child(g)
 					g.global_transform.origin = self.global_transform.origin
 					g.gibbed = true
+					despawn.start()
+					self.visible = false
 				navnode.hitbox.disabled = true
 				navnode.tick.stop()
-				queue_free()
+#				var playerGroup = get_tree().get_nodes_in_group("player")
+#				for p in playerGroup:
+#					if p.shortTarget == self:
+#						p._findEnemies()
+#				queue_free()
 
 	if tookdamage == true:
 

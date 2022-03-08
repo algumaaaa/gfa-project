@@ -53,7 +53,7 @@ func _on_Timer_timeout():
 		return
 
 	if bot.aiState == bot.AI.PATHING:
-		playerPos = Vector3(player.global_transform.origin.x + get_random_pos_in_sphere(10).x + 5, player.global_transform.origin.y, player.global_transform.origin.z + get_random_pos_in_sphere(10).z + 5)
+		playerPos = Vector3(player.global_transform.origin.x + get_random_pos_in_sphere(20).x + 5, player.global_transform.origin.y, player.global_transform.origin.z + get_random_pos_in_sphere(20).z + 5)
 		get_target_path(playerPos)
 
 	if bot.aiState == bot.AI.HEALING:

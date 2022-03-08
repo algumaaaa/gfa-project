@@ -68,3 +68,20 @@ func _process(delta):
 			animplayer.play("dmgheavy")
 	if player.healqueue > 0 and !animplayer.is_playing():
 		animplayer.play("heal")
+	if player.slowed == true and !animplayer.is_playing():
+		$slowAnim.play("slow")
+
+	if player.bloody == 3:
+		$bloodyScreenAnim.play("bloody1")
+	if player.bloody == 6:
+		$bloodyScreenAnim.play("bloody2")
+	if player.bloody == 8:
+		$bloodyScreenAnim.play("bloody3")
+	if player.bloody >= 12:
+		$bloodyScreenAnim.play("bloody4")
+
+	if player.ammoPickedUp and !animplayer.is_playing():
+		animplayer.play("ammo")
+
+func _on_bloodyScreenAnim_animation_finished(anim_name):
+	player.bloody = 0

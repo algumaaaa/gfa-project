@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://ammosheet.png" type="Texture" id=1]
+[ext_resource path="res://ammoThrown.gd" type="Script" id=2]
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.3, 0.3, 0.3 )
+
+[sub_resource type="SphereShape" id=3]
+radius = 0.47049
+
+[node name="ammoThrown" type="RigidBody"]
+script = ExtResource( 2 )
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 2
+texture = ExtResource( 1 )
+hframes = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 2 )
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+shape = SubResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

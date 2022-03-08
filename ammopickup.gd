@@ -24,6 +24,7 @@ func _on_Area_body_entered(body):
 		if ammotype == 3:
 			body.lactionammo += 7 + floor((ammoplus * 0.3))
 		body.ammoAudio.play()
+		body.ammoPickedUp = true
 		_manage_ammo()
 		queue_free()
 	pass 

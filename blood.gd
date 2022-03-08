@@ -73,7 +73,10 @@ func _physics_process(delta):
 	for r in raycontainer.get_children():
 		var target = r.get_collider()
 #		if target != null:
-		if target != null and !target.is_in_group("enemies"):
+		if target != null and target.is_in_group("player"):
+			target.bloody += 1
+			queue_free()
+		if target != null and !target.is_in_group("enemies") and !target.is_in_group("player"):
 			var bpd = bloodpud.instance()
 			bpd.onfloor = false
 #			target.add_child(bpd)
