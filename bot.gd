@@ -15,6 +15,7 @@ onready var bandageSprite = $compositeSprites/bandageSprite
 export var animframe = 0
 onready var animSprite = $animSprite
 onready var ammoAudio = $ammoAudio
+onready var death = $death
 
 var gunSounds = []
 
@@ -36,20 +37,25 @@ var lactionammo = 10
 var glauncherammo = 5
 
 var slowed = false
+var health = 100
 var damagequeue = 0
+var healqueue = 0
 var bloody = 0
+var deathCount = 2
 var ammoPickedUp = false
 
 onready var grenade = preload("res://grenade.tscn")
 onready var bloodimpact = preload("res://bloodimpact.tscn")
 onready var blood = preload("res://blood.tscn")
+onready var gored = preload("res://Audio/Gore/Gored.wav")
 
 enum AI{
 	IDLE,
 	PATHING,
 	ATTACK,
 	HEALING,
-	DOWNED
+	DOWNED,
+	DEAD
 }
 
 enum WEAPON{
@@ -82,7 +88,7 @@ func _physics_process(delta):
 #	if Input.is_action_just_pressed("debug0"):
 #		aiState = AI.DOWNED
 	if Input.is_action_just_pressed("debug1"):
-		aiState = AI.PATHING
+		aiState = AI.DOWNED
 	if Input.is_action_just_pressed("debug2"):
 		weaponState = WEAPON.DOUBLEB
 
@@ -404,6 +410,52 @@ func _physics_process(delta):
 			navNode.navstate = navNode.STOPPED
 			animSprite.stop()
 			animframe = 14
+			if weaponState != WEAPON.NELEVEN:
+				weaponState = WEAPON.NELEVEN
+			if death.is_stopped():
+				death.start()
+
+			var tr = weakref(shortTarget)
+			if (!tr.get_ref()):
+				shortTarget = null
+				_findEnemiesDowned()
+			else:
+				$aim.look_at(shortTarget.global_transform.origin, Vector3.UP)
+				$lookAt.look_at(shortTarget.global_transform.origin, Vector3.UP)
+				rotate_y(deg2rad($lookAt.rotation.y * 10))
+				if canShoot:
+					triggerPulled = true
+				if shortTarget.health <= 0:
+					shortTarget = null
+					_findEnemiesDowned()
+
+		AI.DEAD:
+			var cc = $compositeSprites.get_children()
+			for w in cc:
+				w.visible = false
+			$compositeSprites/deadSprite.visible = true
+			navNode.navstate = navNode.STOPPED
+			if $aim.enabled:
+				$gunSound.stream = gored
+				$gunSound.play()
+				$deathParticles.emitting = true
+				$aim.enabled = false
+			$CollisionShape.disabled = true
+			navNode.hitbox.disabled = true
+			navNode.tick.stop()
+			self.remove_from_group("player")
+
+	if damagequeue > 0:
+		health -= damagequeue
+		damagequeue = 0
+	if healqueue > 0:
+		health += healqueue
+		healqueue = 0
+	if health <= 0 and deathCount > 0:
+		health = 0
+		aiState = AI.DOWNED
+	if deathCount == 0:
+		aiState = AI.DEAD
 
 func _findFarPlayer():
 	var targets = get_tree().get_nodes_in_group("player")
@@ -416,7 +468,6 @@ func _findFarPlayer():
 
 func _findEnemies():
 	var targets = get_tree().get_nodes_in_group("alertEnemies")
-	#create softref to shortTargets in the loop and only apply it after its done
 	for t in targets:
 		var disto = self.global_transform.origin.distance_to(t.global_transform.origin)
 		if shortTarget == null:
@@ -428,8 +479,27 @@ func _findEnemies():
 	if self.global_transform.origin.distance_to(shortTarget.global_transform.origin) < 30:
 		aiState = AI.ATTACK
 
+func _findEnemiesDowned():
+	var targets = get_tree().get_nodes_in_group("alertEnemies")
+	for t in targets:
+		var disto = self.global_transform.origin.distance_to(t.global_transform.origin)
+		if shortTarget == null:
+			shortTarget = t
+		elif disto < shortTarget.global_transform.origin.distance_to(t.global_transform.origin):
+			shortTarget = t
+	if shortTarget == null:
+		return
+	if !self.global_transform.origin.distance_to(shortTarget.global_transform.origin) < 30:
+		shortTarget = null
+
 func _switchGun():
 	weaponState = randi()%5
 
 func _on_cdTimer_timeout():
 	canShoot = true
+
+func _on_death_timeout():
+	if deathCount > 0:
+		deathCount -= 1
+	if deathCount <= 0:
+		aiState = AI.DEAD

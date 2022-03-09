@@ -29,6 +29,7 @@ var h_velocity = Vector3()
 var movement = Vector3()
 var hasControl = true
 
+var deathCount = 3
 var gravity = 30
 var jump = 10
 var gravity_vec = Vector3()
@@ -54,6 +55,7 @@ enum GUN_USE {
 }
 
 onready var GLOBAL = get_node("/root/GLOBAL/")
+onready var eventManager = null
 
 onready var head = $head
 onready var ground_check = $groundcheck
@@ -126,24 +128,37 @@ func _physics_process(delta):
 		gravity_vec = -get_floor_normal()
 		h_acceleration = normal_acceleration
 
-	if Input.is_action_pressed("healing"):
-		if gunstate != GUN_USE.UNEQUIP:
-			nextgun = GUN_USE.HEAL
-	if Input.is_action_pressed("weap1"):
-		if gunstate != GUN_USE.UNEQUIP:
-			nextgun = GUN_USE.GUN1
-	if Input.is_action_pressed("weap2"):
-		if gunstate != GUN_USE.UNEQUIP:
-			nextgun = GUN_USE.GUN2
-	if Input.is_action_pressed("weap4"):
-		if gunstate != GUN_USE.UNEQUIP:
-			nextgun = GUN_USE.GUN3
-	if Input.is_action_pressed("weap5"):
-		if gunstate != GUN_USE.UNEQUIP:
-			nextgun = GUN_USE.GUN4
-	if Input.is_action_pressed("weap3"):
-		if gunstate != GUN_USE.UNEQUIP:
-			nextgun = GUN_USE.GUN5
+	if health > 0:
+		if Input.is_action_pressed("healing"):
+			if gunstate != GUN_USE.UNEQUIP:
+				nextgun = GUN_USE.HEAL
+		if Input.is_action_pressed("weap1"):
+			if gunstate != GUN_USE.UNEQUIP:
+				nextgun = GUN_USE.GUN1
+		if Input.is_action_pressed("weap2"):
+			if gunstate != GUN_USE.UNEQUIP:
+				nextgun = GUN_USE.GUN2
+		if Input.is_action_pressed("weap4"):
+			if gunstate != GUN_USE.UNEQUIP:
+				nextgun = GUN_USE.GUN3
+		if Input.is_action_pressed("weap5"):
+			if gunstate != GUN_USE.UNEQUIP:
+				nextgun = GUN_USE.GUN4
+		if Input.is_action_pressed("weap3"):
+			if gunstate != GUN_USE.UNEQUIP:
+				nextgun = GUN_USE.GUN5
+
+		if Input.is_action_pressed("jump") and (ground_check.is_colliding()):
+			gravity_vec = Vector3.UP * jump
+		if Input.is_action_pressed("move_foward"):
+			direction -= transform.basis.z
+		elif Input.is_action_pressed("move_backward"):
+			direction += transform.basis.z
+		if Input.is_action_pressed("move_left"):
+			direction -= transform.basis.x
+		elif Input.is_action_pressed("move_right"):
+			direction += transform.basis.x
+
 
 	match gunstate:
 		GUN_USE.HEAL:
@@ -353,16 +368,7 @@ func _physics_process(delta):
 			if target.is_in_group("buttons") and (disto <= 5):
 				target.interact = true
 
-	if Input.is_action_pressed("jump") and (ground_check.is_colliding()):
-		gravity_vec = Vector3.UP * jump
-	if Input.is_action_pressed("move_foward"):
-		direction -= transform.basis.z
-	elif Input.is_action_pressed("move_backward"):
-		direction += transform.basis.z
-	if Input.is_action_pressed("move_left"):
-		direction -= transform.basis.x
-	elif Input.is_action_pressed("move_right"):
-		direction += transform.basis.x
+
 
 	if Input.is_action_just_pressed("throw_ammo"):
 		if gunstate == GUN_USE.GUN1 and nelevenammo > 10:
@@ -490,9 +496,8 @@ func _physics_process(delta):
 		healqueue = 0
 	if health <= 0:
 		health = 0
-		hasControl = false
-		shootshake.play("die")
-		gunbob.stop(false)
+		_death()
+
 	if health > 100:
 		health = 100
 
@@ -558,6 +563,24 @@ func _toggleControl(value: bool):
 		hasControl = true
 	if !value:
 		hasControl = false
+
+func _death():
+	if gunstate != GUN_USE.GUN1:
+		if gunstate != GUN_USE.UNEQUIP:
+			nextgun = GUN_USE.GUN1
+	if $death.is_stopped():
+		$death.start()
+		$head/Camera/deathAnim.play("death")
+		gunbob.stop(false)
+
+func _on_death_timeout():
+	if deathCount > 0:
+		deathCount -= 1
+	if deathCount <= 0:
+		hasControl = false
+		if eventManager != null:
+			eventManager.play("endCutscene")
+			eventManager.playerDeath = true
 
 func _on_gunanim_animation_finished(anim_name):
 	if anim_name == "bandaiduse":

@@ -770,21 +770,6 @@ tracks/2/keys = {
 "values": [ true, true, true, true, true ]
 }
 
-[sub_resource type="Animation" id=35]
-resource_name = "die"
-tracks/0/type = "value"
-tracks/0/path = NodePath("..:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 3.03143, 1 ),
-"update": 0,
-"values": [ Vector3( 0, 1.25264, 0 ), Vector3( 0, -2.235, 0 ) ]
-}
-
 [sub_resource type="Animation" id=23]
 length = 0.1
 tracks/0/type = "value"
@@ -813,6 +798,21 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.25, 0 ), Vector3( 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=35]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:translation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 4, 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1.25264, 0 ), Vector3( 0, -2, 0 ) ]
 }
 
 [node name="player" type="KinematicBody" groups=["player"]]
@@ -1063,9 +1063,11 @@ fov = 90.0
 anims/gunbob = SubResource( 22 )
 
 [node name="camerashake" type="AnimationPlayer" parent="head/Camera"]
-anims/die = SubResource( 35 )
 anims/shoot = SubResource( 23 )
 anims/shootheavy = SubResource( 24 )
+
+[node name="deathAnim" type="AnimationPlayer" parent="head/Camera"]
+anims/death = SubResource( 35 )
 
 [node name="shellsrelease" type="Spatial" parent="head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.61765, -0.250606, -1.12824 )
@@ -1138,5 +1140,8 @@ stream = ExtResource( 18 )
 volume_db = -6.0
 bus = "GUNS"
 
+[node name="death" type="Timer" parent="."]
+
 [connection signal="animation_finished" from="head/Camera/gunanim" to="." method="_on_gunanim_animation_finished"]
 [connection signal="animation_started" from="head/Camera/gunanim" to="head/Camera/muzzleflash" method="_on_gunanim_animation_started"]
+[connection signal="timeout" from="death" to="." method="_on_death_timeout"]

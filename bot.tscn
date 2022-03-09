@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://playerSprites/male.png" type="Texture" id=1]
 [ext_resource path="res://playerSprites/1911igwpPluschar.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://bot.gd" type="Script" id=8]
 [ext_resource path="res://label3d.gd" type="Script" id=9]
 [ext_resource path="res://hud.tres" type="DynamicFont" id=10]
+[ext_resource path="res://worm final.png" type="Texture" id=11]
 
 [sub_resource type="SpatialMaterial" id=12]
 resource_local_to_scene = true
@@ -77,6 +78,15 @@ rim_enabled = true
 rim = 1.0
 rim_tint = 1.0
 
+[sub_resource type="SpatialMaterial" id=14]
+flags_transparent = true
+params_billboard_mode = 2
+params_billboard_keep_scale = true
+albedo_texture = ExtResource( 11 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
 [sub_resource type="CapsuleShape" id=8]
 radius = 0.7
 height = 3.0
@@ -115,6 +125,26 @@ tracks/0/keys = {
 
 [sub_resource type="ViewportTexture" id=9]
 viewport_path = NodePath("nameSprite/label3d")
+
+[sub_resource type="ParticlesMaterial" id=15]
+direction = Vector3( 0, 1, 0 )
+spread = 120.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+
+[sub_resource type="SpatialMaterial" id=16]
+flags_transparent = true
+flags_unshaded = true
+params_blend_mode = 1
+params_billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="QuadMesh" id=17]
+material = SubResource( 16 )
+size = Vector2( 0.1, 0.1 )
 
 [node name="bot" type="KinematicBody" groups=["player"]]
 collision_layer = 9
@@ -189,6 +219,17 @@ texture = ExtResource( 6 )
 hframes = 15
 vframes = 5
 
+[node name="deadSprite" type="Sprite3D" parent="compositeSprites"]
+transform = Transform( 3.5, 0, 0, 0, 3.5, 0, 0, 0, 1, 0, -0.018142, 0 )
+visible = false
+material_override = SubResource( 14 )
+billboard = 2
+shaded = true
+texture = ExtResource( 11 )
+hframes = 13
+vframes = 5
+frame = 51
+
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 8 )
@@ -227,3 +268,19 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.40309, 0 )
 unit_size = 20.0
 
 [node name="ammoAudio" type="AudioStreamPlayer" parent="."]
+
+[node name="death" type="Timer" parent="."]
+
+[node name="deathParticles" type="Particles" parent="."]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 0 )
+emitting = false
+amount = 100
+lifetime = 0.5
+one_shot = true
+speed_scale = 3.0
+explosiveness = 1.0
+visibility_aabb = AABB( -0.725982, -0.631749, -2.97335, 1.45196, 1.2635, 5.9467 )
+process_material = SubResource( 15 )
+draw_pass_1 = SubResource( 17 )
+
+[connection signal="timeout" from="death" to="." method="_on_death_timeout"]
