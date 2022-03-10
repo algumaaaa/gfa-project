@@ -29,7 +29,7 @@ var h_velocity = Vector3()
 var movement = Vector3()
 var hasControl = true
 
-var deathCount = 3
+var deathCount = 30
 var gravity = 30
 var jump = 10
 var gravity_vec = Vector3()
@@ -231,7 +231,7 @@ func _physics_process(delta):
 							aim.get_collider().add_child(bldd)
 							bldd.global_transform.origin = aim.get_collision_point()
 							bldd.look_at(aim.get_collision_point() + aim.get_collision_normal(), Vector3.UP)
-					if !target.is_in_group("enemies"):
+					if !target.is_in_group("enemies") and !target.is_in_group("player"):
 						var bh = bullethole.instance()
 						makebh(aim.get_collider(), aim, bh)
 
@@ -255,7 +255,7 @@ func _physics_process(delta):
 							bld.global_transform.origin = aim.get_collision_point()
 							bld.look_at(aim.get_collision_point() + aim.get_collision_normal(), Vector3.UP)
 					var target = r.get_collider()
-					if !target.is_in_group("enemies"):
+					if !target.is_in_group("enemies") and !target.is_in_group("player"):
 						var bh = bullethole.instance()
 						makebh(r.get_collider(), r, bh)
 #						r.get_collider().add_child(bh)
@@ -305,7 +305,7 @@ func _physics_process(delta):
 #								bh.global_transform.origin = aim.get_collision_point()
 #								bh.look_at(aim.get_collision_point() + aim.get_collision_normal(), Vector3.UP)
 		
-					if !target.is_in_group("enemies"):
+					if !target.is_in_group("enemies") and !target.is_in_group("player"):
 						var bh = bullethole.instance()
 						makebh(aim.get_collider(), aim, bh)
 
@@ -346,7 +346,7 @@ func _physics_process(delta):
 						aim.get_collider().add_child(bld)
 						bld.global_transform.origin = aim.get_collision_point()
 						bld.look_at(aim.get_collision_point() + aim.get_collision_normal(), Vector3.UP)
-					if !target.is_in_group("enemies"):
+					if !target.is_in_group("enemies") and !target.is_in_group("player"):
 						var bh = bullethole.instance()
 						makebh(aim.get_collider(), aim, bh)
 	if Input.is_action_just_released("fire"):
@@ -367,8 +367,6 @@ func _physics_process(delta):
 			print(disto)
 			if target.is_in_group("buttons") and (disto <= 5):
 				target.interact = true
-
-
 
 	if Input.is_action_just_pressed("throw_ammo"):
 		if gunstate == GUN_USE.GUN1 and nelevenammo > 10:
@@ -411,6 +409,15 @@ func _physics_process(delta):
 			a.shot = true
 			a.ammoAmount = 5
 			a.ammoType = 4
+		if gunstate == GUN_USE.HEAL and heals > 0:
+			if !gunanim.is_playing():
+				gunanim.play("bandaiduseOnAlly")
+
+	if Input.is_action_just_released("throw_ammo"):
+		if gunstate == GUN_USE.HEAL:
+			if gunanim.is_playing() and nextgun == GUN_USE.HEAL:
+				gunanim.stop(true)
+				band.visible = false
 
 	if neleven.shellsrelease:
 		var nelshells = bcasing.instance()
@@ -494,6 +501,11 @@ func _physics_process(delta):
 	if healqueue > 0:
 		health += healqueue
 		healqueue = 0
+		if health <= 0:
+			$death.stop()
+			$head/Camera/deathAnim.stop(true)
+			gunbob.stop(true)
+			deathCount = 30
 	if health <= 0:
 		health = 0
 		_death()
@@ -586,6 +598,16 @@ func _on_gunanim_animation_finished(anim_name):
 	if anim_name == "bandaiduse":
 		healqueue += 30
 		heals -= 1
+	if anim_name == "bandaiduseOnAlly":
+		band.visible = false
+		gunanim.stop(true)
+		if aim.is_colliding():
+			var healee = aim.get_collider()
+			if healee.is_in_group("player"):
+				var disto = global_transform.origin.distance_to(healee.global_transform.origin)
+				if disto < 8:
+					heals -= 1
+					healee.healqueue += 30
 	if anim_name == "nelevenunequip":
 		neleven.visible = false
 		if nextgun == GUN_USE.HEAL:

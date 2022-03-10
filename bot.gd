@@ -35,13 +35,14 @@ var doublebammo = 10
 var mac10ammo = 30
 var lactionammo = 10
 var glauncherammo = 5
+var totalAmmo = null
 
 var slowed = false
 var health = 100
 var damagequeue = 0
 var healqueue = 0
 var bloody = 0
-var deathCount = 2
+var deathCount = 30
 var ammoPickedUp = false
 
 onready var grenade = preload("res://grenade.tscn")
@@ -75,6 +76,8 @@ func _ready():
 	gunSounds.append(preload("res://Audio/Guns/laction/Shot.wav"))
 	gunSounds.append(preload("res://Audio/Guns/glauncher/Shot.wav"))
 
+	totalAmmo = doublebammo + mac10ammo + lactionammo
+
 func _process(delta):
 	var tr = weakref(shortTarget)
 	if (!tr.get_ref()):
@@ -88,7 +91,7 @@ func _physics_process(delta):
 #	if Input.is_action_just_pressed("debug0"):
 #		aiState = AI.DOWNED
 	if Input.is_action_just_pressed("debug1"):
-		aiState = AI.DOWNED
+		_switchGun()
 	if Input.is_action_just_pressed("debug2"):
 		weaponState = WEAPON.DOUBLEB
 
@@ -261,7 +264,7 @@ func _physics_process(delta):
 					$gunSound.play()
 					canShoot = false
 					var cdTimer = Timer.new()
-					cdTimer.wait_time = 0.1 + (shootOffset / 2)
+					cdTimer.wait_time = 0.1 + (shootOffset / 4)
 					cdTimer.one_shot = true
 					cdTimer.connect("timeout", self, "_on_cdTimer_timeout")
 					add_child(cdTimer)
@@ -439,11 +442,11 @@ func _physics_process(delta):
 				$gunSound.stream = gored
 				$gunSound.play()
 				$deathParticles.emitting = true
+				self.remove_from_group("player")
 				$aim.enabled = false
 			$CollisionShape.disabled = true
 			navNode.hitbox.disabled = true
 			navNode.tick.stop()
-			self.remove_from_group("player")
 
 	if damagequeue > 0:
 		health -= damagequeue
@@ -451,9 +454,15 @@ func _physics_process(delta):
 	if healqueue > 0:
 		health += healqueue
 		healqueue = 0
+		if aiState == AI.DOWNED:
+			death.stop()
+			deathCount = 30
+			aiState = AI.IDLE
 	if health <= 0 and deathCount > 0:
 		health = 0
 		aiState = AI.DOWNED
+	if health > 100:
+		health = 100
 	if deathCount == 0:
 		aiState = AI.DEAD
 
@@ -493,7 +502,9 @@ func _findEnemiesDowned():
 		shortTarget = null
 
 func _switchGun():
-	weaponState = randi()%5
+	weaponState = randi()%3 + 1
+	if totalAmmo == 0:
+		weaponState = WEAPON.NELEVEN
 
 func _on_cdTimer_timeout():
 	canShoot = true
