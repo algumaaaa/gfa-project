@@ -16,7 +16,7 @@ func _on_churchEvent_body_entered(body):
 		churchStarted = true
 
 func _on_street_body_entered(body):
-	if body.is_in_group("player") and !startCutscene:
+	if body.is_in_group("player") and !startCutscene and player.startCutscene:
 		play("startCutscene")
 		startCutscene = true
 
@@ -32,4 +32,3 @@ func _process(delta):
 	if playerDeath and !self.is_playing():
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		get_tree().change_scene("res://menu.tscn")
-

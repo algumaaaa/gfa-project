@@ -1,4 +1,4 @@
-[gd_scene load_steps=632 format=2]
+[gd_scene load_steps=635 format=2]
 
 [ext_resource path="res://menu.gd" type="Script" id=1]
 [ext_resource path="res://flicker.gd" type="Script" id=2]
@@ -32,6 +32,18 @@
 [sub_resource type="DynamicFont" id=8878]
 size = 12
 use_filter = true
+font_data = ExtResource( 28 )
+
+[sub_resource type="DynamicFont" id=8879]
+size = 26
+font_data = ExtResource( 28 )
+
+[sub_resource type="DynamicFont" id=8880]
+size = 36
+font_data = ExtResource( 28 )
+
+[sub_resource type="DynamicFont" id=8881]
+size = 36
 font_data = ExtResource( 28 )
 
 [sub_resource type="SpatialMaterial" id=2]
@@ -2144,8 +2156,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -35.5
+margin_right = 60.0
+margin_bottom = 35.5
+rect_scale = Vector2( 2, 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="start" type="Button" parent="Control/VBoxContainer"]
+margin_right = 60.0
+margin_bottom = 20.0
+text = "offline"
+
+[node name="options" type="Button" parent="Control/VBoxContainer"]
+margin_top = 24.0
+margin_right = 60.0
+margin_bottom = 44.0
+text = "options"
+
+[node name="exit" type="Button" parent="Control/VBoxContainer"]
+margin_top = 48.0
+margin_right = 60.0
+margin_bottom = 68.0
+text = "exit"
+
 [node name="Popup" type="Popup" parent="Control"]
-visible = true
 anchor_left = 0.099
 anchor_top = 0.353
 anchor_right = 0.41
@@ -2354,34 +2393,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_top = -35.5
-margin_right = 60.0
-margin_bottom = 35.5
-rect_scale = Vector2( 2, 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="start" type="Button" parent="Control/VBoxContainer"]
-margin_right = 60.0
-margin_bottom = 20.0
-text = "start"
-
-[node name="options" type="Button" parent="Control/VBoxContainer"]
-margin_top = 24.0
-margin_right = 60.0
-margin_bottom = 44.0
-text = "options"
-
-[node name="exit" type="Button" parent="Control/VBoxContainer"]
-margin_top = 48.0
-margin_right = 60.0
-margin_bottom = 68.0
-text = "exit"
-
 [node name="nowLoading" type="Popup" parent="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -2400,6 +2411,297 @@ margin_left = -210.0
 margin_top = -26.0
 custom_fonts/font = ExtResource( 5 )
 text = "Now Loading..."
+
+[node name="startMenu" type="Popup" parent="Control"]
+visible = true
+anchor_left = -0.01
+anchor_top = 0.129
+anchor_right = 0.776
+anchor_bottom = 0.871
+margin_left = 139.76
+margin_top = 0.345993
+margin_right = -471.176
+margin_bottom = 0.653992
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Control/startMenu"]
+anchor_left = 0.082
+anchor_top = 0.176
+anchor_right = 0.987
+anchor_bottom = 0.839
+margin_left = -0.144001
+margin_top = 0.136002
+margin_right = 0.0959778
+margin_bottom = -0.221039
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxPlayer" type="GridContainer" parent="Control/startMenu"]
+anchor_left = 0.094
+anchor_top = 0.184
+anchor_right = 0.969
+anchor_bottom = 0.36
+margin_left = 0.151997
+margin_top = -0.17601
+margin_right = 0.151978
+margin_bottom = -0.0400085
+custom_constants/hseparation = 11
+columns = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" type="Label" parent="Control/startMenu/VBoxPlayer"]
+margin_right = 96.0
+margin_bottom = 28.0
+custom_fonts/font = SubResource( 8879 )
+text = "PLAYER"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Difficulty" type="Label" parent="Control/startMenu/VBoxPlayer"]
+margin_left = 107.0
+margin_top = 1.0
+margin_right = 257.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 5 )
+text = "Difficulty"
+
+[node name="Color" type="Label" parent="Control/startMenu/VBoxPlayer"]
+margin_left = 268.0
+margin_top = 1.0
+margin_right = 343.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 5 )
+text = "Color"
+
+[node name="LineEdit" type="LineEdit" parent="Control/startMenu/VBoxPlayer"]
+margin_top = 32.0
+margin_right = 96.0
+margin_bottom = 56.0
+text = "Player"
+
+[node name="OptionButton" type="OptionButton" parent="Control/startMenu/VBoxPlayer"]
+margin_left = 107.0
+margin_top = 32.0
+margin_right = 257.0
+margin_bottom = 56.0
+text = "Accessible"
+items = [ "Accessible", null, false, 0, null, "Intermediate", null, false, 1, null, "Advanced", null, false, 2, null, "Expert", null, false, 3, null ]
+selected = 0
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Control/startMenu/VBoxPlayer"]
+margin_left = 268.0
+margin_top = 32.0
+margin_right = 343.0
+margin_bottom = 56.0
+color = Color( 1, 1, 1, 1 )
+
+[node name="VBoxBots" type="GridContainer" parent="Control/startMenu"]
+anchor_left = 0.092
+anchor_top = 0.442
+anchor_right = 0.962
+anchor_bottom = 0.683
+margin_left = -0.064003
+margin_top = -0.238022
+margin_right = -0.104034
+margin_bottom = -0.137024
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/hseparation = 19
+columns = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BOTS" type="Label" parent="Control/startMenu/VBoxBots"]
+margin_right = 88.0
+margin_bottom = 37.0
+custom_fonts/font = SubResource( 8880 )
+text = "BOTS"
+align = 1
+valign = 1
+
+[node name="Name" type="Label" parent="Control/startMenu/VBoxBots"]
+margin_left = 107.0
+margin_top = 5.0
+margin_right = 167.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 5 )
+text = "Name"
+
+[node name="Aim" type="Label" parent="Control/startMenu/VBoxBots"]
+margin_left = 186.0
+margin_top = 5.0
+margin_right = 247.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 5 )
+text = "Aim"
+
+[node name="Color" type="Label" parent="Control/startMenu/VBoxBots"]
+margin_left = 266.0
+margin_top = 5.0
+margin_right = 341.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 5 )
+text = "Color"
+
+[node name="enableBot" type="OptionButton" parent="Control/startMenu/VBoxBots"]
+margin_top = 41.0
+margin_right = 88.0
+margin_bottom = 65.0
+text = "Disabled"
+items = [ "Disabled", null, false, 0, null, "Enabled", null, false, 1, null ]
+selected = 0
+
+[node name="botName" type="LineEdit" parent="Control/startMenu/VBoxBots"]
+margin_left = 107.0
+margin_top = 41.0
+margin_right = 167.0
+margin_bottom = 65.0
+align = 1
+
+[node name="OptionButton" type="OptionButton" parent="Control/startMenu/VBoxBots"]
+margin_left = 186.0
+margin_top = 41.0
+margin_right = 247.0
+margin_bottom = 65.0
+text = "Okay"
+align = 1
+items = [ "Poor", null, false, 0, null, "Okay", null, false, 1, null, "Good", null, false, 2, null ]
+selected = 1
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="Control/startMenu/VBoxBots"]
+margin_left = 266.0
+margin_top = 41.0
+margin_right = 341.0
+margin_bottom = 65.0
+color = Color( 1, 1, 1, 1 )
+edit_alpha = false
+
+[node name="enableBot2" type="OptionButton" parent="Control/startMenu/VBoxBots"]
+margin_top = 69.0
+margin_right = 88.0
+margin_bottom = 93.0
+text = "Disabled"
+items = [ "Disabled", null, false, 0, null, "Enabled", null, false, 1, null ]
+selected = 0
+
+[node name="botName2" type="LineEdit" parent="Control/startMenu/VBoxBots"]
+margin_left = 107.0
+margin_top = 69.0
+margin_right = 167.0
+margin_bottom = 93.0
+align = 1
+
+[node name="OptionButton2" type="OptionButton" parent="Control/startMenu/VBoxBots"]
+margin_left = 186.0
+margin_top = 69.0
+margin_right = 247.0
+margin_bottom = 93.0
+text = "Okay"
+align = 1
+items = [ "Poor", null, false, 0, null, "Okay", null, false, 1, null, "Good", null, false, 2, null ]
+selected = 1
+
+[node name="ColorPickerButton2" type="ColorPickerButton" parent="Control/startMenu/VBoxBots"]
+margin_left = 266.0
+margin_top = 69.0
+margin_right = 341.0
+margin_bottom = 93.0
+color = Color( 1, 1, 1, 1 )
+edit_alpha = false
+
+[node name="enableBot3" type="OptionButton" parent="Control/startMenu/VBoxBots"]
+margin_top = 97.0
+margin_right = 88.0
+margin_bottom = 121.0
+text = "Disabled"
+items = [ "Disabled", null, false, 0, null, "Enabled", null, false, 1, null ]
+selected = 0
+
+[node name="botName3" type="LineEdit" parent="Control/startMenu/VBoxBots"]
+margin_left = 107.0
+margin_top = 97.0
+margin_right = 167.0
+margin_bottom = 121.0
+align = 1
+
+[node name="OptionButton3" type="OptionButton" parent="Control/startMenu/VBoxBots"]
+margin_left = 186.0
+margin_top = 97.0
+margin_right = 247.0
+margin_bottom = 121.0
+text = "Okay"
+align = 1
+items = [ "Poor", null, false, 0, null, "Okay", null, false, 1, null, "Good", null, false, 2, null ]
+selected = 1
+
+[node name="ColorPickerButton3" type="ColorPickerButton" parent="Control/startMenu/VBoxBots"]
+margin_left = 266.0
+margin_top = 97.0
+margin_right = 341.0
+margin_bottom = 121.0
+color = Color( 1, 1, 1, 1 )
+edit_alpha = false
+
+[node name="VBoxMap" type="GridContainer" parent="Control/startMenu"]
+anchor_left = 0.097
+anchor_top = 0.703
+anchor_right = 0.74
+anchor_bottom = 0.826
+margin_left = -0.0240021
+margin_top = 0.0830078
+margin_right = -0.0800171
+margin_bottom = -0.21402
+custom_constants/hseparation = 30
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EPISODE" type="Label" parent="Control/startMenu/VBoxMap"]
+margin_right = 154.0
+margin_bottom = 37.0
+custom_fonts/font = SubResource( 8881 )
+text = "EPISODE"
+
+[node name="Map" type="Label" parent="Control/startMenu/VBoxMap"]
+margin_left = 184.0
+margin_top = 5.0
+margin_right = 252.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 5 )
+text = "Map"
+
+[node name="episodeButton" type="OptionButton" parent="Control/startMenu/VBoxMap"]
+margin_top = 41.0
+margin_right = 154.0
+margin_bottom = 61.0
+text = "Episode 1"
+
+[node name="mapButton" type="OptionButton" parent="Control/startMenu/VBoxMap"]
+margin_left = 184.0
+margin_top = 41.0
+margin_right = 252.0
+margin_bottom = 61.0
+text = "Map 1"
+
+[node name="Button" type="Button" parent="Control/startMenu"]
+anchor_left = 0.747
+anchor_top = 0.688
+anchor_right = 0.969
+anchor_bottom = 0.75
+margin_left = -0.103424
+margin_top = 43.2066
+margin_right = -0.127411
+margin_bottom = 41.7886
+custom_fonts/font = ExtResource( 5 )
+text = "start"
 
 [node name="QodotMap" type="Spatial" parent="."]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
@@ -4230,6 +4532,9 @@ script = ExtResource( 3 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera"]
 anims/campan = SubResource( 8877 )
 
+[connection signal="pressed" from="Control/VBoxContainer/start" to="Control" method="_on_start_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/options" to="Control" method="_on_options_pressed"]
+[connection signal="pressed" from="Control/VBoxContainer/exit" to="Control" method="_on_exit_pressed"]
 [connection signal="value_changed" from="Control/Popup/MarginContainer/GridContainer/sensitivityslider" to="Control" method="_on_sensitivityslider_value_changed"]
 [connection signal="value_changed" from="Control/Popup/MarginContainer/GridContainer/fovslider" to="Control" method="_on_fovslider_value_changed"]
 [connection signal="item_selected" from="Control/Popup/MarginContainer/GridContainer/displayButton" to="Control" method="_on_displayButton_item_selected"]
@@ -4237,7 +4542,5 @@ anims/campan = SubResource( 8877 )
 [connection signal="pressed" from="Control/levelselect/e0m1" to="Control" method="_on_e0m1_pressed"]
 [connection signal="pressed" from="Control/levelselect/e0m2" to="Control" method="_on_e0m2_pressed"]
 [connection signal="pressed" from="Control/levelselect/e1m1" to="Control" method="_on_e1m1_pressed"]
-[connection signal="pressed" from="Control/VBoxContainer/start" to="Control" method="_on_start_pressed"]
-[connection signal="pressed" from="Control/VBoxContainer/options" to="Control" method="_on_options_pressed"]
-[connection signal="pressed" from="Control/VBoxContainer/exit" to="Control" method="_on_exit_pressed"]
+[connection signal="item_selected" from="Control/startMenu/VBoxPlayer/OptionButton" to="Control" method="_on_OptionButton_item_selected"]
 [connection signal="timeout" from="Lighting/OmniLight2/Timer" to="Lighting/OmniLight2" method="_on_Timer_timeout"]

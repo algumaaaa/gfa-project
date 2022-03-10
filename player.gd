@@ -56,6 +56,7 @@ enum GUN_USE {
 
 onready var GLOBAL = get_node("/root/GLOBAL/")
 onready var eventManager = null
+var startCutscene = false
 
 onready var head = $head
 onready var ground_check = $groundcheck
@@ -546,6 +547,7 @@ func _ready():
 	laction.visible = false
 	glauncher.visible = false
 	mac10.visible = false
+	startCutscene = true
 
 	footStepAudios.append(preload("res://Audio/Misc/Footsteps/Footstep1.wav"))
 	footStepAudios.append(preload("res://Audio/Misc/Footsteps/Footstep2.wav"))

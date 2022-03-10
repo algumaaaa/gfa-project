@@ -23,10 +23,15 @@ func _ready():
 	vsyncButton.pressed = GLOBAL.vsync
 
 func _on_start_pressed():
-	if !levelselect.visible:
-		levelselect.visible = true
+#	if !levelselect.visible:
+#		levelselect.visible = true
+#	else:
+#		levelselect.visible = false
+
+	if !$startMenu.visible:
+		$startMenu.visible = true
 	else:
-		levelselect.visible = false
+		$startMenu.visible = false
 
 func _on_exit_pressed():
 	get_tree().quit()
@@ -79,3 +84,7 @@ func _on_vsyncButton_toggled(button_pressed):
 
 	GLOBAL.vsync = button_pressed
 	OS.vsync_enabled = button_pressed
+
+
+func _on_OptionButton_item_selected(index):
+	GLOBAL.difficulty = index

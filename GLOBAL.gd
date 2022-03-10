@@ -12,6 +12,7 @@ var player = null
 var spawner = null
 var shortestDistance = null
 
+var difficulty
 var mouse_sensitivity = 0.05
 var fov = 90
 var display = 0
@@ -33,6 +34,15 @@ func _physics_process(delta):
 
 		if player.damagequeue > 0:
 			m += player.damagequeue
+
+		if difficulty == 0:
+			d = 2
+		elif difficulty == 1:
+			d = 1
+		elif difficulty == 2:
+			d = 0.75
+		elif difficulty == 3:
+			d = 0.5
 
 		r = ((a + m) * p) * d
 
