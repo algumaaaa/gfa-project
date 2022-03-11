@@ -424,6 +424,13 @@ transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -82.010
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.14926, 0 )
 botNo = 2
 
+[node name="navnodeBot3" parent="Navigation" instance=ExtResource( 14 )]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -82.0107, 2.60187, -6.45506 )
+
+[node name="bot" parent="Navigation/navnodeBot3" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.14926, 0 )
+botNo = 3
+
 [node name="navnodeBot" parent="Navigation" instance=ExtResource( 14 )]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -82.0107, 2.60679, 6.31009 )
 

@@ -7,6 +7,7 @@ var aistate = AI.IDLE
 var alert = false
 export var exploded = false
 export var damageframe = false
+var freed = false
 
 var speed = 30
 var path = []
@@ -44,7 +45,7 @@ enum AI{
 }
 
 func _process(delta):
-	if camera == null:
+	if camera == null or freed:
 		return
 	var player_foward = camera.global_transform.basis.z
 	var foward = global_transform.basis.z
@@ -69,6 +70,8 @@ func _process(delta):
 	sprite3d.frame_coords = Vector2(animframe, animrow)
 
 func _physics_process(delta):
+	if freed:
+		return
 
 	if Input.is_action_just_pressed("debug0"):
 		aistate = AI.GIB
@@ -117,6 +120,7 @@ func _physics_process(delta):
 			hitbox.disabled = true
 			navnode.hitbox.disabled = true
 			navnode.tick.stop()
+			detect.enabled = false
 
 		AI.GIB:
 			navnode.navstate = navnode.STOPPED
@@ -129,8 +133,11 @@ func _physics_process(delta):
 					g.gibbed = true
 					despawn.start()
 					self.visible = false
-				navnode.tick.stop()
-				navnode.hitbox.disabled = true
+			ray.enabled = false
+			hitbox.disabled = true
+			navnode.hitbox.disabled = true
+			navnode.tick.stop()
+			detect.enabled = false
 #				var playerGroup = get_tree().get_nodes_in_group("player")
 #				for p in playerGroup:
 #					if p.shortTarget == self:
@@ -204,14 +211,15 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			aistate = AI.ALERT
 
 func _on_despawn_timeout():
-	var players = get_tree().get_nodes_in_group("player")
-	var st = false
-	for p in players:
-		if p.shortTarget == self:
-			st = true
-	if st:
-		despawn.start()
-		st = false
-	else:
-		get_parent().queue_free()
-		queue_free()
+#	var players = get_tree().get_nodes_in_group("player")
+#	var st = false
+#	for p in players:
+#		if p.shortTarget == self:
+#			st = true
+#	if st:
+#		despawn.start()
+#		st = false
+#	else:
+#		get_parent().queue_free()
+#		queue_free()
+	freed = true

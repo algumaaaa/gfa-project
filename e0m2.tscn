@@ -197,6 +197,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2736, 0.114453, -31.6209 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0262051, 2.10573, 0.0547485 )
 botNo = 2
 
+[node name="navnodeBot3" parent="Navigation" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2736, 0.114453, -23.6037 )
+
+[node name="bot" parent="Navigation/navnodeBot3" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0262051, 2.10573, 0.0547485 )
+botNo = 3
+
 [node name="Spatial" type="Spatial" parent="Navigation"]
 
 [node name="spawner" parent="Navigation/Spatial" instance=ExtResource( 7 )]

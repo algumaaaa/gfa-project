@@ -220,6 +220,7 @@ wait_time = 20.0
 one_shot = true
 
 [node name="Particles" type="Particles" parent="."]
+emitting = false
 amount = 100
 lifetime = 0.5
 one_shot = true
@@ -229,6 +230,9 @@ process_material = SubResource( 7 )
 draw_pass_1 = SubResource( 9 )
 
 [node name="damagezone" type="Area" parent="."]
+collision_layer = 0
+input_ray_pickable = false
+monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="damagezone"]
 shape = SubResource( 11 )

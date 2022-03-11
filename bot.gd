@@ -118,7 +118,7 @@ func _ready():
 		var sprites = $compositeSprites.get_children()
 		for s in sprites:
 			var c = s.material_override.duplicate()
-			c.albedo_color = GLOBAL.bot2Color
+			c.albedo_color = GLOBAL.bot3Color
 			s.material_override = c
 
 	randomize()
@@ -129,11 +129,6 @@ func _ready():
 	gunSounds.append(preload("res://Audio/Guns/glauncher/Shot.wav"))
 
 	totalAmmo = doublebammo + mac10ammo + lactionammo
-
-func _process(delta):
-	var tr = weakref(shortTarget)
-	if (!tr.get_ref()):
-		_findEnemies()
 
 func _physics_process(delta):
 	if navNode == null:
@@ -206,7 +201,7 @@ func _physics_process(delta):
 					nelevenammo -= 1
 					$aim.cast_to.x = rand_range(spread, -spread)
 					$aim.cast_to.y = rand_range(spread, -spread)
-					if $aim.get_collider() == shortTarget:
+					if $aim.get_collider() == shortTarget and $aim.get_collider() != null:
 						shortTarget.damagequeue += player.nelevendamage
 						shortTarget.tookdamage = true
 						var bimp = bloodimpact.instance()
@@ -249,7 +244,7 @@ func _physics_process(delta):
 					doublebammo -= 1
 					$aim.cast_to.x = rand_range(spread, -spread)
 					$aim.cast_to.y = rand_range(spread, -spread)
-					if $aim.get_collider() == shortTarget:
+					if $aim.get_collider() == shortTarget and $aim.get_collider() != null:
 						shortTarget.damagequeue += player.pellet * 9
 						shortTarget.tookdamage = true
 						var bimp = bloodimpact.instance()
@@ -292,7 +287,7 @@ func _physics_process(delta):
 					mac10ammo -= 1
 					$aim.cast_to.x = rand_range(spread, -spread)
 					$aim.cast_to.y = rand_range(spread, -spread)
-					if $aim.get_collider() == shortTarget:
+					if $aim.get_collider() == shortTarget and $aim.get_collider() != null:
 						shortTarget.damagequeue += player.mac10damage
 						shortTarget.tookdamage = true
 						var bimp = bloodimpact.instance()
@@ -335,7 +330,7 @@ func _physics_process(delta):
 					lactionammo -= 1
 					$aim.cast_to.x = rand_range(spread, -spread)
 					$aim.cast_to.y = rand_range(spread, -spread)
-					if $aim.get_collider() == shortTarget:
+					if $aim.get_collider() == shortTarget and $aim.get_collider() != null:
 						shortTarget.damagequeue += player.lactiondamage
 						shortTarget.tookdamage = true
 						var bimp = bloodimpact.instance()
