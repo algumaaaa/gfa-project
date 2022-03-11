@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://hud.tres" type="DynamicFont" id=1]
 [ext_resource path="res://hud.gd" type="Script" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://bloodyScreen3.png" type="Texture" id=15]
 [ext_resource path="res://ammoSplash.png" type="Texture" id=16]
 [ext_resource path="res://charHead.png" type="Texture" id=17]
+[ext_resource path="res://Courier Prime.ttf" type="DynamicFontData" id=18]
 
 [sub_resource type="Animation" id=10]
 resource_name = "ammo"
@@ -269,6 +270,12 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.705882 ), Color( 1, 1, 1, 0 ) ]
 }
+
+[sub_resource type="DynamicFont" id=11]
+size = 40
+outline_size = 2
+outline_color = Color( 1, 0.00784314, 0.00784314, 1 )
+font_data = ExtResource( 18 )
 
 [node name="Control" type="CanvasLayer"]
 
@@ -573,6 +580,45 @@ margin_right = 80.0
 margin_bottom = 402.0
 text = "ammo: 20"
 align = 1
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="hud"]
+anchor_left = 0.937
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.957
+margin_left = 0.639893
+margin_top = 4.0
+margin_bottom = -5.21204
+custom_constants/separation = 100
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="deathTimer" type="Label" parent="hud/VBoxContainer4"]
+margin_right = 80.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 11 )
+text = "30"
+align = 1
+valign = 1
+
+[node name="deathTimer2" type="Label" parent="hud/VBoxContainer4"]
+margin_top = 141.0
+margin_right = 80.0
+margin_bottom = 182.0
+custom_fonts/font = SubResource( 11 )
+text = "30"
+align = 1
+valign = 1
+
+[node name="deathTimer3" type="Label" parent="hud/VBoxContainer4"]
+margin_top = 282.0
+margin_right = 80.0
+margin_bottom = 323.0
+custom_fonts/font = SubResource( 11 )
+text = "30"
+align = 1
+valign = 1
 
 [node name="Panel" type="Panel" parent="hud"]
 modulate = Color( 1, 1, 1, 0.588235 )

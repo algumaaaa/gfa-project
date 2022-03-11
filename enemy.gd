@@ -233,5 +233,15 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			aistate = AI.ALERT
 
 func _on_despawn_timeout():
-	get_parent().queue_free()
-	queue_free()
+	var players = get_tree().get_nodes_in_group("player")
+	var st = false
+	for p in players:
+		if p.shortTarget == self:
+			st = true
+	if st:
+		despawn.start()
+		st = false
+	else:
+		get_parent().queue_free()
+		queue_free()
+		

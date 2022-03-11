@@ -8,6 +8,28 @@ var d = 1
 var r
 var tick = null
 
+var bot1Enabled = false
+var bot2Enabled = false
+var bot3Enabled = false
+var bot1Name = ""
+var bot2Name = ""
+var bot3Name = ""
+var bot1Aim = 1
+var bot2Aim = 1
+var bot3Aim = 1
+var bot1Color = Color(1, 1, 1, 1)
+var bot2Color = Color(1, 1, 1, 1)
+var bot3Color = Color(1, 1, 1, 1)
+var bot1Health = 100
+var bot2Health = 100
+var bot3Health = 100
+var bot1Ammo = 10
+var bot2Ammo = 10
+var bot3Ammo = 10
+var bot1Deathcounter = 30
+var bot2Deathcounter = 30
+var bot3Deathcounter = 30
+
 var player = null
 var spawner = null
 var shortestDistance = null

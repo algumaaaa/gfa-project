@@ -17,6 +17,31 @@ onready var textrect3 = $VBoxContainer/TextureRect3
 onready var textrect4 = $VBoxContainer/TextureRect4
 onready var textrect5 = $VBoxContainer/TextureRect5
 
+func _ready():
+	if !GLOBAL.bot1Enabled:
+		$VBoxContainer3/botName1.visible = false
+		$VBoxContainer3/bot1.visible = false
+		$VBoxContainer3/botHealth1.visible = false
+		$VBoxContainer3/botAmmo1.visible = false
+		$VBoxContainer3/HSeparator.visible = false
+		$VBoxContainer4/deathTimer.visible = false
+	if !GLOBAL.bot2Enabled:
+		$VBoxContainer3/botName2.visible = false
+		$VBoxContainer3/bot2.visible = false
+		$VBoxContainer3/botHealth2.visible = false
+		$VBoxContainer3/botAmmo2.visible = false
+		$VBoxContainer3/HSeparator2.visible = false
+		$VBoxContainer4/deathTimer2.visible = false
+	if !GLOBAL.bot3Enabled:
+		$VBoxContainer3/botName3.visible = false
+		$VBoxContainer3/bot3.visible = false
+		$VBoxContainer3/botHealth3.visible = false
+		$VBoxContainer3/botAmmo3.visible = false
+		$VBoxContainer4/deathTimer3.visible = false
+
+	if !GLOBAL.bot1Enabled and !GLOBAL.bot2Enabled and !GLOBAL.bot3Enabled:
+		$Panel4.visible = false
+
 func _draw():
 	if player.gunstate == player.GUN_USE.GUN1:
 		textrect1.BLEND_MODE_SUB
@@ -82,6 +107,37 @@ func _process(delta):
 
 	if player.ammoPickedUp and !animplayer.is_playing():
 		animplayer.play("ammo")
+
+	if GLOBAL.bot1Enabled:
+		$VBoxContainer3/botName1.text = GLOBAL.bot1Name
+		$VBoxContainer3/bot1.modulate = GLOBAL.bot1Color
+		$VBoxContainer3/botHealth1.text = "health: " + str(GLOBAL.bot1Health)
+		$VBoxContainer3/botAmmo1.text = "ammo: " + str(GLOBAL.bot1Ammo)
+		if GLOBAL.bot1Deathcounter != 30:
+			$VBoxContainer4/deathTimer.visible = true
+			$VBoxContainer4/deathTimer.text = str(GLOBAL.bot1Deathcounter)
+		else:
+			$VBoxContainer4/deathTimer.visible = false
+	if GLOBAL.bot2Enabled:
+		$VBoxContainer3/botName2.text = GLOBAL.bot2Name
+		$VBoxContainer3/bot2.modulate = GLOBAL.bot2Color
+		$VBoxContainer3/botHealth2.text = "health: " + str(GLOBAL.bot2Health)
+		$VBoxContainer3/botAmmo2.text = "ammo: " + str(GLOBAL.bot2Ammo)
+		if GLOBAL.bot2Deathcounter != 30:
+			$VBoxContainer4/deathTimer2.visible = true
+			$VBoxContainer4/deathTimer2.text = str(GLOBAL.bot2Deathcounter)
+		else:
+			$VBoxContainer4/deathTimer2.visible = false
+	if GLOBAL.bot3Enabled:
+		$VBoxContainer3/botName3.text = GLOBAL.bot3Name
+		$VBoxContainer3/bot3.modulate = GLOBAL.bot3Color
+		$VBoxContainer3/botHealth3.text = "health: " + str(GLOBAL.bot3Health)
+		$VBoxContainer3/botAmmo3.text = "ammo: " + str(GLOBAL.bot3Ammo)
+		if GLOBAL.bot3Deathcounter != 30:
+			$VBoxContainer4/deathTimer3.visible = true
+			$VBoxContainer4/deathTimer3.text = str(GLOBAL.bot3Deathcounter)
+		else:
+			$VBoxContainer4/deathTimer3.visible = false
 
 func _on_bloodyScreenAnim_animation_finished(anim_name):
 	player.bloody = 0

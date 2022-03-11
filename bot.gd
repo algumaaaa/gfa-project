@@ -12,6 +12,7 @@ onready var lactionSprite = $compositeSprites/lactionSprite
 onready var glauncherSprite = $compositeSprites/glauncherSprite
 onready var bandageSprite = $compositeSprites/bandageSprite
 
+export var botNo = 1
 export var animframe = 0
 onready var animSprite = $animSprite
 onready var ammoAudio = $ammoAudio
@@ -69,6 +70,57 @@ enum WEAPON{
 }
 
 func _ready():
+	if botNo == 1:
+		if !GLOBAL.bot1Enabled:
+			get_parent().queue_free()
+			queue_free()
+		$nameSprite/label3d/Label.text = GLOBAL.bot1Name
+		if GLOBAL.bot1Aim == 0:
+			spread = 7
+		elif GLOBAL.bot1Aim == 1:
+			spread = 4
+		elif GLOBAL.bot1Aim == 0:
+			spread = 1
+		var sprites = $compositeSprites.get_children()
+		for s in sprites:
+			var a = s.material_override.duplicate()
+			a.albedo_color = GLOBAL.bot1Color
+			s.material_override = a
+
+	if botNo == 2:
+		if !GLOBAL.bot2Enabled:
+			get_parent().queue_free()
+			queue_free()
+		$nameSprite/label3d/Label.text = GLOBAL.bot2Name
+		if GLOBAL.bot2Aim == 0:
+			spread = 7
+		elif GLOBAL.bot2Aim == 1:
+			spread = 4
+		elif GLOBAL.bot2Aim == 0:
+			spread = 1
+		var sprites = $compositeSprites.get_children()
+		for s in sprites:
+			var b = s.material_override.duplicate()
+			b.albedo_color = GLOBAL.bot2Color
+			s.material_override = b
+
+	if botNo == 3:
+		if !GLOBAL.bot3Enabled:
+			get_parent().queue_free()
+			queue_free()
+		$nameSprite/label3d/Label.text = GLOBAL.bot3Name
+		if GLOBAL.bot3Aim == 0:
+			spread = 7
+		elif GLOBAL.bot3Aim == 1:
+			spread = 4
+		elif GLOBAL.bot3Aim == 0:
+			spread = 1
+		var sprites = $compositeSprites.get_children()
+		for s in sprites:
+			var c = s.material_override.duplicate()
+			c.albedo_color = GLOBAL.bot2Color
+			s.material_override = c
+
 	randomize()
 	gunSounds.append(preload("res://Audio/Guns/neleven/Shot.wav"))
 	gunSounds.append(preload("res://Audio/Guns/doubleb/Shot.wav"))
@@ -82,7 +134,6 @@ func _process(delta):
 	var tr = weakref(shortTarget)
 	if (!tr.get_ref()):
 		_findEnemies()
-
 
 func _physics_process(delta):
 	if navNode == null:
@@ -364,6 +415,7 @@ func _physics_process(delta):
 			else:
 				_findEnemies()
 
+
 		AI.PATHING:
 			navNode.navstate = navNode.PATHING
 			if weaponState == WEAPON.BANDAGE or weaponState == WEAPON.NELEVEN or weaponState == WEAPON.MAC10:
@@ -466,6 +518,31 @@ func _physics_process(delta):
 	if deathCount == 0:
 		aiState = AI.DEAD
 
+	var curWep
+	if weaponState == WEAPON.NELEVEN:
+		curWep = nelevenammo
+	elif weaponState == WEAPON.DOUBLEB:
+		curWep = doublebammo
+	elif weaponState == WEAPON.MAC10:
+		curWep = mac10ammo
+	elif weaponState == WEAPON.LACTION:
+		curWep = lactionammo
+	elif weaponState == WEAPON.GLAUNCHER:
+		curWep = glauncherammo
+
+	if botNo == 1:
+		GLOBAL.bot1Health = self.health
+		GLOBAL.bot1Ammo = curWep
+		GLOBAL.bot1Deathcounter = deathCount
+	elif botNo == 2:
+		GLOBAL.bot2Health = self.health
+		GLOBAL.bot2Ammo = curWep
+		GLOBAL.bot2Deathcounter = deathCount
+	elif botNo == 3:
+		GLOBAL.bot3Health = self.health
+		GLOBAL.bot3Ammo = curWep
+		GLOBAL.bot3Deathcounter = deathCount
+
 func _findFarPlayer():
 	var targets = get_tree().get_nodes_in_group("player")
 	for t in targets:
@@ -502,9 +579,10 @@ func _findEnemiesDowned():
 		shortTarget = null
 
 func _switchGun():
-	weaponState = randi()%3 + 1
 	if totalAmmo == 0:
 		weaponState = WEAPON.NELEVEN
+	else:
+		weaponState = randi()%3 + 1
 
 func _on_cdTimer_timeout():
 	canShoot = true

@@ -15,7 +15,7 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		mouse_mov = -event.relative.x
 
-func _process(delta):
+func _physics_process(delta):
 	if mouse_mov != null and player.hasControl:
 		if mouse_mov > sway_threshold:
 			offset.x -= mouse_mov * delta

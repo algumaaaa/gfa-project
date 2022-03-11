@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://playerSprites/male.png" type="Texture" id=1]
 [ext_resource path="res://playerSprites/1911igwpPluschar.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://label3d.gd" type="Script" id=9]
 [ext_resource path="res://hud.tres" type="DynamicFont" id=10]
 [ext_resource path="res://worm final.png" type="Texture" id=11]
+[ext_resource path="res://nelevenSprite2.tres" type="Texture" id=12]
 
 [sub_resource type="SpatialMaterial" id=12]
 resource_local_to_scene = true
@@ -28,7 +29,7 @@ rim_tint = 1.0
 flags_transparent = true
 params_billboard_mode = 2
 params_billboard_keep_scale = true
-albedo_texture = ExtResource( 2 )
+albedo_texture = ExtResource( 12 )
 rim_enabled = true
 rim = 1.0
 rim_tint = 1.0

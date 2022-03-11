@@ -34,16 +34,16 @@ size = 12
 use_filter = true
 font_data = ExtResource( 28 )
 
-[sub_resource type="DynamicFont" id=8879]
-size = 26
+[sub_resource type="DynamicFont" id=8881]
+size = 36
 font_data = ExtResource( 28 )
 
 [sub_resource type="DynamicFont" id=8880]
 size = 36
 font_data = ExtResource( 28 )
 
-[sub_resource type="DynamicFont" id=8881]
-size = 36
+[sub_resource type="DynamicFont" id=8879]
+size = 26
 font_data = ExtResource( 28 )
 
 [sub_resource type="SpatialMaterial" id=2]
@@ -2418,10 +2418,10 @@ anchor_left = -0.01
 anchor_top = 0.129
 anchor_right = 0.776
 anchor_bottom = 0.871
-margin_left = 139.76
-margin_top = 0.345993
-margin_right = -471.176
-margin_bottom = 0.653992
+margin_left = 135.984
+margin_top = -26.0825
+margin_right = -474.952
+margin_bottom = -25.7745
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -2430,76 +2430,60 @@ __meta__ = {
 anchor_left = 0.082
 anchor_top = 0.176
 anchor_right = 0.987
-anchor_bottom = 0.839
+anchor_bottom = 0.709
 margin_left = -0.144001
 margin_top = 0.136002
 margin_right = 0.0959778
-margin_bottom = -0.221039
+margin_bottom = -0.151031
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxPlayer" type="GridContainer" parent="Control/startMenu"]
-anchor_left = 0.094
-anchor_top = 0.184
-anchor_right = 0.969
-anchor_bottom = 0.36
-margin_left = 0.151997
-margin_top = -0.17601
-margin_right = 0.151978
-margin_bottom = -0.0400085
-custom_constants/hseparation = 11
-columns = 3
+[node name="VBoxMap" type="GridContainer" parent="Control/startMenu"]
+anchor_left = 0.097
+anchor_top = 0.703
+anchor_right = 0.74
+anchor_bottom = 0.826
+margin_left = -0.0240021
+margin_top = -72.917
+margin_right = -0.0800171
+margin_bottom = -73.214
+custom_constants/hseparation = 30
+columns = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Player" type="Label" parent="Control/startMenu/VBoxPlayer"]
-margin_right = 96.0
-margin_bottom = 28.0
-custom_fonts/font = SubResource( 8879 )
-text = "PLAYER"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="EPISODE" type="Label" parent="Control/startMenu/VBoxMap"]
+margin_right = 154.0
+margin_bottom = 37.0
+custom_fonts/font = SubResource( 8881 )
+text = "EPISODE"
 
-[node name="Difficulty" type="Label" parent="Control/startMenu/VBoxPlayer"]
-margin_left = 107.0
-margin_top = 1.0
-margin_right = 257.0
-margin_bottom = 27.0
+[node name="Map" type="Label" parent="Control/startMenu/VBoxMap"]
+margin_left = 184.0
+margin_top = 5.0
+margin_right = 252.0
+margin_bottom = 31.0
 custom_fonts/font = ExtResource( 5 )
-text = "Difficulty"
+text = "Map"
 
-[node name="Color" type="Label" parent="Control/startMenu/VBoxPlayer"]
-margin_left = 268.0
-margin_top = 1.0
-margin_right = 343.0
-margin_bottom = 27.0
-custom_fonts/font = ExtResource( 5 )
-text = "Color"
+[node name="episodeButton" type="OptionButton" parent="Control/startMenu/VBoxMap"]
+margin_top = 41.0
+margin_right = 154.0
+margin_bottom = 61.0
+text = "Episode 1"
+items = [ "Episode 0", null, false, 0, null, "Episode 1", null, false, 1, null ]
+selected = 1
 
-[node name="LineEdit" type="LineEdit" parent="Control/startMenu/VBoxPlayer"]
-margin_top = 32.0
-margin_right = 96.0
-margin_bottom = 56.0
-text = "Player"
-
-[node name="OptionButton" type="OptionButton" parent="Control/startMenu/VBoxPlayer"]
-margin_left = 107.0
-margin_top = 32.0
-margin_right = 257.0
-margin_bottom = 56.0
-text = "Accessible"
-items = [ "Accessible", null, false, 0, null, "Intermediate", null, false, 1, null, "Advanced", null, false, 2, null, "Expert", null, false, 3, null ]
+[node name="mapButton" type="OptionButton" parent="Control/startMenu/VBoxMap"]
+margin_left = 184.0
+margin_top = 41.0
+margin_right = 252.0
+margin_bottom = 61.0
+text = "Map 1"
+items = [ "Map 1", null, false, 1, null, "Map 2", null, false, 2, null ]
 selected = 0
-
-[node name="ColorPickerButton" type="ColorPickerButton" parent="Control/startMenu/VBoxPlayer"]
-margin_left = 268.0
-margin_top = 32.0
-margin_right = 343.0
-margin_bottom = 56.0
-color = Color( 1, 1, 1, 1 )
 
 [node name="VBoxBots" type="GridContainer" parent="Control/startMenu"]
 anchor_left = 0.092
@@ -2507,9 +2491,9 @@ anchor_top = 0.442
 anchor_right = 0.962
 anchor_bottom = 0.683
 margin_left = -0.064003
-margin_top = -0.238022
+margin_top = -73.238
 margin_right = -0.104034
-margin_bottom = -0.137024
+margin_bottom = -73.137
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/hseparation = 19
@@ -2563,6 +2547,7 @@ margin_left = 107.0
 margin_top = 41.0
 margin_right = 167.0
 margin_bottom = 65.0
+text = "BOT"
 align = 1
 
 [node name="OptionButton" type="OptionButton" parent="Control/startMenu/VBoxBots"]
@@ -2596,6 +2581,7 @@ margin_left = 107.0
 margin_top = 69.0
 margin_right = 167.0
 margin_bottom = 93.0
+text = "BOT"
 align = 1
 
 [node name="OptionButton2" type="OptionButton" parent="Control/startMenu/VBoxBots"]
@@ -2629,6 +2615,7 @@ margin_left = 107.0
 margin_top = 97.0
 margin_right = 167.0
 margin_bottom = 121.0
+text = "BOT"
 align = 1
 
 [node name="OptionButton3" type="OptionButton" parent="Control/startMenu/VBoxBots"]
@@ -2649,59 +2636,82 @@ margin_bottom = 121.0
 color = Color( 1, 1, 1, 1 )
 edit_alpha = false
 
-[node name="VBoxMap" type="GridContainer" parent="Control/startMenu"]
-anchor_left = 0.097
-anchor_top = 0.703
-anchor_right = 0.74
-anchor_bottom = 0.826
-margin_left = -0.0240021
-margin_top = 0.0830078
-margin_right = -0.0800171
-margin_bottom = -0.21402
-custom_constants/hseparation = 30
-columns = 2
+[node name="VBoxPlayer" type="GridContainer" parent="Control/startMenu"]
+anchor_left = 0.094
+anchor_top = 0.184
+anchor_right = 0.969
+anchor_bottom = 0.306
+margin_left = 0.151997
+margin_top = -0.17601
+margin_right = 0.151978
+margin_bottom = 0.0659943
+custom_constants/hseparation = 11
+columns = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EPISODE" type="Label" parent="Control/startMenu/VBoxMap"]
-margin_right = 154.0
-margin_bottom = 37.0
-custom_fonts/font = SubResource( 8881 )
-text = "EPISODE"
+[node name="Player" type="Label" parent="Control/startMenu/VBoxPlayer"]
+margin_right = 96.0
+margin_bottom = 28.0
+custom_fonts/font = SubResource( 8879 )
+text = "PLAYER"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Map" type="Label" parent="Control/startMenu/VBoxMap"]
-margin_left = 184.0
-margin_top = 5.0
-margin_right = 252.0
-margin_bottom = 31.0
+[node name="Difficulty" type="Label" parent="Control/startMenu/VBoxPlayer"]
+margin_left = 107.0
+margin_top = 1.0
+margin_right = 257.0
+margin_bottom = 27.0
 custom_fonts/font = ExtResource( 5 )
-text = "Map"
+text = "Difficulty"
 
-[node name="episodeButton" type="OptionButton" parent="Control/startMenu/VBoxMap"]
-margin_top = 41.0
-margin_right = 154.0
-margin_bottom = 61.0
-text = "Episode 1"
+[node name="Color" type="Label" parent="Control/startMenu/VBoxPlayer"]
+margin_left = 268.0
+margin_top = 1.0
+margin_right = 343.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 5 )
+text = "Color"
 
-[node name="mapButton" type="OptionButton" parent="Control/startMenu/VBoxMap"]
-margin_left = 184.0
-margin_top = 41.0
-margin_right = 252.0
-margin_bottom = 61.0
-text = "Map 1"
+[node name="LineEdit" type="LineEdit" parent="Control/startMenu/VBoxPlayer"]
+margin_top = 32.0
+margin_right = 96.0
+margin_bottom = 56.0
+text = "Player"
+
+[node name="difficultyOptionButton" type="OptionButton" parent="Control/startMenu/VBoxPlayer"]
+margin_left = 107.0
+margin_top = 32.0
+margin_right = 257.0
+margin_bottom = 56.0
+text = "Intermediate"
+items = [ "Accessible", null, false, 0, null, "Intermediate", null, false, 1, null, "Advanced", null, false, 2, null, "Expert", null, false, 3, null ]
+selected = 1
+
+[node name="PlayerColorPickerButton" type="ColorPickerButton" parent="Control/startMenu/VBoxPlayer"]
+margin_left = 268.0
+margin_top = 32.0
+margin_right = 343.0
+margin_bottom = 56.0
+color = Color( 1, 1, 1, 1 )
 
 [node name="Button" type="Button" parent="Control/startMenu"]
 anchor_left = 0.747
-anchor_top = 0.688
+anchor_top = 0.633
 anchor_right = 0.969
-anchor_bottom = 0.75
+anchor_bottom = 0.692
 margin_left = -0.103424
-margin_top = 43.2066
-margin_right = -0.127411
-margin_bottom = 41.7886
+margin_top = -0.148376
+margin_right = -0.127441
+margin_bottom = 0.0506287
 custom_fonts/font = ExtResource( 5 )
 text = "start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="QodotMap" type="Spatial" parent="."]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
@@ -4542,5 +4552,20 @@ anims/campan = SubResource( 8877 )
 [connection signal="pressed" from="Control/levelselect/e0m1" to="Control" method="_on_e0m1_pressed"]
 [connection signal="pressed" from="Control/levelselect/e0m2" to="Control" method="_on_e0m2_pressed"]
 [connection signal="pressed" from="Control/levelselect/e1m1" to="Control" method="_on_e1m1_pressed"]
-[connection signal="item_selected" from="Control/startMenu/VBoxPlayer/OptionButton" to="Control" method="_on_OptionButton_item_selected"]
+[connection signal="item_selected" from="Control/startMenu/VBoxMap/episodeButton" to="Control" method="_on_episodeButton_item_selected"]
+[connection signal="item_selected" from="Control/startMenu/VBoxMap/mapButton" to="Control" method="_on_mapButton_item_selected"]
+[connection signal="item_selected" from="Control/startMenu/VBoxBots/enableBot" to="Control" method="_on_enableBot_item_selected"]
+[connection signal="text_changed" from="Control/startMenu/VBoxBots/botName" to="Control" method="_on_botName_text_changed"]
+[connection signal="item_selected" from="Control/startMenu/VBoxBots/OptionButton" to="Control" method="_on_OptionButton_item_selected"]
+[connection signal="color_changed" from="Control/startMenu/VBoxBots/ColorPickerButton" to="Control" method="_on_ColorPickerButton_color_changed"]
+[connection signal="item_selected" from="Control/startMenu/VBoxBots/enableBot2" to="Control" method="_on_enableBot2_item_selected"]
+[connection signal="text_changed" from="Control/startMenu/VBoxBots/botName2" to="Control" method="_on_botName2_text_changed"]
+[connection signal="item_selected" from="Control/startMenu/VBoxBots/OptionButton2" to="Control" method="_on_OptionButton2_item_selected"]
+[connection signal="color_changed" from="Control/startMenu/VBoxBots/ColorPickerButton2" to="Control" method="_on_ColorPickerButton2_color_changed"]
+[connection signal="item_selected" from="Control/startMenu/VBoxBots/enableBot3" to="Control" method="_on_enableBot3_item_selected"]
+[connection signal="text_changed" from="Control/startMenu/VBoxBots/botName3" to="Control" method="_on_botName3_text_changed"]
+[connection signal="item_selected" from="Control/startMenu/VBoxBots/OptionButton3" to="Control" method="_on_OptionButton3_item_selected"]
+[connection signal="color_changed" from="Control/startMenu/VBoxBots/ColorPickerButton3" to="Control" method="_on_ColorPickerButton3_color_changed"]
+[connection signal="item_selected" from="Control/startMenu/VBoxPlayer/difficultyOptionButton" to="Control" method="_on_difficultyOptionButton_item_selected"]
+[connection signal="pressed" from="Control/startMenu/Button" to="Control" method="_on_Button_pressed"]
 [connection signal="timeout" from="Lighting/OmniLight2/Timer" to="Lighting/OmniLight2" method="_on_Timer_timeout"]
