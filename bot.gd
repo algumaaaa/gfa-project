@@ -138,8 +138,8 @@ func _physics_process(delta):
 #		aiState = AI.DOWNED
 	if Input.is_action_just_pressed("debug1"):
 		_switchGun()
-	if Input.is_action_just_pressed("debug2"):
-		weaponState = WEAPON.DOUBLEB
+#	if Input.is_action_just_pressed("debug2"):
+#		weaponState = WEAPON.DOUBLEB
 
 	if playerCamera == null:
 		return

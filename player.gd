@@ -13,6 +13,7 @@ var lactionammo = 20
 var glauncherammo = 10
 var mac10ammo = 100
 var heals = 3
+var hasFlashlight = true
 
 var health = 100
 var damagequeue = 0
@@ -419,6 +420,13 @@ func _physics_process(delta):
 			if gunanim.is_playing() and nextgun == GUN_USE.HEAL:
 				gunanim.stop(true)
 				band.visible = false
+
+	if Input.is_action_just_pressed("flashlight"):
+		if hasFlashlight:
+			if $head/Camera/flashLight.visible != true:
+				$head/Camera/flashLight.visible = true
+			else:
+				$head/Camera/flashLight.visible = false
 
 	if neleven.shellsrelease:
 		var nelshells = bcasing.instance()

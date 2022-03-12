@@ -20,7 +20,8 @@ var mapChosen = 1
 var levelDict = {
 	01: "res://level.tscn",
 	02: "res://e0m2.tscn",
-	11: "res://e1m1.scn"
+	11: "res://e1m1.scn",
+	12: "res://e1m2.tscn"
 }
 
 func _ready():
@@ -179,4 +180,6 @@ func _on_mapButton_item_selected(index):
 	mapChosen = index + 1
 
 func _on_Button_pressed():
+	nowLoading.visible = true
+	yield(get_tree().create_timer(0.1), "timeout")
 	get_tree().change_scene(levelDict[int(String(epChosen) + String(mapChosen))])

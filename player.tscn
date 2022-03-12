@@ -1097,6 +1097,12 @@ script = ExtResource( 6 )
 anims/shoot = SubResource( 20 )
 anims/smgshoot = SubResource( 21 )
 
+[node name="flashLight" type="SpotLight" parent="head/Camera"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.18788, -0.374568, -0.493572 )
+visible = false
+layers = 3
+spot_range = 100.0
+
 [node name="ViewportContainer" type="ViewportContainer" parent="head/Camera"]
 anchor_right = 1.0
 anchor_bottom = 1.0

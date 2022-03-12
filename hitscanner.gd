@@ -25,7 +25,10 @@ onready var animplay = $sprite/AnimationPlayer
 onready var sprite3d = $sprite
 onready var camera = get_tree().get_root().get_node("/root/Spatial/player/head/Camera")
 export var animframe = 0
+export var shot = false
+export var disabledOnNonExpert = false
 onready var gore = preload("res://gore.tscn")
+onready var spit = preload("res://spit.tscn")
 
 enum AI{
 	IDLE,
@@ -37,6 +40,11 @@ enum AI{
 	GORE,
 	GIB
 }
+
+func _ready():
+	if disabledOnNonExpert and !GLOBAL.difficulty == 3:
+		get_parent().queue_free()
+		queue_free()
 
 func _process(delta):
 	if camera == null or freed:
@@ -190,6 +198,14 @@ func _physics_process(delta):
 		elif collider.is_in_group("enemies"):
 			aistate = AI.PATHING
 			ispathing = true
+
+	if shot:
+		if ray.is_colliding():
+			var s = spit.instance()
+			shot = false
+			$muzzle.add_child(s)
+			s.look_at(ray.get_collision_point(), Vector3.UP)
+			s.shoot = true
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "unsheathe":

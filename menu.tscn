@@ -2393,25 +2393,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="nowLoading" type="Popup" parent="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="ColorRect" type="ColorRect" parent="Control/nowLoading"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
-
-[node name="Label" type="Label" parent="Control/nowLoading"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -210.0
-margin_top = -26.0
-custom_fonts/font = ExtResource( 5 )
-text = "Now Loading..."
-
 [node name="startMenu" type="Popup" parent="Control"]
 visible = true
 anchor_left = -0.01
@@ -2712,6 +2693,25 @@ text = "start"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="nowLoading" type="Popup" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="Control/nowLoading"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="Control/nowLoading"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -210.0
+margin_top = -26.0
+custom_fonts/font = ExtResource( 5 )
+text = "Now Loading..."
 
 [node name="QodotMap" type="Spatial" parent="."]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )
