@@ -13,7 +13,12 @@ var lactionammo = 20
 var glauncherammo = 10
 var mac10ammo = 100
 var heals = 3
-var hasFlashlight = true
+
+var hasFlashlight = false
+var hasDoubleb = false
+var hasMac10 = false
+var hasLaction = false
+var hasGlauncher = false
 
 var health = 100
 var damagequeue = 0
@@ -138,15 +143,15 @@ func _physics_process(delta):
 			if gunstate != GUN_USE.UNEQUIP:
 				nextgun = GUN_USE.GUN1
 		if Input.is_action_pressed("weap2"):
-			if gunstate != GUN_USE.UNEQUIP:
+			if gunstate != GUN_USE.UNEQUIP and hasDoubleb:
 				nextgun = GUN_USE.GUN2
-		if Input.is_action_pressed("weap4"):
+		if Input.is_action_pressed("weap4") and hasLaction:
 			if gunstate != GUN_USE.UNEQUIP:
 				nextgun = GUN_USE.GUN3
-		if Input.is_action_pressed("weap5"):
+		if Input.is_action_pressed("weap5") and hasGlauncher:
 			if gunstate != GUN_USE.UNEQUIP:
 				nextgun = GUN_USE.GUN4
-		if Input.is_action_pressed("weap3"):
+		if Input.is_action_pressed("weap3") and hasMac10:
 			if gunstate != GUN_USE.UNEQUIP:
 				nextgun = GUN_USE.GUN5
 

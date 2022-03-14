@@ -38,6 +38,12 @@ var lactionammo = 10
 var glauncherammo = 5
 var totalAmmo = null
 
+var hasFlashlight = false
+var hasDoubleb = false
+var hasMac10 = false
+var hasLaction = false
+var hasGlauncher = false
+
 var slowed = false
 var health = 100
 var damagequeue = 0
@@ -577,7 +583,20 @@ func _switchGun():
 	if totalAmmo == 0:
 		weaponState = WEAPON.NELEVEN
 	else:
-		weaponState = randi()%3 + 1
+		if player.hasDoubleb:
+			hasDoubleb = true
+		if player.hasMac10:
+			hasMac10 = true
+		if player.hasLaction:
+			hasLaction = true
+		var i = 1
+		if hasDoubleb:
+			i += 1
+		if hasMac10:
+			i += 1
+		if hasLaction:
+			i += 1
+		weaponState = randi()%i
 
 func _on_cdTimer_timeout():
 	canShoot = true

@@ -53,29 +53,41 @@ func _process(delta):
 	else:
 		textrect1.modulate = Color(1, 1, 1, 1)
 
-	if player.gunstate == player.GUN_USE.GUN2:
-		ammo.text = "sawed off: " + str(player.doublebammo)
-		textrect2.modulate = Color(1, 0, 0, 1)
+	if player.hasDoubleb:
+		if player.gunstate == player.GUN_USE.GUN2:
+			ammo.text = "sawed off: " + str(player.doublebammo)
+			textrect2.modulate = Color(1, 0, 0, 1)
+		else:
+			textrect2.modulate = Color(1, 1, 1, 1)
 	else:
-		textrect2.modulate = Color(1, 1, 1, 1)
+		textrect2.modulate = Color(0, 0, 0, 1)
 
-	if player.gunstate == player.GUN_USE.GUN3:
-		ammo.text = "lever action: " + str(player.lactionammo)
-		textrect4.modulate = Color(1, 0, 0, 1)
+	if player.hasLaction:
+		if player.gunstate == player.GUN_USE.GUN3:
+			ammo.text = "lever action: " + str(player.lactionammo)
+			textrect4.modulate = Color(1, 0, 0, 1)
+		else:
+			textrect4.modulate = Color(1, 1, 1, 1)
 	else:
-		textrect4.modulate = Color(1, 1, 1, 1)
+		textrect4.modulate = Color(0, 0, 0, 1)
 
-	if player.gunstate == player.GUN_USE.GUN4:
-		ammo.text = "grenades: " + str(player.glauncherammo)
-		textrect5.modulate = Color(1, 0, 0, 1)
+	if player.hasGlauncher:
+		if player.gunstate == player.GUN_USE.GUN4:
+			ammo.text = "grenades: " + str(player.glauncherammo)
+			textrect5.modulate = Color(1, 0, 0, 1)
+		else:
+			textrect5.modulate = Color(1, 1, 1, 1)
 	else:
-		textrect5.modulate = Color(1, 1, 1, 1)
+		textrect5.modulate = Color(0, 0, 0, 1)
 
-	if player.gunstate == player.GUN_USE.GUN5:
-		ammo.text = "mac10: " + str(player.mac10ammo)
-		textrect3.modulate = Color(1, 0, 0, 1)
+	if player.hasMac10:
+		if player.gunstate == player.GUN_USE.GUN5:
+			ammo.text = "mac10: " + str(player.mac10ammo)
+			textrect3.modulate = Color(1, 0, 0, 1)
+		else:
+			textrect3.modulate = Color(1, 1, 1, 1)
 	else:
-		textrect3.modulate = Color(1, 1, 1, 1)
+		textrect3.modulate = Color(0, 0, 0, 1)
 
 	if player.gunstate == player.GUN_USE.HEAL:
 		bands.modulate = Color(1, 0, 0, 1)
@@ -141,3 +153,16 @@ func _process(delta):
 
 func _on_bloodyScreenAnim_animation_finished(anim_name):
 	player.bloody = 0
+
+func _textPopup(text, time):
+	$textPopup.visible = true
+	$textPopup.text = text
+	var textTimer = Timer.new()
+	textTimer.wait_time = time
+	textTimer.one_shot = true
+	textTimer.connect("timeout", self, "_on_textTimer_timeout")
+	add_child(textTimer)
+	textTimer.start()
+
+func _on_textTimer_timeout():
+	$textPopup.visible = false
