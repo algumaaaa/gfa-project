@@ -20,10 +20,16 @@ func _on_Area_body_entered(body):
 		if isWestWingKey:
 			eventManagerChurch.westWingKey = true
 			HUD._textPopup("got key to the west altar room", 5)
+			body.ammoAudio.play()
+			body.ammoPickedUp = true
 		elif isPassageKey:
 			eventManagerChurch.passageKey = true
 			HUD._textPopup("got key to the trapdoor", 5)
+			body.ammoAudio.play()
+			body.ammoPickedUp = true
 		elif isAltarKey:
 			eventManagerChurch.altarKey = true
 			HUD._textPopup("got key to the passage behind altar", 5)
+			body.ammoAudio.play()
+			body.ammoPickedUp = true
 		queue_free()

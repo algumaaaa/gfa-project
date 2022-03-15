@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/rain.wav-11d36b7df11f820cd44f887d5d3246e6.sample"
+
+[deps]
+
+source_file="res://Audio/Misc/rain.wav"
+dest_files=[ "res://.import/rain.wav-11d36b7df11f820cd44f887d5d3246e6.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=true
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

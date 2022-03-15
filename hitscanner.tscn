@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://hitscanner.gd" type="Script" id=1]
 [ext_resource path="res://hitscanner final.png" type="Texture" id=2]
@@ -6,6 +6,15 @@
 [sub_resource type="CapsuleShape" id=1]
 radius = 0.7
 height = 3.0
+
+[sub_resource type="SpatialMaterial" id=11]
+flags_transparent = true
+params_billboard_mode = 2
+params_billboard_keep_scale = true
+albedo_texture = ExtResource( 2 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
 
 [sub_resource type="Animation" id=10]
 length = 0.001
@@ -169,8 +178,10 @@ shape = SubResource( 1 )
 
 [node name="sprite" type="Sprite3D" parent="."]
 transform = Transform( 3.5, 0, 0, 0, 3.5, 0, 0, 0, 1, 0, 0, 0 )
+material_override = SubResource( 11 )
 cast_shadow = 0
 billboard = 2
+shaded = true
 texture = ExtResource( 2 )
 hframes = 8
 vframes = 5
@@ -189,7 +200,6 @@ anims/walk = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.347307, 0 )
 enabled = true
 cast_to = Vector3( 0, 0, -30 )
-collision_mask = 3
 
 [node name="lookat" type="Spatial" parent="."]
 

@@ -15,7 +15,7 @@ top_radius = 0.7
 bottom_radius = 0.7
 height = 0.1
 
-[node name="navnode" type="KinematicBody"]
+[node name="navnode" type="KinematicBody" groups=["navnode"]]
 collision_layer = 8
 collision_mask = 8
 script = ExtResource( 1 )

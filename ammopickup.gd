@@ -14,6 +14,7 @@ func _ready():
 
 func _on_Area_body_entered(body):
 	if body.is_in_group("player"):
+		_manage_ammo()
 		if ammotype == 0:
 			body.nelevenammo += 30 + ammoplus
 			body.mac10ammo += 30 + ammoplus
@@ -25,7 +26,6 @@ func _on_Area_body_entered(body):
 			body.lactionammo += 7 + floor((ammoplus * 0.3))
 		body.ammoAudio.play()
 		body.ammoPickedUp = true
-		_manage_ammo()
 		queue_free()
 	pass 
 
