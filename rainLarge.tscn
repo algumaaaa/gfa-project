@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 2
+emission_box_extents = Vector3( 100, 0, 30 )
+direction = Vector3( 0, 1, 0 )
+spread = 5.0
+initial_velocity = -60.0
+
+[sub_resource type="SpatialMaterial" id=2]
+params_blend_mode = 1
+params_billboard_mode = 2
+params_billboard_keep_scale = true
+albedo_color = Color( 0.827451, 0.94902, 0.972549, 1 )
+
+[sub_resource type="QuadMesh" id=3]
+material = SubResource( 2 )
+size = Vector2( 0.1, 0.7 )
+
+[node name="rainLarge" type="Particles"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.41938, 0 )
+amount = 200
+lifetime = 2.0
+fixed_fps = 20
+visibility_aabb = AABB( -27.1975, -18.0042, -32.6253, 54.395, 36.0084, 65.2507 )
+process_material = SubResource( 1 )
+draw_pass_1 = SubResource( 3 )

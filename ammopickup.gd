@@ -34,7 +34,6 @@ func _on_door_body_entered(body):
 		_manage_ammo()
 
 func _manage_ammo():
-	print("managed")
 	var p = self.get_parent()
 	for c in p.get_children():
 		if c == null:

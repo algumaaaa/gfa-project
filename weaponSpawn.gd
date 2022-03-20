@@ -3,7 +3,11 @@ extends Spatial
 onready var player = get_tree().get_root().get_node("/root/Spatial/player")
 export var weaponType = 1
 
+var HUD = null
+
 func _ready():
+	HUD = get_tree().get_root().get_node("/root/Spatial/Control/hud")
+
 	if weaponType == 0:
 		$Sprite3D.visible = false
 		$Sprite3D2.visible = true
@@ -22,6 +26,7 @@ func _on_Area_body_entered(body):
 			body.hasFlashlight = true
 			body.ammoAudio.play()
 			body.ammoPickedUp = true
+			HUD._textPopup("press F to toggle the flashlight", 5)
 			queue_free()
 		elif weaponType == 1 and !body.hasDoubleb:
 			body.hasDoubleb = true

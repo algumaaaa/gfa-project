@@ -2463,7 +2463,7 @@ margin_top = 41.0
 margin_right = 252.0
 margin_bottom = 61.0
 text = "Map 1"
-items = [ "Map 1", null, false, 1, null, "Map 2", null, false, 2, null ]
+items = [ "Map 1", null, false, 1, null, "Map 2", null, false, 2, null, "Map 3", null, false, 3, null ]
 selected = 0
 
 [node name="VBoxBots" type="GridContainer" parent="Control/startMenu"]
