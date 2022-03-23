@@ -1,4 +1,4 @@
-[gd_scene load_steps=635 format=2]
+[gd_scene load_steps=636 format=2]
 
 [ext_resource path="res://menu.gd" type="Script" id=1]
 [ext_resource path="res://flicker.gd" type="Script" id=2]
@@ -28,6 +28,7 @@
 [ext_resource path="res://textures/general/roof.png" type="Texture" id=26]
 [ext_resource path="res://textures/general/stone_path_2.png" type="Texture" id=27]
 [ext_resource path="res://Courier Prime.ttf" type="DynamicFontData" id=28]
+[ext_resource path="res://text-1647885272219.png" type="Texture" id=30]
 
 [sub_resource type="DynamicFont" id=8878]
 size = 12
@@ -2463,7 +2464,7 @@ margin_top = 41.0
 margin_right = 252.0
 margin_bottom = 61.0
 text = "Map 1"
-items = [ "Map 1", null, false, 1, null, "Map 2", null, false, 2, null, "Map 3", null, false, 3, null ]
+items = [ "Map 1", null, false, 1, null, "Map 2", null, false, 2, null, "Map 3", null, false, 3, null, "Map 4", null, false, 4, null ]
 selected = 0
 
 [node name="VBoxBots" type="GridContainer" parent="Control/startMenu"]
@@ -2712,6 +2713,16 @@ margin_left = -210.0
 margin_top = -26.0
 custom_fonts/font = ExtResource( 5 )
 text = "Now Loading..."
+
+[node name="title" type="TextureRect" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 0.197
+margin_bottom = -0.0220032
+texture = ExtResource( 30 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="QodotMap" type="Spatial" parent="."]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0 )

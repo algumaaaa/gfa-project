@@ -22,7 +22,8 @@ var levelDict = {
 	02: "res://e0m2.tscn",
 	11: "res://e1m1.scn",
 	12: "res://e1m2.tscn",
-	13: "res://e1m3.tscn"
+	13: "res://e1m3.tscn",
+	14: "res://e1m4.tscn"
 }
 
 func _ready():
