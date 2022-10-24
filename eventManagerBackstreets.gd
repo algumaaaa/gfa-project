@@ -5,8 +5,17 @@ var used = [false, false, false, false, false, false, false]
 var trap = false
 var HUD = null
 
+var playerDeath = false
+var endCutscene = false
+
+onready var player = get_tree().get_root().get_node("/root/Spatial/player/")
+
+
 func _ready():
 	HUD = get_tree().get_root().get_node("/root/Spatial/Control/hud")
+	player.eventManager = self
+	play("startCutscene")
+
 
 func _on_street_body_entered(body, extra_arg_0):
 	if body.is_in_group("player"):
@@ -17,6 +26,7 @@ func _on_street_body_entered(body, extra_arg_0):
 		if extra_arg_0 == 0 and trap == false:
 			play("trap")
 			trap = true
+
 
 func _on_door_body_entered(body, extra_arg_0):
 	if body.is_in_group("player"):
@@ -58,5 +68,22 @@ func _on_door_body_entered(body, extra_arg_0):
 			used[2] = true
 			pass
 
+
 func _on_rainSound_finished():
 	$rainSound.play()
+
+
+func _process(delta):
+	if playerDeath and !self.is_playing():
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		get_tree().change_scene("res://menu.tscn")
+
+
+func _on_door_body_entered_end(body):
+	if body.is_in_group("player") and !endCutscene:
+		play("endCutscene")
+		endCutscene = true
+		yield(self, "animation_finished")
+		SAVE.saveGame(4)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		get_tree().change_scene("res://e1m4.tscn")

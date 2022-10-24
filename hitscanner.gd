@@ -170,6 +170,7 @@ func _physics_process(delta):
 #						p._findEnemies()
 #				queue_free()
 
+
 	if tookdamage == true:
 
 		health -= damagequeue
@@ -178,16 +179,7 @@ func _physics_process(delta):
 		if health <= 0:
 			if self.is_in_group("alertEnemies"):
 				remove_from_group("alertEnemies")
-			if damagequeue > 100 and damagequeue < 150:
-				var roll = rand_range(1, 2)
-				if roll > 1.8:
-					aistate = AI.GORE
-				else: 
-					aistate = AI.DIE
-			elif damagequeue >= 150:
-					aistate = AI.GIB
-			else:
-				aistate = AI.DIE
+			aistate = AI.DIE
 
 	ray.look_at(player.global_transform.origin, Vector3.UP)
 	if ray.is_colliding() and !ispathing and !tookdamage:

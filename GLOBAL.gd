@@ -39,6 +39,8 @@ var mouse_sensitivity = 0.05
 var fov = 90
 var display = 0
 var vsync = true
+var soundVolume: float = 100.0
+
 
 func _physics_process(delta):
 
@@ -58,30 +60,27 @@ func _physics_process(delta):
 			m += player.damagequeue
 
 		if difficulty == 0:
-			d = 2
-		elif difficulty == 1:
 			d = 1
-		elif difficulty == 2:
-			d = 0.75
-		elif difficulty == 3:
+		elif difficulty == 1:
 			d = 0.5
 
 		r = ((a + m) * p) * d
 
-	if spawner != null:
-		if tick == null:
-			tick = r
-		if tick <= 0:
-			tick = r
-			if r >= 0 and r <= 33:
-				_spawn_horde(5)
-				m += 15
-			elif r >= 34 and r <= 100:
-				_spawn_horde(4)
-			elif r >= 101 and r <= 150:
-				_spawn_horde(3)
-			else:
-				_spawn_horde(2)
+#	if spawner != null:
+#		if tick == null:
+#			tick = r
+#		if tick <= 0:
+#			tick = r
+#			if r >= 0 and r <= 33:
+#				_spawn_horde(5)
+#				m += 15
+#			elif r >= 34 and r <= 100:
+#				_spawn_horde(4)
+#			elif r >= 101 and r <= 150:
+#				_spawn_horde(3)
+#			else:
+#				_spawn_horde(2)
+
 
 func _on_Timer_timeout():
 	if m > 0:
@@ -90,6 +89,7 @@ func _on_Timer_timeout():
 		m = 0
 	if tick != null:
 		tick -= 1
+
 
 func _spawn_horde(value):
 	var n = spawner.get_parent()
@@ -108,6 +108,7 @@ func _spawn_horde(value):
 	if r:
 		shortestDistance._spawn_zombie(floor(value))
 
+
 func _change_scene(path, current_scene):
 	var loader = ResourceLoader.load_interactive(path)
 
@@ -118,3 +119,7 @@ func _change_scene(path, current_scene):
 			get_tree().get_root().call_deferred('add_child', resource.instance())
 			current_scene.queue_free()
 			break
+
+
+func changeVolume(value: float) -> void:
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), value - 100)

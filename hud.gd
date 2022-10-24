@@ -95,7 +95,7 @@ func _process(delta):
 		bands.modulate = Color(1, 1, 1, 1)
 
 	bands.text = "bandages " + str(player.heals)
-	fps.text = "fps: " + str(Engine.get_frames_per_second()) + " r: " + str(GLOBAL.r)  + " a: " + str(GLOBAL.a) + " m: " + str(GLOBAL.m) + " tick: " + str(GLOBAL.tick) 
+	#fps.text = "fps: " + str(Engine.get_frames_per_second()) + " r: " + str(GLOBAL.r)  + " a: " + str(GLOBAL.a) + " m: " + str(GLOBAL.m) + " tick: " + str(GLOBAL.tick) 
 	health.text = "health: " + str(player.health)
 
 	if player.damagequeue > 0 and !animplayer.is_playing():

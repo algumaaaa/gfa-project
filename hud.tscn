@@ -19,7 +19,7 @@
 [ext_resource path="res://charHead.png" type="Texture" id=17]
 [ext_resource path="res://Courier Prime.ttf" type="DynamicFontData" id=18]
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=1]
 resource_name = "ammo"
 length = 0.5
 tracks/0/type = "value"
@@ -35,8 +35,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "dmg"
+[sub_resource type="Animation" id=2]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("damagesplash:modulate")
@@ -51,8 +50,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.509804 ), Color( 1, 1, 1, 0.509804 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "dmgheavy"
+[sub_resource type="Animation" id=3]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("damagesplash:modulate")
@@ -67,8 +65,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "heal"
+[sub_resource type="Animation" id=4]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("healedsplash:modulate")
@@ -83,7 +80,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=5]
 resource_name = "slow"
 length = 0.5
 tracks/0/type = "value"
@@ -99,8 +96,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0.396078 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "bloody1"
+[sub_resource type="Animation" id=6]
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("bloodyScreen1:modulate")
@@ -127,8 +123,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.705882 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "bloody2"
+[sub_resource type="Animation" id=7]
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("bloodyScreen1:modulate")
@@ -167,8 +162,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.705882 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "bloody3"
+[sub_resource type="Animation" id=8]
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("bloodyScreen1:modulate")
@@ -219,8 +213,7 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.705882 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "bloody4"
+[sub_resource type="Animation" id=9]
 length = 3.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("bloodyScreen1:modulate")
@@ -271,7 +264,7 @@ tracks/3/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.705882 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=10]
 size = 40
 outline_size = 2
 outline_color = Color( 1, 0.00784314, 0.00784314, 1 )
@@ -382,19 +375,19 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="hud"]
-anims/ammo = SubResource( 10 )
-anims/dmg = SubResource( 1 )
-anims/dmgheavy = SubResource( 2 )
-anims/heal = SubResource( 3 )
+anims/ammo = SubResource( 1 )
+anims/dmg = SubResource( 2 )
+anims/dmgheavy = SubResource( 3 )
+anims/heal = SubResource( 4 )
 
 [node name="slowAnim" type="AnimationPlayer" parent="hud"]
-anims/slow = SubResource( 9 )
+anims/slow = SubResource( 5 )
 
 [node name="bloodyScreenAnim" type="AnimationPlayer" parent="hud"]
-anims/bloody1 = SubResource( 5 )
-anims/bloody2 = SubResource( 6 )
-anims/bloody3 = SubResource( 7 )
-anims/bloody4 = SubResource( 8 )
+anims/bloody1 = SubResource( 6 )
+anims/bloody2 = SubResource( 7 )
+anims/bloody3 = SubResource( 8 )
+anims/bloody4 = SubResource( 9 )
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="hud"]
 anchor_top = 0.869
@@ -599,7 +592,7 @@ __meta__ = {
 [node name="deathTimer" type="Label" parent="hud/VBoxContainer4"]
 margin_right = 80.0
 margin_bottom = 41.0
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 10 )
 text = "30"
 align = 1
 valign = 1
@@ -608,7 +601,7 @@ valign = 1
 margin_top = 141.0
 margin_right = 80.0
 margin_bottom = 182.0
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 10 )
 text = "30"
 align = 1
 valign = 1
@@ -617,7 +610,7 @@ valign = 1
 margin_top = 282.0
 margin_right = 80.0
 margin_bottom = 323.0
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 10 )
 text = "30"
 align = 1
 valign = 1

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Untitled-3 Project.wav-a0bdbe16fe86469df78864e073d3d546.sample"
+
+[deps]
+
+source_file="res://Audio/Music/Untitled-3 Project.wav"
+dest_files=[ "res://.import/Untitled-3 Project.wav-a0bdbe16fe86469df78864e073d3d546.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=true
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://finalframe 60x105.png" type="Texture" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://Audio/Guns/glauncher/Shot.wav" type="AudioStream" id=16]
 [ext_resource path="res://Audio/Guns/mac10/Shot.wav" type="AudioStream" id=17]
 [ext_resource path="res://Audio/Guns/ammoPickup.wav" type="AudioStream" id=18]
+[ext_resource path="res://Audio/Music/Untitled-3 Project.wav" type="AudioStream" id=19]
 
 [sub_resource type="CapsuleMesh" id=1]
 mid_height = 3.0
@@ -27,7 +28,7 @@ height = 3.0
 
 [sub_resource type="CylinderShape" id=3]
 
-[sub_resource type="Animation" id=32]
+[sub_resource type="Animation" id=4]
 resource_name = "bandaidequip"
 length = 0.33
 tracks/0/type = "value"
@@ -43,7 +44,7 @@ tracks/0/keys = {
 "values": [ Vector2( 100, -100 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=31]
+[sub_resource type="Animation" id=5]
 resource_name = "bandaidunequip"
 length = 0.33
 tracks/0/type = "value"
@@ -59,7 +60,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 100, -100 ) ]
 }
 
-[sub_resource type="Animation" id=34]
+[sub_resource type="Animation" id=6]
 resource_name = "bandaiduse"
 length = 2.0
 step = 0.01
@@ -100,7 +101,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( -10, 60 ), Vector2( -15, 60 ), Vector2( -15, 65 ), Vector2( -15, -100 ) ]
 }
 
-[sub_resource type="Animation" id=36]
+[sub_resource type="Animation" id=7]
 resource_name = "bandaiduseOnAlly"
 length = 2.0
 step = 0.01
@@ -153,8 +154,7 @@ tracks/3/keys = {
 "values": [ Vector3( 1, 1, 1 ), Vector3( 1, 1, 1 ), Vector3( 0.8, 0.8, 1 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "doublebequip"
+[sub_resource type="Animation" id=8]
 length = 0.33
 tracks/0/type = "value"
 tracks/0/path = NodePath("doubleb:offset")
@@ -169,8 +169,7 @@ tracks/0/keys = {
 "values": [ Vector2( 75, -75 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "doublebreload"
+[sub_resource type="Animation" id=9]
 tracks/0/type = "value"
 tracks/0/path = NodePath("doubleb:frame")
 tracks/0/interp = 1
@@ -242,8 +241,7 @@ tracks/4/keys = {
 "values": [ -6.0, -6.0, -6.0 ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "doublebshoot"
+[sub_resource type="Animation" id=10]
 length = 0.25
 tracks/0/type = "value"
 tracks/0/path = NodePath("doubleb:offset")
@@ -284,8 +282,7 @@ tracks/2/keys = {
 "values": [ -6.0 ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "doublebunequip"
+[sub_resource type="Animation" id=11]
 length = 0.33
 tracks/0/type = "value"
 tracks/0/path = NodePath("doubleb:offset")
@@ -300,8 +297,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 100, -100 ) ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "glauncherequip"
+[sub_resource type="Animation" id=12]
 length = 0.33
 tracks/0/type = "value"
 tracks/0/path = NodePath("glauncher:offset")
@@ -316,8 +312,7 @@ tracks/0/keys = {
 "values": [ Vector2( 75, -75 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=9]
-resource_name = "glaunchershoot"
+[sub_resource type="Animation" id=13]
 tracks/0/type = "value"
 tracks/0/path = NodePath("glauncher:frame")
 tracks/0/interp = 1
@@ -385,8 +380,7 @@ tracks/4/keys = {
 "values": [ 0.0, 0.0, -12.0 ]
 }
 
-[sub_resource type="Animation" id=10]
-resource_name = "glauncherunequip"
+[sub_resource type="Animation" id=14]
 length = 0.33
 tracks/0/type = "value"
 tracks/0/path = NodePath("glauncher:offset")
@@ -401,8 +395,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 75, -75 ) ]
 }
 
-[sub_resource type="Animation" id=11]
-resource_name = "lactionequip"
+[sub_resource type="Animation" id=15]
 length = 0.33
 tracks/0/type = "value"
 tracks/0/path = NodePath("laction:offset")
@@ -417,8 +410,7 @@ tracks/0/keys = {
 "values": [ Vector2( 75, -75 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=12]
-resource_name = "lactionshoot"
+[sub_resource type="Animation" id=16]
 length = 0.86
 tracks/0/type = "value"
 tracks/0/path = NodePath("laction:frame")
@@ -491,7 +483,7 @@ tracks/4/keys = {
 "values": [ 1.0, -6.0, -12.0 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=17]
 length = 0.33
 tracks/0/type = "value"
 tracks/0/path = NodePath("laction:offset")
@@ -506,8 +498,7 @@ tracks/0/keys = {
 "values": [ Vector2( 6.10352e-05, -6.10352e-05 ), Vector2( 75, -75 ) ]
 }
 
-[sub_resource type="Animation" id=14]
-resource_name = "mac10equip"
+[sub_resource type="Animation" id=18]
 length = 0.33
 tracks/0/type = "value"
 tracks/0/path = NodePath("mac10:offset")
@@ -522,8 +513,7 @@ tracks/0/keys = {
 "values": [ Vector2( 75, -100 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=15]
-resource_name = "mac10shoot"
+[sub_resource type="Animation" id=19]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("mac10:shellsrelease")
@@ -568,8 +558,7 @@ tracks/2/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=16]
-resource_name = "mac10unequip"
+[sub_resource type="Animation" id=20]
 length = 0.33
 tracks/0/type = "value"
 tracks/0/path = NodePath("mac10:offset")
@@ -584,7 +573,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 75, -100 ) ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=21]
 length = 0.33
 tracks/0/type = "value"
 tracks/0/path = NodePath("neleven:offset")
@@ -599,7 +588,7 @@ tracks/0/keys = {
 "values": [ Vector2( 100, -100 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id=22]
 length = 0.25
 tracks/0/type = "value"
 tracks/0/path = NodePath("neleven:frame")
@@ -676,7 +665,7 @@ tracks/5/keys = {
 "values": [ 0.75, 0.75, 1.0 ]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=23]
 length = 0.33
 tracks/0/type = "value"
 tracks/0/path = NodePath("neleven:offset")
@@ -691,37 +680,44 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 100, -100 ) ]
 }
 
-[sub_resource type="SpatialMaterial" id=25]
+[sub_resource type="SpatialMaterial" id=24]
 flags_transparent = true
 albedo_texture = ExtResource( 4 )
 rim_enabled = true
 rim = 1.0
 rim_tint = 1.0
 
-[sub_resource type="SpatialMaterial" id=26]
+[sub_resource type="SpatialMaterial" id=25]
 flags_transparent = true
 albedo_texture = ExtResource( 2 )
 rim_enabled = true
 rim = 1.0
 rim_tint = 1.0
 
-[sub_resource type="SpatialMaterial" id=27]
+[sub_resource type="SpatialMaterial" id=26]
 flags_transparent = true
 albedo_texture = ExtResource( 8 )
 rim_enabled = true
 rim = 1.0
 rim_tint = 1.0
 
-[sub_resource type="SpatialMaterial" id=28]
+[sub_resource type="SpatialMaterial" id=27]
 flags_transparent = true
 albedo_texture = ExtResource( 7 )
 rim_enabled = true
 rim = 1.0
 rim_tint = 1.0
 
-[sub_resource type="SpatialMaterial" id=29]
+[sub_resource type="SpatialMaterial" id=28]
 flags_transparent = true
 albedo_texture = ExtResource( 9 )
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="SpatialMaterial" id=29]
+flags_transparent = true
+albedo_texture = ExtResource( 5 )
 rim_enabled = true
 rim = 1.0
 rim_tint = 1.0
@@ -733,14 +729,7 @@ rim_enabled = true
 rim = 1.0
 rim_tint = 1.0
 
-[sub_resource type="SpatialMaterial" id=33]
-flags_transparent = true
-albedo_texture = ExtResource( 5 )
-rim_enabled = true
-rim = 1.0
-rim_tint = 1.0
-
-[sub_resource type="Animation" id=20]
+[sub_resource type="Animation" id=31]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:opacity")
@@ -755,8 +744,7 @@ tracks/0/keys = {
 "values": [ 0.0, 0.95, 0.0 ]
 }
 
-[sub_resource type="Animation" id=21]
-resource_name = "smgshoot"
+[sub_resource type="Animation" id=32]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
@@ -783,7 +771,7 @@ tracks/1/keys = {
 "values": [ 1.0, 1.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=22]
+[sub_resource type="Animation" id=33]
 length = 1.5
 loop = true
 tracks/0/type = "value"
@@ -823,7 +811,7 @@ tracks/2/keys = {
 "values": [ true, true, true, true, true ]
 }
 
-[sub_resource type="Animation" id=23]
+[sub_resource type="Animation" id=34]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:translation")
@@ -838,7 +826,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.1, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=24]
+[sub_resource type="Animation" id=35]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:translation")
@@ -853,8 +841,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 0, 0 ), Vector3( 0, 0.25, 0 ), Vector3( 0, 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=35]
-resource_name = "death"
+[sub_resource type="Animation" id=36]
 tracks/0/type = "value"
 tracks/0/path = NodePath("..:translation")
 tracks/0/interp = 1
@@ -868,7 +855,9 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 1.25264, 0 ), Vector3( 0, -2, 0 ) ]
 }
 
-[node name="player" type="KinematicBody" groups=["player"]]
+[node name="player" type="KinematicBody" groups=[
+"player",
+]]
 collision_layer = 521
 collision_mask = 521
 script = ExtResource( 1 )
@@ -902,8 +891,6 @@ enabled = true
 cast_to = Vector3( 0, 0, -1000 )
 collision_mask = 3
 collide_with_areas = true
-debug_shape_custom_color = Color( 0, 0, 0, 0 )
-debug_shape_thickness = 1.0
 
 [node name="doublebcontainer" type="Spatial" parent="head/Camera"]
 
@@ -911,98 +898,78 @@ debug_shape_thickness = 1.0
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
-debug_shape_custom_color = Color( 0, 0, 0, 0 )
-debug_shape_thickness = 1.0
 
 [node name="RayCast2" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
-debug_shape_custom_color = Color( 0, 0, 0, 0 )
-debug_shape_thickness = 1.0
 
 [node name="RayCast3" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
-debug_shape_custom_color = Color( 0, 0, 0, 0 )
-debug_shape_thickness = 1.0
 
 [node name="RayCast4" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
-debug_shape_custom_color = Color( 0, 0, 0, 0 )
-debug_shape_thickness = 1.0
 
 [node name="RayCast5" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
-debug_shape_custom_color = Color( 0, 0, 0, 0 )
-debug_shape_thickness = 1.0
 
 [node name="RayCast6" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
-debug_shape_custom_color = Color( 0, 0, 0, 0 )
-debug_shape_thickness = 1.0
 
 [node name="RayCast7" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
-debug_shape_custom_color = Color( 0, 0, 0, 0 )
-debug_shape_thickness = 1.0
 
 [node name="RayCast8" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
-debug_shape_custom_color = Color( 0, 0, 0, 0 )
-debug_shape_thickness = 1.0
 
 [node name="RayCast9" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
-debug_shape_custom_color = Color( 0, 0, 0, 0 )
-debug_shape_thickness = 1.0
 
 [node name="RayCast10" type="RayCast" parent="head/Camera/doublebcontainer"]
 enabled = true
 cast_to = Vector3( 0, 0, -100 )
 collision_mask = 3
-debug_shape_custom_color = Color( 0, 0, 0, 0 )
-debug_shape_thickness = 1.0
 
 [node name="gunanim" type="AnimationPlayer" parent="head/Camera"]
-anims/bandaidequip = SubResource( 32 )
-anims/bandaidunequip = SubResource( 31 )
-anims/bandaiduse = SubResource( 34 )
-anims/bandaiduseOnAlly = SubResource( 36 )
-anims/doublebequip = SubResource( 4 )
-anims/doublebreload = SubResource( 5 )
-anims/doublebshoot = SubResource( 6 )
-anims/doublebunequip = SubResource( 7 )
-anims/glauncherequip = SubResource( 8 )
-anims/glaunchershoot = SubResource( 9 )
-anims/glauncherunequip = SubResource( 10 )
-anims/lactionequip = SubResource( 11 )
-anims/lactionshoot = SubResource( 12 )
-anims/lactionunequip = SubResource( 13 )
-anims/mac10equip = SubResource( 14 )
-anims/mac10shoot = SubResource( 15 )
-anims/mac10unequip = SubResource( 16 )
-anims/nelevenequip = SubResource( 17 )
-anims/nelevenshoot = SubResource( 18 )
-anims/nelevenunequip = SubResource( 19 )
+anims/bandaidequip = SubResource( 4 )
+anims/bandaidunequip = SubResource( 5 )
+anims/bandaiduse = SubResource( 6 )
+anims/bandaiduseOnAlly = SubResource( 7 )
+anims/doublebequip = SubResource( 8 )
+anims/doublebreload = SubResource( 9 )
+anims/doublebshoot = SubResource( 10 )
+anims/doublebunequip = SubResource( 11 )
+anims/glauncherequip = SubResource( 12 )
+anims/glaunchershoot = SubResource( 13 )
+anims/glauncherunequip = SubResource( 14 )
+anims/lactionequip = SubResource( 15 )
+anims/lactionshoot = SubResource( 16 )
+anims/lactionunequip = SubResource( 17 )
+anims/mac10equip = SubResource( 18 )
+anims/mac10shoot = SubResource( 19 )
+anims/mac10unequip = SubResource( 20 )
+anims/nelevenequip = SubResource( 21 )
+anims/nelevenshoot = SubResource( 22 )
+anims/nelevenunequip = SubResource( 23 )
 
 [node name="doubleb" type="Sprite3D" parent="head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.469, -0.9, -1.36 )
 layers = 2
-material_override = SubResource( 25 )
+material_override = SubResource( 24 )
 pixel_size = 0.012
 double_sided = false
 alpha_cut = 1
@@ -1014,7 +981,7 @@ shellsrelease = true
 [node name="neleven" type="Sprite3D" parent="head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.27444, -1.00531, -1.36 )
 layers = 2
-material_override = SubResource( 26 )
+material_override = SubResource( 25 )
 pixel_size = 0.012
 double_sided = false
 alpha_cut = 1
@@ -1026,7 +993,7 @@ shellsrelease = true
 [node name="laction" type="Sprite3D" parent="head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35794, -0.9, -1.29621 )
 layers = 2
-material_override = SubResource( 27 )
+material_override = SubResource( 26 )
 offset = Vector2( 6.10352e-05, -6.10352e-05 )
 pixel_size = 0.014
 double_sided = false
@@ -1037,7 +1004,7 @@ script = ExtResource( 3 )
 [node name="glauncher" type="Sprite3D" parent="head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.48674, -0.9, -1.34683 )
 layers = 2
-material_override = SubResource( 28 )
+material_override = SubResource( 27 )
 pixel_size = 0.014
 double_sided = false
 texture = ExtResource( 7 )
@@ -1048,7 +1015,7 @@ shellsrelease = true
 [node name="mac10" type="Sprite3D" parent="head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.37718, -0.9, -1.33142 )
 layers = 2
-material_override = SubResource( 29 )
+material_override = SubResource( 28 )
 offset = Vector2( 75, -100 )
 pixel_size = 0.012
 double_sided = false
@@ -1059,7 +1026,7 @@ shellsrelease = true
 [node name="bandaid" type="Sprite3D" parent="head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.33698, -1.04436, -1.18353 )
 layers = 2
-material_override = SubResource( 30 )
+material_override = SubResource( 29 )
 offset = Vector2( 7.62939e-05, -7.62939e-05 )
 pixel_size = 0.012
 shaded = true
@@ -1073,7 +1040,7 @@ script = ExtResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16438, -0.707134, -1.2339 )
 visible = false
 layers = 2
-material_override = SubResource( 33 )
+material_override = SubResource( 30 )
 offset = Vector2( -120, 55 )
 shaded = true
 texture = ExtResource( 5 )
@@ -1094,8 +1061,8 @@ frame = 6
 script = ExtResource( 6 )
 
 [node name="muzzleshoot" type="AnimationPlayer" parent="head/Camera/muzzleflash"]
-anims/shoot = SubResource( 20 )
-anims/smgshoot = SubResource( 21 )
+anims/shoot = SubResource( 31 )
+anims/smgshoot = SubResource( 32 )
 
 [node name="flashLight" type="SpotLight" parent="head/Camera"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.18788, -0.374568, -0.493572 )
@@ -1121,14 +1088,14 @@ cull_mask = 2
 fov = 90.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="head/Camera/ViewportContainer/Viewport/guncam"]
-anims/gunbob = SubResource( 22 )
+anims/gunbob = SubResource( 33 )
 
 [node name="camerashake" type="AnimationPlayer" parent="head/Camera"]
-anims/shoot = SubResource( 23 )
-anims/shootheavy = SubResource( 24 )
+anims/shoot = SubResource( 34 )
+anims/shootheavy = SubResource( 35 )
 
 [node name="deathAnim" type="AnimationPlayer" parent="head/Camera"]
-anims/death = SubResource( 35 )
+anims/death = SubResource( 36 )
 
 [node name="shellsrelease" type="Spatial" parent="head"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.61765, -0.250606, -1.12824 )
@@ -1201,8 +1168,13 @@ stream = ExtResource( 18 )
 volume_db = -6.0
 bus = "GUNS"
 
+[node name="musicAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 19 )
+bus = "MUSIC"
+
 [node name="death" type="Timer" parent="."]
 
 [connection signal="animation_finished" from="head/Camera/gunanim" to="." method="_on_gunanim_animation_finished"]
 [connection signal="animation_started" from="head/Camera/gunanim" to="head/Camera/muzzleflash" method="_on_gunanim_animation_started"]
+[connection signal="finished" from="musicAudio" to="." method="_on_musicAudio_finished"]
 [connection signal="timeout" from="death" to="." method="_on_death_timeout"]

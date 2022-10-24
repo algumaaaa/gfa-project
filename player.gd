@@ -7,7 +7,7 @@ var lactiondamage = 110
 var mac10damage = 35
 
 var doublebchambered = 2
-var nelevenammo = 30
+var nelevenammo = 60
 var doublebammo = 16
 var lactionammo = 20
 var glauncherammo = 10
@@ -375,56 +375,56 @@ func _physics_process(delta):
 			if target.is_in_group("buttons") and (disto <= 5):
 				target.interact = true
 
-	if Input.is_action_just_pressed("throw_ammo"):
-		if gunstate == GUN_USE.GUN1 and nelevenammo > 10:
-			nelevenammo -= 10
-			var a = ammoThrown.instance()
-			muzzle.add_child(a)
-			a.look_at(aim.get_collision_point(), Vector3.UP)
-			a.shot = true
-			a.ammoAmount = 10
-			a.ammoType = 0
-		if gunstate == GUN_USE.GUN2 and doublebammo > 5:
-			doublebammo -= 5
-			var a = ammoThrown.instance()
-			muzzle.add_child(a)
-			a.look_at(aim.get_collision_point(), Vector3.UP)
-			a.shot = true
-			a.ammoAmount = 5
-			a.ammoType = 1
-		if gunstate == GUN_USE.GUN5 and mac10ammo > 10:
-			mac10ammo -= 10
-			var a = ammoThrown.instance()
-			muzzle.add_child(a)
-			a.look_at(aim.get_collision_point(), Vector3.UP)
-			a.shot = true
-			a.ammoAmount = 10
-			a.ammoType = 2
-		if gunstate == GUN_USE.GUN3 and lactionammo > 10:
-			lactionammo -= 10
-			var a = ammoThrown.instance()
-			muzzle.add_child(a)
-			a.look_at(aim.get_collision_point(), Vector3.UP)
-			a.shot = true
-			a.ammoAmount = 10
-			a.ammoType = 3
-		if gunstate == GUN_USE.GUN4 and glauncherammo > 5:
-			glauncherammo -= 5
-			var a = ammoThrown.instance()
-			muzzle.add_child(a)
-			a.look_at(aim.get_collision_point(), Vector3.UP)
-			a.shot = true
-			a.ammoAmount = 5
-			a.ammoType = 4
-		if gunstate == GUN_USE.HEAL and heals > 0:
-			if !gunanim.is_playing():
-				gunanim.play("bandaiduseOnAlly")
-
-	if Input.is_action_just_released("throw_ammo"):
-		if gunstate == GUN_USE.HEAL:
-			if gunanim.is_playing() and nextgun == GUN_USE.HEAL:
-				gunanim.stop(true)
-				band.visible = false
+#	if Input.is_action_just_pressed("throw_ammo"):
+#		if gunstate == GUN_USE.GUN1 and nelevenammo > 10:
+#			nelevenammo -= 10
+#			var a = ammoThrown.instance()
+#			muzzle.add_child(a)
+#			a.look_at(aim.get_collision_point(), Vector3.UP)
+#			a.shot = true
+#			a.ammoAmount = 10
+#			a.ammoType = 0
+#		if gunstate == GUN_USE.GUN2 and doublebammo > 5:
+#			doublebammo -= 5
+#			var a = ammoThrown.instance()
+#			muzzle.add_child(a)
+#			a.look_at(aim.get_collision_point(), Vector3.UP)
+#			a.shot = true
+#			a.ammoAmount = 5
+#			a.ammoType = 1
+#		if gunstate == GUN_USE.GUN5 and mac10ammo > 10:
+#			mac10ammo -= 10
+#			var a = ammoThrown.instance()
+#			muzzle.add_child(a)
+#			a.look_at(aim.get_collision_point(), Vector3.UP)
+#			a.shot = true
+#			a.ammoAmount = 10
+#			a.ammoType = 2
+#		if gunstate == GUN_USE.GUN3 and lactionammo > 10:
+#			lactionammo -= 10
+#			var a = ammoThrown.instance()
+#			muzzle.add_child(a)
+#			a.look_at(aim.get_collision_point(), Vector3.UP)
+#			a.shot = true
+#			a.ammoAmount = 10
+#			a.ammoType = 3
+#		if gunstate == GUN_USE.GUN4 and glauncherammo > 5:
+#			glauncherammo -= 5
+#			var a = ammoThrown.instance()
+#			muzzle.add_child(a)
+#			a.look_at(aim.get_collision_point(), Vector3.UP)
+#			a.shot = true
+#			a.ammoAmount = 5
+#			a.ammoType = 4
+#		if gunstate == GUN_USE.HEAL and heals > 0:
+#			if !gunanim.is_playing():
+#				gunanim.play("bandaiduseOnAlly")
+#
+#	if Input.is_action_just_released("throw_ammo"):
+#		if gunstate == GUN_USE.HEAL:
+#			if gunanim.is_playing() and nextgun == GUN_USE.HEAL:
+#				gunanim.stop(true)
+#				band.visible = false
 
 	if Input.is_action_just_pressed("flashlight"):
 		if hasFlashlight:
@@ -522,7 +522,8 @@ func _physics_process(delta):
 			deathCount = 30
 	if health <= 0:
 		health = 0
-		_death()
+		if hasControl:
+			_death()
 
 	if health > 100:
 		health = 100
@@ -567,8 +568,10 @@ func _ready():
 	footStepAudios.append(preload("res://Audio/Misc/Footsteps/Footstep3.wav"))
 	footStepAudios.append(preload("res://Audio/Misc/Footsteps/Footstep4.wav"))
 	footStepAudios.append(preload("res://Audio/Misc/Footsteps/Footstep5.wav"))
+	$musicAudio.play()
 
 	viewport.size = get_viewport().get_visible_rect().size
+
 
 func makebh(var t, var r, var bh):
 	t.add_child(bh)
@@ -581,9 +584,11 @@ func makebh(var t, var r, var bh):
 	else:
 		bh.look_at_from_position(r.get_collision_point(), r.get_collision_point() + r.get_collision_normal().normalized(), Vector3.UP)
 
+
 func _on_slowTimer_timeout():
 	speed = 20
 	slowed = false
+
 
 func _toggleControl(value: bool):
 	if value:
@@ -591,14 +596,16 @@ func _toggleControl(value: bool):
 	if !value:
 		hasControl = false
 
+
 func _death():
-	if gunstate != GUN_USE.GUN1:
-		if gunstate != GUN_USE.UNEQUIP:
-			nextgun = GUN_USE.GUN1
-	if $death.is_stopped():
-		$death.start()
-		$head/Camera/deathAnim.play("death")
-		gunbob.stop(false)
+	gunbob.stop(false)
+	hasControl = false
+	$head/Camera/deathAnim.play("death")
+
+	if eventManager != null:
+		eventManager.play("endCutscene")
+		eventManager.playerDeath = true
+
 
 func _on_death_timeout():
 	if deathCount > 0:
@@ -608,6 +615,7 @@ func _on_death_timeout():
 		if eventManager != null:
 			eventManager.play("endCutscene")
 			eventManager.playerDeath = true
+
 
 func _on_gunanim_animation_finished(anim_name):
 	if anim_name == "bandaiduse":
@@ -725,3 +733,7 @@ func _on_gunanim_animation_finished(anim_name):
 		if nextgun == GUN_USE.GUN5:
 			gunanim.play("mac10equip")
 			gunstate = GUN_USE.GUN5
+
+
+func _on_musicAudio_finished():
+	$musicAudio.play()

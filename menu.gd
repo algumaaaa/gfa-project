@@ -3,7 +3,7 @@ extends Control
 onready var GLOBAL = get_node("/root/GLOBAL/")
 
 onready var popup = $Popup
-onready var levelselect = $levelselect
+#onready var levelselect = $levelselect
 onready var fovlabel = $Popup/MarginContainer/GridContainer/fovlabel
 onready var sensitivitylabel = $Popup/MarginContainer/GridContainer/sensitivitylabel
 
@@ -11,6 +11,7 @@ onready var sensitivityslider = $Popup/MarginContainer/GridContainer/sensitivity
 onready var fovSlider = $Popup/MarginContainer/GridContainer/fovslider
 onready var displayButton = $Popup/MarginContainer/GridContainer/displayButton
 onready var vsyncButton = $Popup/MarginContainer/GridContainer/vsyncButton
+onready var mapButton = $startMenu/VBoxMap/mapButton
 
 onready var nowLoading = $nowLoading
 
@@ -27,56 +28,45 @@ var levelDict = {
 }
 
 func _ready():
+	SAVE.loadGame()
+	setMapSelect(SAVE.map)
+
 	get_tree().paused = false
 
+	$menuMusic.play()
 	sensitivityslider.value = GLOBAL.mouse_sensitivity
 	fovSlider.value = GLOBAL.fov
 	displayButton.selected = GLOBAL.display
 	vsyncButton.pressed = GLOBAL.vsync
+	$Popup/MarginContainer/GridContainer/volumeSlider.value = GLOBAL.soundVolume
+
+
+func setMapSelect(value):
+	var remainingMaps = mapButton.get_item_count() - value
+	if remainingMaps == 0:
+		return
+	var i = 1
+	while remainingMaps > 0:
+		mapButton.set_item_disabled(mapButton.get_item_count() - i, true)
+		i += 1
+		remainingMaps -= 1
 
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("debug0"):
 		print(levelDict[01])
-	
-	if !GLOBAL.bot1Enabled:
-		$startMenu/VBoxBots/botName.editable = false
-		$startMenu/VBoxBots/OptionButton.disabled = true
-		$startMenu/VBoxBots/ColorPickerButton.disabled = true
-	else:
-		$startMenu/VBoxBots/botName.editable = true
-		$startMenu/VBoxBots/OptionButton.disabled = false
-		$startMenu/VBoxBots/ColorPickerButton.disabled = false
-	if !GLOBAL.bot2Enabled:
-		$startMenu/VBoxBots/botName2.editable = false
-		$startMenu/VBoxBots/OptionButton2.disabled = true
-		$startMenu/VBoxBots/ColorPickerButton2.disabled = true
-	else:
-		$startMenu/VBoxBots/botName2.editable = true
-		$startMenu/VBoxBots/OptionButton2.disabled = false
-		$startMenu/VBoxBots/ColorPickerButton2.disabled = false
-	if !GLOBAL.bot3Enabled:
-		$startMenu/VBoxBots/botName3.editable = false
-		$startMenu/VBoxBots/OptionButton3.disabled = true
-		$startMenu/VBoxBots/ColorPickerButton3.disabled = true
-	else:
-		$startMenu/VBoxBots/botName3.editable = true
-		$startMenu/VBoxBots/OptionButton3.disabled = false
-		$startMenu/VBoxBots/ColorPickerButton3.disabled = false
+
 
 func _on_start_pressed():
-#	if !levelselect.visible:
-#		levelselect.visible = true
-#	else:
-#		levelselect.visible = false
-
 	if !$startMenu.visible:
 		$startMenu.visible = true
 	else:
 		$startMenu.visible = false
 
+
 func _on_exit_pressed():
 	get_tree().quit()
+
 
 func _on_options_pressed():
 	if !popup.visible:
@@ -84,12 +74,13 @@ func _on_options_pressed():
 	else:
 		popup.visible = false
 
-func _on_e0m1_pressed():
 
+func _on_e0m1_pressed():
 	nowLoading.visible = true
 	yield(get_tree().create_timer(0.1), "timeout")
 	get_tree().change_scene("res://level.tscn")
 #	GLOBAL._change_scene("res://level.tscn", get_tree().get_current_scene())
+
 
 func _on_e1m1_pressed():
 
@@ -101,34 +92,34 @@ func _on_e1m1_pressed():
 func _on_e0m2_pressed():
 	get_tree().change_scene("res://e0m2.tscn")
 
+
 func _on_sensitivityslider_value_changed(value):
 	GLOBAL.mouse_sensitivity = value
 	sensitivitylabel.text = str(stepify(value, 0.01))
+
 
 func _on_fovslider_value_changed(value):
 	GLOBAL.fov = value
 	fovlabel.text = str(value)
 
+
 func _on_displayButton_item_selected(index):
 	GLOBAL.display = index
-
 	if index == 0:
 		OS.window_fullscreen = false
-		OS.window_borderless = false
 	if index == 1:
 		OS.window_fullscreen = true
-		OS.window_borderless = false
-	if index == 2:
-		OS.window_fullscreen = true
-		OS.window_borderless = true
+
 
 func _on_vsyncButton_toggled(button_pressed):
 
 	GLOBAL.vsync = button_pressed
 	OS.vsync_enabled = button_pressed
 
+
 func _on_difficultyOptionButton_item_selected(index):
 	GLOBAL.difficulty = index
+
 
 func _on_enableBot_item_selected(index):
 	if index == 1:
@@ -185,3 +176,12 @@ func _on_Button_pressed():
 	nowLoading.visible = true
 	yield(get_tree().create_timer(0.1), "timeout")
 	get_tree().change_scene(levelDict[int(String(epChosen) + String(mapChosen))])
+
+
+func _on_menuMusic_finished():
+	$menuMusic.play()
+
+
+func _on_volumeSlider_value_changed(value) -> void:
+	$Popup/MarginContainer/GridContainer/volumeLabel2.text = str(value)
+	GLOBAL.changeVolume(value)

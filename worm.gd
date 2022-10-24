@@ -152,10 +152,7 @@ func _physics_process(delta):
 		if health <= 0:
 			if self.is_in_group("alertEnemies"):
 				remove_from_group("alertEnemies")
-			if damagequeue >= 150:
-					aistate = AI.GIB
-			else:
-				aistate = AI.DIE
+			aistate = AI.DIE
 
 	if ray.is_colliding() and !tookdamage and aistate != AI.DIE and aistate != AI.GIB:
 		var target = ray.get_collider()
